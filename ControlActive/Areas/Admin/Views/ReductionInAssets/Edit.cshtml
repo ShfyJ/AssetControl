@@ -1,0 +1,83 @@
+﻿@model ControlActive.Models.ReductionInAsset
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>ReductionInAsset</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ReductionInAssetId" />
+            <div class="form-group">
+                <label asp-for="GoverningBodyName" class="control-label"></label>
+                <input asp-for="GoverningBodyName" class="form-control" />
+                <span asp-validation-for="GoverningBodyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionNumber" class="control-label"></label>
+                <input asp-for="SolutionNumber" class="form-control" />
+                <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionDate" class="control-label"></label>
+                <input asp-for="SolutionDate" class="form-control" />
+                <span asp-validation-for="SolutionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileId" class="control-label"></label>
+                <input asp-for="SolutionFileId" class="form-control" />
+                <span asp-validation-for="SolutionFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Percentage" class="control-label"></label>
+                <input asp-for="Percentage" class="form-control" />
+                <span asp-validation-for="Percentage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfSteps" class="control-label"></label>
+                <input asp-for="NumberOfSteps" class="form-control" />
+                <span asp-validation-for="NumberOfSteps" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetValueAfterDecline" class="control-label"></label>
+                <input asp-for="AssetValueAfterDecline" class="form-control" />
+                <span asp-validation-for="AssetValueAfterDecline" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealEstateId" class="control-label"></label>
+                <select asp-for="RealEstateId" class="form-control" asp-items="ViewBag.RealEstateId"></select>
+                <span asp-validation-for="RealEstateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareId" class="control-label"></label>
+                <select asp-for="ShareId" class="form-control" asp-items="ViewBag.ShareId"></select>
+                <span asp-validation-for="ShareId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

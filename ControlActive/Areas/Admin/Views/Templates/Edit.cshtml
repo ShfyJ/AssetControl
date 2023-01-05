@@ -1,0 +1,81 @@
+﻿@model ControlActive.Models.Template
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Template</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TemplateId" />
+            <div class="form-group">
+                <label asp-for="TemplateName" class="control-label"></label>
+                <input asp-for="TemplateName" class="form-control" />
+                <span asp-validation-for="TemplateName" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsShare" /> @Html.DisplayNameFor(model => model.IsShare)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsRealEstate" /> @Html.DisplayNameFor(model => model.IsRealEstate)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasUser" /> @Html.DisplayNameFor(model => model.HasUser)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasTransferredAssets" /> @Html.DisplayNameFor(model => model.HasTransferredAssets)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasAssetEvaluation" /> @Html.DisplayNameFor(model => model.HasAssetEvaluation)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasAuction" /> @Html.DisplayNameFor(model => model.HasAuction)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasReductionInAsset" /> @Html.DisplayNameFor(model => model.HasReductionInAsset)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasOneTimePaymentAsset" /> @Html.DisplayNameFor(model => model.HasOneTimePaymentAsset)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasInstallmentAsset" /> @Html.DisplayNameFor(model => model.HasInstallmentAsset)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="FileId" class="control-label"></label>
+                <select asp-for="FileId" class="form-control" asp-items="ViewBag.FileId"></select>
+                <span asp-validation-for="FileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

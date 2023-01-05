@@ -1,0 +1,199 @@
+﻿@model ControlActive.Models.OneTimePaymentAsset
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h4>@Localizer["Edit"]</h4>
+        <h2>@Localizer["Obsh"]</h2>
+    </div>
+
+
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-8 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <a class="btn btn-outline-secondary" type="button" asp-controller="OneTimePaymentAssets" asp-action="Index"><i class="fas fa-backward"></i>@Localizer["Back"] </a>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="OneTimePaymentAssetId" />
+                    <input type="hidden" asp-for="RealEstateId" />
+                    <input type="hidden" asp-for="ShareId" />
+                    <input type="hidden" asp-for="SolutionFileId" />
+                    <input type="hidden" asp-for="SolutionFileLink" />
+                    <input type="hidden" asp-for="Status" />
+                    <input type="hidden" asp-for="OneTimePaymentStep2Id" />
+                    <input type="hidden" asp-for="OneTimePaymentStep3Id" />
+
+                    @if (ViewBag.Target == 1)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["RealEstate"] <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="id" value="@ViewBag.Id" hidden />
+                            </div>
+                        </div>
+                    }
+                    @if (ViewBag.Target == 2)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["Share"]  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="id" value="@ViewBag.Id" hidden />
+                            </div>
+                        </div>
+                    }
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["GoverningBodyName"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="GoverningBodyName" class="form-control" required="required" />
+                            <span asp-validation-for="GoverningBodyName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["SolutionNumber"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="SolutionNumber" class="form-control" required="required" />
+                            <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["SolutionDate"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="date" asp-for="SolutionDate" class="form-control" required="required" />
+                            <span asp-validation-for="SolutionDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <label asp-for="SolutionFileLink" class="control-label"></label>
+                            <input asp-for="SolutionFileLink" class="form-control" />
+                            <span asp-validation-for="SolutionFileLink" class="text-danger"></span>
+                        </div>*@
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["BiddingDate"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="date" asp-for="BiddingDate" class="form-control" required="required" />
+                            <span asp-validation-for="BiddingDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <label asp-for="AssetBuyerName" class="control-label"></label>
+                            <input asp-for="AssetBuyerName" class="form-control" />
+                            <span asp-validation-for="AssetBuyerName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmountOfAssetSold" class="control-label"></label>
+                            <input asp-for="AmountOfAssetSold" class="form-control" />
+                            <span asp-validation-for="AmountOfAssetSold" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AggreementDate" class="control-label"></label>
+                            <input asp-for="AggreementDate" class="form-control" />
+                            <span asp-validation-for="AggreementDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AggreementNumber" class="control-label"></label>
+                            <input asp-for="AggreementNumber" class="form-control" />
+                            <span asp-validation-for="AggreementNumber" class="text-danger"></span>
+                        </div>*@
+                    @*<div class="form-group">
+                            <label asp-for="AggreementFileLink" class="control-label"></label>
+                            <input asp-for="AggreementFileLink" class="form-control" />
+                            <span asp-validation-for="AggreementFileLink" class="text-danger"></span>
+                        </div>*@
+                    @*<div class="form-group">
+                            <label asp-for="AmountPayed" class="control-label"></label>
+                            <input asp-for="AmountPayed" class="form-control" />
+                            <span asp-validation-for="AmountPayed" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Percentage" class="control-label"></label>
+                            <input asp-for="Percentage" class="form-control" />
+                            <span asp-validation-for="Percentage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ActAndAssetDate" class="control-label"></label>
+                            <input asp-for="ActAndAssetDate" class="form-control" />
+                            <span asp-validation-for="ActAndAssetDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ActAndAssetNumber" class="control-label"></label>
+                            <input asp-for="ActAndAssetNumber" class="form-control" />
+                            <span asp-validation-for="ActAndAssetNumber" class="text-danger"></span>
+                        </div>*@
+                    @*<div class="form-group">
+                            <label asp-for="ActAndAssetFileLink" class="control-label"></label>
+                            <input asp-for="ActAndAssetFileLink" class="form-control" />
+                            <span asp-validation-for="ActAndAssetFileLink" class="text-danger"></span>
+                        </div>*@
+                    <div class="form-group">
+                        <input type="submit" value="@Localizer["Save"]" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+
+    <script>
+        var flag = true;
+
+        $("#submit").click(function () {
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+        $("#share").keyup(function () {
+
+            if (!isNaN($('#share').val())) {
+                if ($('#share').val() < 0 || $('#share').val() > 50) {
+                    $('#errorMsg').show();
+                    flag = false;
+                }
+                else {
+                    $('#errorMsg').hide();
+                    flag = true;
+                }
+            }
+
+            else {
+                $('#errorMsg').show();
+                flag = false;
+            }
+        });
+    </script>
+}

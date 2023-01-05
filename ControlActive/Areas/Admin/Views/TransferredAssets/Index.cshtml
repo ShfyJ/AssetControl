@@ -1,0 +1,370 @@
+﻿@model IEnumerable<ControlActive.Models.TransferredAsset>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Index";
+
+
+    var shares = Model.Where(m => m.Share != null);
+    var realEstates = Model.Where(m => m.RealEstate != null);
+}
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>@Localizer["TransferredAssets"] <small> </small></h3>
+        @*<p>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    @Localizer["Create"]
+                </button>
+                <div class="dropdown-menu " x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                    <a class="dropdown-item" asp-action="SelectRealEstate" asp-controller="RealEstates" asp-route-id="1">@Localizer["RealEstate"]</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" asp-action="SelectShare" asp-controller="Shares" asp-route-id="1">@Localizer["Share"]</a>
+                </div>
+            </div>
+
+        </p>*@
+    </div>
+
+</div>
+<p id="success" style="visibility:hidden">@ViewBag.Success</p>
+<div class="clearfix"></div>
+<div class="row">
+
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel card">
+
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+                            <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">
+                                        @Localizer["RealEstate"]
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">@Localizer["Share"]</a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="card-box table-responsive">
+
+                                        <table id="myTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>@Localizer["RealEstateName"]</th>
+                                                    <th>@Localizer["TransferFormName"]</th>
+                                                    <th>@Localizer["OrgName"] </th>
+                                                    <th>@Localizer["SolutionNumber"]</th>
+                                                    <th>@Localizer["SolutionDate"] </th>
+                                                    <th>@Localizer["OrgNameOfAsset"]</th>
+                                                    <th>@Localizer["TotalCost"]</th>
+                                                    <th>@Localizer["VAT"]</th>
+                                                    <th>@Localizer["ActAndAssetDate"]</th>
+                                                    <th>@Localizer["ActAndAssetNumber"]</th>
+                                                    <th>@Localizer["AgreementDate"]</th>
+                                                    <th>@Localizer["AgreementNumber"]</th>
+                                                    <th></th>
+                                                    <th></th>
+
+
+                                                </tr>
+                                            </thead>
+
+                                            @if (realEstates != null)
+                                            {
+                                                <tbody>
+
+
+                                                    @foreach (var item in realEstates)
+                                                    {
+
+
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.RealEstate.RealEstateName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.TransferForm.TransferFormName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.OrgName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.SolutionNumber)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.SolutionDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.OrgNameOfAsset)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.TotalCost)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.VAT)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.ActAndAssetDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.ActAndAssetNumber)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.AgreementDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.AgreementNumber)</td>
+
+                                                            <td>
+                                                                <div class="row">
+
+                                                                    <div class="col-md-55">
+                                                                        <div class="thumbnail">
+                                                                            <div class="image view view-first">
+                                                                                <img style="width: 100%; display: block;" src="~/images/document.png" alt="image" />
+                                                                                <div class="mask">
+                                                                                    <p>@Localizer["SolutionFileId"]</p>
+                                                                                    <div class="tools tools-bottom">
+                                                                                        <form method="post">
+                                                                                            <a asp-area="Admin" asp-controller="TransferredAssets" asp-action="DownloadFile"
+                                                                                               asp-route-id="@item.SolutionFileId"><i class="fa fa-link"></i></a>
+                                                                                        </form>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="caption">
+                                                                                <p>@Localizer["Download"] <i class="fa fa-download"></i></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="col-md-55">
+                                                                        <div class="thumbnail">
+                                                                            <div class="image view view-first">
+                                                                                <img style="width: 100%; display: block;" src="~/images/document.png" alt="image" />
+                                                                                <div class="mask">
+                                                                                    <p>@Localizer["ActAndAssetFileId"]</p>
+                                                                                    <div class="tools tools-bottom">
+                                                                                        <form method="post">
+                                                                                            <a asp-area="Admin" asp-controller="TransferredAssets" asp-action="DownloadFile"
+                                                                                               asp-route-id="@item.ActAndAssetFileId"><i class="fa fa-link"></i></a>
+                                                                                        </form>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="caption">
+                                                                                <p>@Localizer["Download"] <i class="fa fa-download"></i></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="col-md-55">
+                                                                        <div class="thumbnail">
+                                                                            <div class="image view view-first">
+                                                                                <img style="width: 100%; display: block;" src="~/images/document.png" alt="image" />
+                                                                                <div class="mask">
+                                                                                    <p>@Localizer["AgreementFileId"]</p>
+                                                                                    <div class="tools tools-bottom">
+                                                                                        <form method="post">
+                                                                                            <a asp-area="Admin" asp-controller="TransferredAssets" asp-action="DownloadFile"
+                                                                                               asp-route-id="@item.AgreementFileId"><i class="fa fa-link"></i></a>
+                                                                                        </form>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="caption">
+                                                                                <p>@Localizer["Download"] <i class="fa fa-download"></i></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
+
+                                                            <td>
+                                                                @*<div>
+                                                                    <a asp-action="Edit" asp-route-id="@item.AssetId" asp-route-id1="@item.RealEstate.RealEstateId" asp-route-target="1" class="btn btn-info text-white" style="cursor:pointer; width:120px">
+                                                                        <i class="fas fa-edit"></i>@Localizer["Edit"]
+                                                                    </a>
+                                                                </div>*@
+
+                                                            </td>
+
+
+
+
+
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            }
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="card-box table-responsive">
+
+                                        <table id="myTable2" class="table  table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Localizer["BusinessEntityName"]</th>
+                                                    <th>@Localizer["TransferFormName"]</th>
+                                                    <th>@Localizer["OrgName"] </th>
+                                                    <th>@Localizer["SolutionNumber"]</th>
+                                                    <th>@Localizer["SolutionDate"]</th>
+                                                    <th>@Localizer["OrgNameOfAsset"]</th>
+                                                    <th>@Localizer["TotalCost"]</th>
+                                                    <th>@Localizer["VAT"]</th>
+                                                    <th>@Localizer["ActAndAssetDate"]</th>
+                                                    <th>@Localizer["ActAndAssetNumber"]</th>
+                                                    <th>@Localizer["AgreementDate"]</th>
+                                                    <th>@Localizer["AgreementNumber"]</th>
+
+
+                                                    <th></th>
+                                                    <th></th>
+
+                                                </tr>
+                                            </thead>
+
+                                            @if (shares != null)
+                                            {
+
+                                                <tbody>
+                                                    @foreach (var item in shares)
+                                                    {
+
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.Share.BusinessEntityName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.TransferForm.TransferFormName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.OrgName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.SolutionNumber)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.SolutionDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.OrgNameOfAsset)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.TotalCost)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.VAT)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.ActAndAssetDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.ActAndAssetNumber)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.AgreementDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.AgreementNumber)</td>
+
+                                                            <td>
+                                                                <div class="row">
+
+                                                                    <div class="col-md-55">
+                                                                        <div class="thumbnail">
+                                                                            <div class="image view view-first">
+                                                                                <img style="width: 100%; display: block;" src="~/images/document.png" alt="image" />
+                                                                                <div class="mask">
+                                                                                    <p>@Localizer["SolutionFileId"]</p>
+                                                                                    <div class="tools tools-bottom">
+                                                                                        <form method="post">
+                                                                                            <a asp-area="Admin" asp-controller="TransferredAssets" asp-action="DownloadFile"
+                                                                                               asp-route-id="@item.SolutionFileId"><i class="fa fa-link"></i></a>
+                                                                                        </form>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="caption">
+                                                                                <p>@Localizer["Download"] <i class="fa fa-download"></i></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="col-md-55">
+                                                                        <div class="thumbnail">
+                                                                            <div class="image view view-first">
+                                                                                <img style="width: 100%; display: block;" src="~/images/document.png" alt="image" />
+                                                                                <div class="mask">
+                                                                                    <p>@Localizer["ActAndAssetFileId"]</p>
+                                                                                    <div class="tools tools-bottom">
+                                                                                        <form method="post">
+                                                                                            <a asp-area="Admin" asp-controller="TransferredAssets" asp-action="DownloadFile"
+                                                                                               asp-route-id="@item.ActAndAssetFileId"><i class="fa fa-link"></i></a>
+                                                                                        </form>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="caption">
+                                                                                <p>@Localizer["Download"] <i class="fa fa-download"></i></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="col-md-55">
+                                                                        <div class="thumbnail">
+                                                                            <div class="image view view-first">
+                                                                                <img style="width: 100%; display: block;" src="~/images/document.png" alt="image" />
+                                                                                <div class="mask">
+                                                                                    <p>@Localizer["AgreementFileId"]</p>
+                                                                                    <div class="tools tools-bottom">
+                                                                                        <form method="post">
+                                                                                            <a asp-area="Admin" asp-controller="TransferredAssets" asp-action="DownloadFile"
+                                                                                               asp-route-id="@item.AgreementFileId"><i class="fa fa-link"></i></a>
+                                                                                        </form>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="caption">
+                                                                                <p>@Localizer["Download"] <i class="fa fa-download"></i></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
+
+                                                            <td>
+                                                                @*<div>
+                                                                    <a asp-action="Edit" asp-route-id="@item.AssetId" asp-route-id1="@item.Share.ShareId" asp-route-target="2" class="btn btn-info text-white" style="cursor:pointer; width:120px">
+                                                                        <i class="fas fa-edit"></i>@Localizer["Edit"]
+                                                                    </a>
+                                                                </div>*@
+
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            }
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/datatable.js"></script>
+    <script>
+
+
+
+        var success = document.getElementById('success').innerHTML;
+        console.log("value: ", success)
+        if (success == "True") {
+
+
+            toastr.options = {
+
+                "escapeHtml": true
+            }
+            toastr.success('@Localizer["Success"]');
+        }
+
+
+
+
+    </script>
+
+}
+

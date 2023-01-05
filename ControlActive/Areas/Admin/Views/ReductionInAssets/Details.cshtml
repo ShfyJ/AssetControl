@@ -1,0 +1,84 @@
+﻿@model ControlActive.Models.ReductionInAsset
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ReductionInAsset</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GoverningBodyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GoverningBodyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionFileId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionFileId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Percentage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Percentage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfSteps)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfSteps)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AssetValueAfterDecline)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AssetValueAfterDecline)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RealEstate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RealEstate.Activity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Share)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Share.ActivityShare)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ReductionInAssetId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

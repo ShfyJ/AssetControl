@@ -1,0 +1,1159 @@
+﻿@model IEnumerable<ControlActive.Models.OneTimePaymentAsset>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+
+    .dropbtn {
+        width: fit-content;
+        font-size: 16px;
+        border: none;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position:relative;
+        
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index:auto;
+    }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
+    th {
+        font-size: 10px;
+    }
+
+</style>
+
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>
+                    @Localizer["Obsh"]
+                </h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#"> <i data-feather="home"></i></a></li>
+
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row project-cards">
+        <div class="col-md-12 project-list">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-10 p-0">
+                        <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home" role="tab" aria-controls="top-home" aria-selected="true"><i data-feather="target"></i>@Localizer["RealEstates"]</a></li>
+                            <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile" role="tab" aria-controls="top-profile" aria-selected="false"><i data-feather="info"></i>@Localizer["Shares"]</a></li>
+                           
+                        </ul>
+                    </div>
+                    <div class="col-md-2 p-0 dropdown ">
+                        <div class="form-group mb-0 me-0"></div>
+                        
+                        <button class="btn dropbtn btn-primary" href="projectcreate.html"> <i data-feather="plus-square"> </i>@Localizer["Create"]</button>
+                        <div class="dropdown-content">
+                            <a class="dropdown-item" asp-action="SelectRealEstate" asp-controller="RealEstates" asp-route-id="5">@Localizer["RealEstates"]</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-action="SelectShare" asp-controller="Shares" asp-route-id="5">@Localizer["Shares"]</a>
+
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="tab-content" id="top-tabContent">
+                        <!--RealEstates part starts-->
+                        <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+                            <ul class="nav nav-tabs border-tab nav-secondary nav-left " id="danger-tab1" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab1" data-bs-toggle="tab" href="#home1" role="tab" aria-controls="home" aria-selected="true"><i class="fa fa-shopping-cart"></i>@Localizer["OnSell"]  <span class="badge badge-warning">@ViewBag.rInSale</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab1" data-bs-toggle="tab" href="#profile1" role="tab" aria-controls="profile" aria-selected="false" > <i class="fa fa-file-text-o"></i>@Localizer["Contract"]  <span class="badge badge-info">@ViewBag.rSold</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab1" data-bs-toggle="tab" href="#contact1" role="tab" aria-controls="contact" aria-selected="false" ><i class="fa fa-check-circle-o"></i> @Localizer["Akt"] <span class="badge badge-success">@ViewBag.rAct</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="notsold-tab1" data-bs-toggle="tab" href="#notsold1" role="tab" aria-controls="notsold1" aria-selected="false" ><i class="fa fa-ban"></i>@Localizer["NotSold"]  <span class="badge badge-danger">@ViewBag.rNotSold</span></a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent2">
+                                <!--On Sale part starts-->
+                                <div class="tab-pane fade show active" id="home1" role="tabpanel" aria-labelledby="home-tab1">
+                                    <ul class="nav nav-tabs border-tab" id="danger-tabin1" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="homein1-tab" data-bs-toggle="tab" href="#homein1" role="tab" aria-controls="home" aria-selected="true" style="font-size:13px;"><i class="fa fa-exclamation-circle"></i>@Localizer["NotConfirmed"]  </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profilein-tab1" data-bs-toggle="tab" href="#profilein1" role="tab" aria-controls="profile" aria-selected="false" style="font-size:13px;" > <i class="fa fa-check-circle-o"></i>@Localizer["Confirmed"]  </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content" id="InTabContent1">
+                                        <div class="tab-pane fade show active" id="homein1" role="tabpanel" aria-labelledby="homein-tab1">
+                                            <div class="dt-ext table-responsive">
+                                                <table class="table display projects dt-responsive nowrap" id="myTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 15%">@Localizer["BiddingDate"]</th>
+                                                            <th style="width: 15%">@Localizer["SolutionFileId"]</th>
+                                                            
+                                                            <th style="width: 10%"></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="profilein1" role="tabpanel" aria-labelledby="profilein-tab1">
+                                            <div class="dt-ext table-responsive">
+                                                <table class="table display projects dt-responsive nowrap" id="myTable_">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%;">Статус</th>
+                                                            <th style="width: 15%">@Localizer["BiddingDate"]</th>
+                                                            <th style="width: 15%">@Localizer["SolutionFileId"]</th>
+                                                            
+                                                            <th>#</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--On Contract part starts-->
+                                <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile-tab1">
+                                    <ul class="nav nav-tabs border-tab" id="danger-tabin2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="homein2-tab" data-bs-toggle="tab" href="#homein2" role="tab" aria-controls="home" aria-selected="true" style="font-size:13px;"><i class="fa fa-exclamation-circle"></i>@Localizer["NotConfirmed"]  </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profilein-tab2" data-bs-toggle="tab" href="#profilein2" role="tab" aria-controls="profile" aria-selected="false" style="font-size:13px;"> <i class="fa fa-check-circle-o"></i>@Localizer["Confirmed"]  </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="InTabContent2">
+                                        <div class="tab-pane fade show active" id="homein2" role="tabpanel" aria-labelledby="homein-tab2">
+                                            <div class="card-box table-responsive">
+                                                <table id="myTable_1" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 30%">@Localizer["AssetBuyerName"]</th>
+                                                            <th style="width: 10%">@Localizer["AmountOfAssetSold"]</th>
+                                                            <th style="width: 10%">@Localizer["AmountPayed"]</th>                                                                                                                   
+
+                                                            <th></th>
+
+                                                            <th></th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade " id="profilein2" role="tabpanel" aria-labelledby="profilein-tab2">
+                                            <div class="card-box table-responsive">
+                                                <table id="myTable_2" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>@Localizer["RealEstateName"]</th>
+                                                            <th>Статус</th>
+                                                            <th>@Localizer["AssetBuyerName"]</th>
+                                                            <th>@Localizer["AmountOfAssetSold"]</th>
+                                                            <th>@Localizer["AmountPayed"]</th>
+                                                            
+                                                            <th></th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <!--On Act part starts-->
+                                <div class="tab-pane fade" id="contact1" role="tabpanel" aria-labelledby="contact-tab1">
+                                    <ul class="nav nav-tabs border-tab" id="danger-tabin3" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="homein3-tab" data-bs-toggle="tab" href="#homein3" role="tab" aria-controls="home" aria-selected="true" style="font-size:13px;"><i class="fa fa-exclamation-circle"></i>@Localizer["NotConfirmed"]  </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profilein-tab3" data-bs-toggle="tab" href="#profilein3" role="tab" aria-controls="profile" aria-selected="false" style="font-size:13px;"> <i class="fa fa-check-circle-o"></i>@Localizer["Confirmed"]  </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="InTabContent3">
+                                        <div class="tab-pane fade show active" id="homein3" role="tabpanel" aria-labelledby="homein-tab3">
+                                            <div class="card-box table-responsive">
+                                                <table id="myTable1_" class="table table-striped projects table-bordered dt-responsive nowrap" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 30%">@Localizer["AssetBuyerName"]</th>
+                                                            <th>@Localizer["AmountOfAssetSold"]</th>
+                                                           
+                                                            <th>#</th>
+
+                                                            <th></th>
+                                                            <th></th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="profilein3" role="tabpanel" aria-labelledby="profilein-tab3">
+                                            <div class="card-box table-responsive">
+                                                <table id="myTable2_" class="table table-striped projects table-bordered dt-responsive nowrap" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 30%">@Localizer["AssetBuyerName"]</th>
+                                                            <th>@Localizer["AmountOfAssetSold"]</th>
+                                                          
+                                                            <th>#</th>
+
+                                                            <th></th>                                              
+
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Not Sold table starts-->
+                                <div class="tab-pane fade " id="notsold1" role="tabpanel" aria-labelledby="notsold-tab1">
+
+                                    <div class="card-box table-responsive">
+                                        <table id="_myTable1" class="table table-striped projects table-bordered dt-responsive nowrap" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Localizer["RealEstateName"]</th>
+                                                    <th>Статус</th>
+                                                    <th>@Localizer["GoverningBodyName"]</th>
+                                                    <th>@Localizer["SolutionNumber"]</th>
+                                                    <th>@Localizer["SolutionDate"]</th>
+                                                    <th>#</th>
+                                                    <th>@Localizer["BiddingDate"]</th>
+                                                    @*<th>@Localizer["AssetBuyerName"]</th>
+                                                    <th>@Localizer["AmountOfAssetSold"]</th>
+                                                    <th>@Localizer["AggreementDate"]</th>
+                                                    <th>@Localizer["AggreementNumber"]</th>
+                                                    <th>#</th>
+                                                    <th>@Localizer["AmountPayed"]</th>
+                                                    <th>@Localizer["Percentage"]</th>
+                                                    <th>@Localizer["ActAndAssetDate"]</th>
+                                                    <th>@Localizer["ActAndAssetNumber"]</th>
+                                                    <th>#</th>*@
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                                
+                        </div>
+                        <!--RealEstates part ends-->
+
+                        <!--Shares part starts-->
+                        <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                            <ul class="nav nav-tabs border-tab nav-secondary nav-left " id="danger-tab2" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab2" data-bs-toggle="tab" href="#home2" role="tab" aria-controls="home2" aria-selected="true"><i class="fa fa-shopping-cart"></i>@Localizer["OnSell"]  <span class="badge badge-warning">@ViewBag.sInSale</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab2" data-bs-toggle="tab" href="#profile2" role="tab" aria-controls="profile2" aria-selected="false"> <i class="fa fa-file-text-o" ></i>@Localizer["Contract"]  <span class="badge badge-info">@ViewBag.sSold</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab2" data-bs-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false"><i class="fa fa-check-circle-o" ></i>@Localizer["Akt"]  <span class="badge badge-success">@ViewBag.sAct</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="notsold-tab2" data-bs-toggle="tab" href="#notsold2" role="tab" aria-controls="notsold2" aria-selected="false"><i class="fa fa-ban" ></i>@Localizer["NotSold"]  <span class="badge badge-danger">@ViewBag.sNotSold</span></a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent3">
+                                <!--On Sale table starts-->
+                                <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+                                    <ul class="nav nav-tabs border-tab" id="danger-tabout1" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="homeout1-tab" data-bs-toggle="tab" href="#homeout1" role="tab" aria-controls="home" aria-selected="true" style="font-size:13px;"><i class="fa fa-exclamation-circle"></i>@Localizer["NotConfirmed"]  </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profileout-tab1" data-bs-toggle="tab" href="#profileout1" role="tab" aria-controls="profile" aria-selected="false" style="font-size:13px;"> <i class="fa fa-check-circle-o"></i>@Localizer["Confirmed"]  </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content" id="OutTabContent1">
+                                        <div class="tab-pane fade show active" id="homeout1" role="tabpanel" aria-labelledby="homeout-tab1">
+                                            <div class="dt-ext table-responsive">
+                                                <table class="table display projects dt-responsive nowrap" id="myTable2">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["BusinessEntityName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 15%">@Localizer["BiddingDate"]</th>
+                                                            <th style="width: 15%">@Localizer["SolutionFileId"]</th>
+                                                            
+                                                            <th style="width: 10%"></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="profileout1" role="tabpanel" aria-labelledby="profileout-tab1">
+                                            <div class="dt-ext table-responsive">
+                                                <table class="table display projects dt-responsive nowrap" id="my_Table2">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 15%">@Localizer["BiddingDate"]</th>
+                                                            <th style="width: 15%">@Localizer["SolutionFileId"]</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--On Contract table starts-->                                
+                                <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+                                   
+                                    <ul class="nav nav-tabs border-tab " id="danger-tabout2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="homeout2-tab" data-bs-toggle="tab" href="#homeout2" role="tab" aria-controls="home" aria-selected="true" style="font-size:13px;"><i class="fa fa-exclamation-circle"></i>@Localizer["NotConfirmed"]  </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profileout-tab2" data-bs-toggle="tab" href="#profileout2" role="tab" aria-controls="profile" aria-selected="false" style="font-size:13px;"> <i class="fa fa-check-circle-o"></i>@Localizer["Confirmed"]  </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="OutTabContent2">
+                                        <!--NotConfirmed table starts-->
+                                        <div class="tab-pane fade show active" id="homeout2" role="tabpanel" aria-labelledby="homeout-tab2">
+                                            <div class="card-box table-responsive">
+                                                <table id="myTable3" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 30%">@Localizer["AssetBuyerName"]</th>
+                                                            <th style="width: 10%">@Localizer["AmountOfAssetSold"]</th>
+                                                            <th style="width: 10%">@Localizer["AmountPayed"]</th>                                                                                                                   
+
+                                                            <th></th>
+
+                                                            <th></th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                         <!--Confirmed table starts-->
+                                        <div class="tab-pane fade " id="profileout2" role="tabpanel" aria-labelledby="profileout-tab2">
+                                            <div class="card-box table-responsive">
+                                                <table id="my_Table3" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 30%">@Localizer["AssetBuyerName"]</th>
+                                                            <th style="width: 10%">@Localizer["AmountOfAssetSold"]</th>
+                                                            <th style="width: 10%">@Localizer["AmountPayed"]</th>                                                                                                                   
+
+                                                            <th></th>
+
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>                                   
+                                </div>
+                                <!--On Act table starts-->
+                                <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
+                                    <ul class="nav nav-tabs border-tab " id="danger-tabout3" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="homeout3-tab" data-bs-toggle="tab" href="#homeout3" role="tab" aria-controls="home" aria-selected="true" style="font-size:13px;"><i class="fa fa-exclamation-circle"></i>@Localizer["NotConfirmed"]  </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profileout-tab3" data-bs-toggle="tab" href="#profileout3" role="tab" aria-controls="profile" aria-selected="false" style="font-size:13px;"> <i class="fa fa-check-circle-o"></i>@Localizer["Confirmed"]  </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="OutTabContent3">
+                                        <div class="tab-pane fade show active" id="homeout3" role="tabpanel" aria-labelledby="homeout-tab3">
+                                            <div class="card-box table-responsive">
+                                                <table id="myTable4" class="table table-striped projects table-bordered dt-responsive nowrap" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 30%">@Localizer["AssetBuyerName"]</th>
+                                                            <th>@Localizer["AmountOfAssetSold"]</th>
+                                                          
+                                                            <th>#</th>
+
+                                                            <th></th>  
+                                                            <th></th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade " id="profileout3" role="tabpanel" aria-labelledby="profileout-tab3">
+                                            <div class="card-box table-responsive">
+                                                <table id="my_Table4" class="table table-striped projects table-bordered dt-responsive nowrap" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 20%">@Localizer["RealEstateName"]</th>
+                                                            <th style="width: 10%">Статус</th>
+                                                            <th style="width: 30%">@Localizer["AssetBuyerName"]</th>
+                                                            <th>@Localizer["AmountOfAssetSold"]</th>
+                                                          
+                                                            <th>#</th>
+
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Not Sold table starts-->
+                                <div class="tab-pane fade " id="notsold2" role="tabpanel" aria-labelledby="notsold-tab2">
+                                    <div class="card-box table-responsive">
+                                        <table class="table table-striped projects dt-responsive nowrap" id="myTable5" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Localizer["RealEstateName"]</th>
+                                                    <th>Статус</th>
+                                                    <th>@Localizer["GoverningBodyName"]</th>
+                                                    <th>@Localizer["SolutionNumber"]</th>
+                                                    <th>@Localizer["SolutionDate"]</th>
+                                                    <th>#</th>
+                                                    <th>@Localizer["BiddingDate"]</th>
+                                                    <th>@Localizer["AssetBuyerName"]</th>
+                                                    <th>@Localizer["AmountOfAssetSold"]</th>
+                                                    <th>@Localizer["AggreementDate"]</th>
+                                                    <th>@Localizer["AggreementNumber"]</th>
+                                                    <th>#</th>
+                                                    <th>@Localizer["AmountPayed"]</th>
+                                                    <th>@Localizer["Percentage"]</th>
+                                                    <th>@Localizer["ActAndAssetDate"]</th>
+                                                    <th>@Localizer["ActAndAssetNumber"]</th>
+                                                    <th>#</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="onSaleModal" tabindex="-1" role="dialog" aria-labelledby="onSaleModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["OnSaleModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>@Localizer["assetName"]: <span style="color:#7332a8" id="assetName"></span></p>
+                <p>@Localizer["GoverningBodyName"]: <span style="color:#7332a8" id="orgName"></span></p>
+                <p>@Localizer["SolutionNumber"]: <span style="color:#7332a8" id="solutionNumber"></span></p>
+                <p>@Localizer["SolutionDate"]: <span style="color:#7332a8" id="solutionDate"></span></p>
+                <p>@Localizer["SolutionFileId"]: <a id="solutionFile" target="_blank"></a></p>
+                <p>@Localizer["BiddingDate"]: <span style="color:#7332a8" id="biddingDate"></span></p>
+                <hr>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editSaleModal" tabindex="-1" role="dialog" aria-labelledby="editSaleModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["editSaleModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" id="demo-formSale" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">
+                    
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                                @Localizer["GoverningBodyName"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="_orgNameEdit" type="text" name="orgName" class=" form-control" required="required" />
+                            
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["SolutionNumber"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="solutionNEdit" type="text" name="solutionNumber" class="form-control" required="required" />
+                                             
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["SolutionDate"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="solutionDEdit" type="text" name="solutionDate" class="datepicker-here form-control" required="required" />
+                                             
+                    </div>
+                                     
+
+                    <div class="mb-3">
+                        <a id="editFileSol" data-bs-toggle="modal" data-bs-target="#editSaleFileModal" style="cursor:pointer" class="badge badge-dark">@Localizer["changeFile"]  <span class="badge rounded-pill badge-light text-dark"><i class="fa fa-file"></i></span></a>
+                    </div>
+
+                    <input id="_saleId" name="saleId" value="" hidden/>
+                    <div class="ln_solid"></div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button id="sale-edit" type="button"  class="btn btn-info"><i class="fas fa-edit"></i> @Localizer["EditSale"] </button>
+
+                </div>
+            </form>
+            
+                                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!--Edit Contract file modal-->
+<div data-backdrop="static" data-keyboard="false" class="modal fade" id="editSaleFileModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["ChangeFile"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div style="text-align:center">
+                    <div class="row gallery my-gallery gallery-with-description" id="animated-thumbnials8" itemscope="">
+                        <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                            <a style="cursor:pointer" id="solFileLink" href="" target="_blank" itemprop="contentUrl" data-size="1600x950">
+                                <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:100px; height:100px">
+                            </a>
+                            <form id="editSaleFileForm" enctype="multipart/form-data" method="post">
+                                <div class="mb-3">
+                                    <label class="col-form-label">
+                                        @Localizer["SaleFile"] <span class="required">*</span>
+                                    </label>
+                                    <a style="cursor:pointer;display:inline-block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('SaleFileInEdit').click()">Қарор файлини ўзгартиринг</a><br />
+                                    <span style="margin-top:10px; display:inline-block;" id="display-SaleFile"></span>
+                                    <input type="file" name="file" placeholder="Олди-сотди шартномаси PDF форматида *" id="SaleFileInEdit" onchange="getFileForSaleEdit(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" value="default" required /><br />
+                                    <span style="display:none; " id="noSaleFileMsgEdit">Янги файл танламадингиз!</span>
+                                </div>
+
+                                <input value="" name="fileId" id="fileSaleId" hidden />
+                                <input value="1" name="target" hidden />
+
+
+                                <button asp-controller="OneTimePaymentAssets" asp-action="ReplaceFile" class="btn btn-primary" type="submit" id="editSaleFile"><i class="fa fa-save"> @Localizer["save"]</i></button>
+                            </form>
+
+
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--View Contract-->
+<div class="modal fade" id="onContractModal" tabindex="-1" role="dialog" aria-labelledby="onContractModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["OnContractModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>@Localizer["assetName"]: <span style="color:#7332a8" id="assetName2"></span></p>
+                <p>@Localizer["AssetBuyerName"]: <span style="color:#7332a8" id="assetBuyerName"></span></p>
+                <p>@Localizer["AmountOfAssetSold"]: <span style="color:#7332a8" id="amountOfAssetSold"></span></p>
+                <p>@Localizer["AggreementDate"]: <span style="color:#7332a8" id="aggreementDate"></span></p>
+                <p>@Localizer["AggreementNumber"]: <span style="color:#7332a8" id="aggreementNumber"></span></p>
+                <p>@Localizer["AggreementFileId"]: <a  id="aggreementFile" target="_blank"></a></p>
+                <p>@Localizer["AmountPayed"]: <span style="color:#7332a8" id="amountPayed"></span></p>
+                <p>@Localizer["Percentage"]: <span style="color:#7332a8" id="percentage"></span></p>
+                <hr />
+                <p>@Localizer["GoverningBodyName"]: <span style="color:#7332a8" id="orgName2"></span></p>
+                <p>@Localizer["SolutionNumber"]: <span style="color:#7332a8" id="solutionNumber2"></span></p>
+                <p>@Localizer["SolutionDate"]: <span style="color:#7332a8" id="solutionDate2"></span></p>
+                <p>@Localizer["SolutionFileId"]: <a id="solutionFile2" target="_blank"></a></p>
+                <p>@Localizer["BiddingDate"]: <span style="color:#7332a8" id="biddingDate2"></span></p>
+                <hr>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!--View Act-->
+<div class="modal fade" id="onActModal" tabindex="-1" role="dialog" aria-labelledby="onActModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["OnActModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>@Localizer["assetName"]: <span style="color:#7332a8" id="assetName3"></span></p>
+                <p>@Localizer["AssetBuyerName"]: <span style="color:#7332a8" id="assetBuyerName3"></span></p>
+                <p>@Localizer["AmountOfAssetSold"]: <span style="color:#7332a8" id="amountOfAssetSold3"></span></p>
+                <p>@Localizer["ActAndAssetDate"]: <span style="color:#7332a8" id="actAndAssetDate"></span></p>
+                <p>@Localizer["ActAndAssetNumber"]: <span style="color:#7332a8" id="actAndAssetNumber"></span></p>
+                <p>@Localizer["ActAndAssetFileId"]: <a href="" id="actFileId" target ="_blank"></a></p>
+                <p>@Localizer["InvoiceFileId"]: <a href="" id="invoiceFileId" target="_blank"></a></p>
+                <hr />
+                <p>@Localizer["AggreementDate"]: <span style="color:#7332a8" id="aggreementDate3"></span></p>
+                <p>@Localizer["AggreementNumber"]: <span style="color:#7332a8" id="aggreementNumber3"></span></p>
+                <p>@Localizer["AggreementFileId"]: <a href="" id="aggreementFile3" target="_blank"></a></p>
+ 
+                <hr />
+                <p>@Localizer["GoverningBodyName"]: <span style="color:#7332a8" id="orgName3"></span></p>
+                <p>@Localizer["SolutionNumber"]: <span style="color:#7332a8" id="solutionNumber3"></span></p>
+                <p>@Localizer["SolutionDate"]: <span style="color:#7332a8" id="solutionDate3"></span></p>
+                <p>@Localizer["SolutionFileId"]: <a href="" id="solutionFile3" target="_blank"></a></p>
+                <p>@Localizer["BiddingDate"]: <span style="color:#7332a8" id="biddingDate3"></span></p>
+                <hr>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!--Create Contract-->
+<div class="modal fade" id="contractModal" tabindex="-1" role="dialog" aria-labelledby="contractModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["contractModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form autocomplete="off" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AssetBuyerName"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="buyerName" type="text" name="AssetBuyerName" class="form-control" required="required" />
+                            
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AmountOfAssetSold"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="amountSold" type="text" name="AmountOfAssetSold" class="form-control" required="required" />
+                            <span id="errorMsg1" style="display:none; color:red;">  @Localizer["MustBe"] </span>
+                          
+                 
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AggreementDate"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="agreementDate" type="text" name="agreementDate" class="datepicker-here form-control" required="required" />
+                            
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AggreementNumber"]   <span class="required">*</span>
+                        </label>
+                       
+                            <input id="agreementNumber" type="text" name="agreementNumber" class="form-control" required="required" />
+                            
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AgreementFile"] <span class="required">*</span>
+                        </label>  
+                     <a style="text-align:center; cursor:pointer;display:block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('AgreementFileIn').click()">Шартнома файлини танланг</a>
+                    <span style="margin-top:10px; " id="display-AgreementFile"></span>
+                    <input type="file" name="agreementFile" placeholder="Олди-сотди шартномаси PDF форматида *" id="AgreementFileIn" onchange="getFile(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" value="default" required />
+                    <span style="display:none; " id="noFileMsg">Файлни танланг</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AmountPayed"] (сум) <span class="required">*</span>
+                        </label>
+                        <div class="mb-3">
+                            <input id="amountPayed_" type="text" name="AmountPayed" class="form-control" required="required" />
+                            <span id="errorMsg2" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            
+                        </div>
+                    </div>
+       
+                    <input id="paymentId" name="paymentId" value="" hidden/>
+                    <div class="ln_solid"></div> 
+                
+            </div>
+            <div class="modal-footer">
+
+               <button id="contract-submit" type="button" asp-controller="OneTimePaymentAssets" asp-action="CreateContract" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i>@Localizer["CreateContract"] </button>
+
+            </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<!--Edit Contract infos-->
+<div class="modal fade" id="editContractModal" tabindex="-1" role="dialog" aria-labelledby="editContractModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["editContractModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form autocomplete="off" id="demo-form3" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">
+                    
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AssetBuyerName"]  <span class="required">*</span>
+                        </label>
+
+                        <input id="_buyerName" type="text" name="AssetBuyerName" class="form-control" required="required" value="" />
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AmountOfAssetSold"]  <span class="required">*</span>
+                        </label>
+
+                        <input id="_amountSold" type="text" name="AmountOfAssetSold" class="form-control" required="required" />
+                        <span id="_errorMsg1" style="display:none; color:red;">  @Localizer["MustBe"] </span>
+
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AggreementDate"]  <span class="required">*</span>
+                        </label>
+
+                        <input id="_agreementDate" type="text" name="agreementDate" class="datepicker-here form-control" required="required" />
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AggreementNumber"]   <span class="required">*</span>
+                        </label>
+
+                        <input id="_agreementNumber" type="text" name="agreementNumber" class="form-control" required="required" />
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AmountPayed"] (сум) <span class="required">*</span>
+                        </label>
+
+                        <input id="_amountPayed" type="text" name="AmountPayed" class="form-control" required="required" />
+                        <span id="_errorMsg2" style="display:none; color:red;">@Localizer["MustBe"] </span>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["Percentage"] % <span class="required">*</span>
+                        </label>
+
+                        <input id="_percentage" type="text" name="Percentage" class="form-control" required="required" readonly />
+
+                    </div>
+
+                    <div class="mb-3">
+                        <a id="editFileC" data-bs-toggle="modal" data-bs-target="#editContractFile" style="cursor:pointer" class="badge badge-dark">@Localizer["СhangeFile"]  <span class="badge rounded-pill badge-light text-dark"><i class="fa fa-file"></i></span></a>
+                    </div>
+
+                    <input id="_contractId" name="contractId" value="" hidden/>
+                    <div class="ln_solid"></div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button id="contract-edit" type="button" asp-controller="OneTimePaymentAssets" asp-action="EditContract"  class="btn btn-info"><i class="fas fa-edit"></i> @Localizer["EditContract"] </button>
+
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<!--Edit Contract file modal-->
+<div  data-backdrop="static" data-keyboard="false"  class="modal fade" id="editContractFile" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" >
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["ChangeFile"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    
+                        <div style="text-align:center">
+                            <div class="row gallery my-gallery gallery-with-description" id="animated-thumbnials8" itemscope="">
+                                <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                                    <a style="cursor:pointer" id="agrFileLink" href="" target="_blank" itemprop="contentUrl" data-size="1600x950">
+                                        <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:100px; height:100px">
+                                    </a>
+                                    <form id="editContractFileForm" enctype="multipart/form-data" method="post">
+                                        <div class="mb-3">
+                                            <label class="col-form-label">
+                                                @Localizer["AgreementFile"] <span class="required">*</span>
+                                            </label>
+                                            <a style="cursor:pointer;display:inline-block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('AgreementFileInEdit').click()">Шартнома файлини ўзгартиринг</a><br/>
+                                            <span style="margin-top:10px; display:inline-block;" id="display-AgFile"></span>
+                                            <input type="file" name="file" placeholder="Олди-сотди шартномаси PDF форматида *" id="AgreementFileInEdit" onchange="getFileForEdit(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" value="default" required /><br/>
+                                            <span style="display:none; " id="noFileMsgEdit">Янги файл танламадингиз!</span>
+                                        </div>
+                                       
+                                        <input value="" name="fileId" id="fileContractId" hidden/>                                        
+                                        <input value="2" name="target" hidden/>
+                                       
+
+                                        <button asp-controller="OneTimePaymentAssets" asp-action="ReplaceFile" class="btn btn-primary" type="submit" id="editAgFile"><i class="fa fa-save"> @Localizer["save"]</i></button>
+                                    </form>
+
+
+                                </figure>
+                            </div>
+                        </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Create Act-->
+<div class="modal fade" id="actModal" tabindex="-1" role="dialog" aria-labelledby="actModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["actModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form autocomplete="off" id="demo-form4" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ActAndAssetDate"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="actDate" type="text" name="actDate" class="datepicker-here form-control" required="required" />
+                            
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ActAndAssetNumber"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="actNumber" type="text" name="actNumber" class="form-control" required="required" />
+                                             
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ActAndAssetFile"] <span class="required">*</span>
+                        </label>  
+                     <a style="text-align:center; cursor:pointer;display:block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('actFileIn').click()">Акт файлини танланг</a>
+                    <span style="margin-top:10px; " id="display-actFile"></span>
+                    <input type="file" name="actFile" placeholder="Олди-сотди шартномаси PDF форматида *" id="actFileIn" onchange="getActFile(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" value="default" required />
+                    <span style="display:none; " id="noFileMsg_act">Файлни танланг</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["InvoiceFile"] <span class="required">*</span>
+                        </label>  
+                     <a style="text-align:center; cursor:pointer;display:block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('invoiceFileIn').click()">Инвоис файлини танланг</a>
+                    <span style="margin-top:10px; " id="display-invoiceFile"></span>
+                    <input type="file" name="invoiceFile"  id="invoiceFileIn" onchange="getInvoiceFile(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" value="default" required />
+                    <span style="display:none; " id="noFileMsg_inv">Файлни танланг</span>
+                    </div>
+
+                    
+       
+                    <input id="paymentId_act" name="paymentId" value="" hidden/>
+                    <div class="ln_solid"></div> 
+                
+            </div>
+            <div class="modal-footer">
+
+               <button id="act-submit" type="button" asp-controller="OneTimePaymentAssets" asp-action="CreateAct" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i> @Localizer["CreateAct"] </button>
+
+            </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<!--Edit Act infos-->
+<div class="modal fade" id="editActModal" tabindex="-1" role="dialog" aria-labelledby="editActModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["editActModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form autocomplete="off" id="demo-form5" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">
+                    
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ActAndAssetDate"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="_actDate" type="text" name="actDate" class="datepicker-here form-control" required="required" />
+                            
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ActAndAssetNumber"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="_actNumber" type="text" name="actNumber" class="form-control" required="required" />
+                                             
+                    </div>
+                    
+
+                    <div class="mb-3">
+                        <a id="editFileA" data-bs-toggle="modal" data-bs-target="#editActFile" style="cursor:pointer" class="badge badge-dark">@Localizer["changeFile"]  <span class="badge rounded-pill badge-light text-dark"><i class="fa fa-file"></i></span></a>
+                    </div>
+
+                    <input id="_actId" name="actId" value="" hidden/>
+                    <div class="ln_solid"></div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button id="act-edit" type="button" asp-controller="OneTimePaymentAssets" asp-action="EditAct"  class="btn btn-info"><i class="fas fa-edit"></i> @Localizer["EditAct"] </button>
+
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<!--Edit Act file modal-->
+<div  data-backdrop="static" data-keyboard="false"  class="modal fade" id="editActFile" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" >
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["ChangeFile"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div style="text-align:center">
+                    <div class="row gallery my-gallery gallery-with-description" id="animated-thumbnials8" itemscope="">
+                        <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                            <a style="cursor:pointer" id="actFileLink" href="" target="_blank" itemprop="contentUrl" data-size="1600x950">
+                                <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:100px; height:100px">
+                            </a>
+                        </figure>
+                        <form id="actFileForm1" style="margin-top:-10px;" enctype="multipart/form-data" method="post">
+                            <div class="mb-3">
+                                <label class="col-form-label">
+                                    @Localizer["ActFile"] <span class="required">*</span>
+                                </label><br />
+                                <a style="cursor:pointer;display:inline-block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('ActFileInEdit').click()">Акт файлини ўзгартиринг</a><br />
+                                <span style="margin-top:10px; display:inline-block;" id="display-AcFile"></span><br />
+                                <input type="file" name="file" placeholder="Олди-сотди шартномаси PDF форматида *" id="ActFileInEdit" onchange="getFileForActEdit(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" value="default" required /><br />
+                                <span style="display:none; " id="noFileActMsgEdit">Янги файл танламадингиз!</span>
+                            </div>
+
+                            <input value="" name="fileId" id="fileActId" hidden />
+                            <input value="3" name="target" hidden />
+                            <input value="1" name="finder" hidden />
+
+                            <button style="margin-top:-30px;" class="btn btn-primary editFile" id="editActFile_"><i class="fa fa-save"> @Localizer["save"]</i></button>
+                        </form> <hr/>
+
+                        <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                            <a style="cursor:pointer" id="invoiceFileLink" href="" target="_blank" itemprop="contentUrl" data-size="1600x950">
+                                <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:100px; height:100px">
+                            </a>
+
+                        </figure>
+                        <form id="actFileForm2"  style="margin-top:-10px;" enctype="multipart/form-data" method="post">
+                            <div class="mb-3">
+                                <label class="col-form-label">
+                                    @Localizer["InvoiceFile"] <span class="required">*</span>
+                                </label><br />
+                                <a style="cursor:pointer;display:inline-block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('InvoiceFileInEdit').click()">Инвоис файлини ўзгартиринг</a><br />
+                                <span style="margin-top:10px; display:inline-block;" id="display-InvFile"></span><br />
+                                <input type="file" name="file" id="InvoiceFileInEdit" onchange="getFileForInvEdit(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" value="default" required /><br />
+                                <span style="display:none; " id="noFileMsgInvEdit">Янги файл танламадингиз!</span>
+                            </div>
+
+                            <input value="" name="fileId" id="fileInvId" hidden />
+                            <input value="3" name="target" hidden />
+                            <input value="2" name="finder" hidden />
+
+                            <button style="margin-top:-30px;" asp-controller="OneTimePaymentAssets" asp-action="ReplaceFile" class="btn btn-primary editFile" type="submit" id="editInvFile_"><i class="fa fa-save"> @Localizer["save"]</i></button>
+                        </form> <br />
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<p id="success" style="visibility:hidden">@ViewBag.Success</p>
+
+
+
+@section Scripts{
+    <script src="~/js/oneTimePaymentAsset.js"></script>
+    <script>
+        
+
+        $('#editFileC, #editFileA, #editFileSol').on('click', function(){
+
+              $('#editContractModal').modal('hide');
+              $('#editActModal').modal('hide');
+              $('editSaleFile').modal('hide');
+
+            });
+
+
+    </script>
+ 
+
+    
+}
+

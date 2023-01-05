@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ControlActive.Models.Organization>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Ташкилотлар Рўйхати</h1>
+
+<p>
+   <a class="btn btn-dark" asp-action="Create">Янги Қўшиш</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ташкилот Номи
+            </th>
+            <th>
+                Жойлашган вилоят
+            </th>
+            <th>
+                фаол/Нофаол
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region.RegionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrganizationId">Ўзгартириш</a> |
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

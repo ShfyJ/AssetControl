@@ -1,0 +1,437 @@
+﻿@model ControlActive.Models.TransferredAsset
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-fluid">
+<div class="page-title">
+    <div class="row">
+    <div class="col-12 col-sm-6">
+        <h3>@Localizer["TransferredAssets"]</h3>
+    </div>
+    <div class="col-12 col-sm-6">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i data-feather="home"></i></a></li>
+        <li class="breadcrumb-item"></li>
+        <li class="breadcrumb-item active"></li>
+        </ol>
+    </div>
+    </div>
+</div>
+</div>
+
+<!-- Container-fluid starts-->
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-7">
+        <div class="card">
+            <div class="card-header pb-0">
+            <h5>@Localizer["CreateForm"]</h5>
+            </div>
+            <div class="card-body">
+            <form autocomplete="off" class="f1" method="post" enctype="multipart/form-data">
+                <div class="f1-steps">
+                <div class="f1-progress">
+                    <div class="f1-progress-line" data-now-value="12.5" data-number-of-steps="4"></div>
+                </div>
+                <div class="f1-step active">
+                    <div class="f1-step-icon"><i class="fa fa-check"></i></div>
+                    <p>1-Қадам</p>
+                </div>
+                <div class="f1-step">
+                    <div class="f1-step-icon"><i class="fa fa-check"></i></div>
+                    <p>2-Қадам</p>
+                </div>
+                <div class="f1-step">
+                    <div class="f1-step-icon"><i class="fa fa-check"></i></div>
+                    <p>3-Қадам</p>
+                </div>
+                <div class="f1-step">
+                    <div class="f1-step-icon"><i class="fa fa-check"></i></div>
+                    <p>4-Қадам</p>
+                </div>
+                </div>
+                <fieldset>
+                <div class="mb-2">
+
+                    @if (ViewBag.Target == 1)
+                    {
+                        <label for="f1-first-name">@Localizer["RealEstate"]</label>
+                        
+                        <input class="form-control"  name="name" required="required" value="@ViewBag.Name" readonly />
+                         <input name="id" value="@ViewBag.Id" hidden />
+                        
+                    }
+
+                    @if (ViewBag.Target == 2)
+                    {
+                        <label for="f1-first-name">@Localizer["RealEstate"]</label>
+                        
+                        <input class="form-control" name="name" required="required" value="@ViewBag.Name" readonly />
+                        <input name="id" value="@ViewBag.Id" hidden />
+                        
+                    }
+                    
+                </div>
+                <div class="mb-2">
+                    <label for="f1-last-name">@Localizer["TransferFormName"]</label>
+                     <select name="TransferFormId" class="form-control" asp-items="ViewBag.TransferFormId" required="required"></select>
+                   
+                </div>
+                
+
+                <div class="f1-buttons">
+                    <button class="btn btn-primary btn-next" type="button">@Localizer["Next"]</button>
+                </div>
+                </fieldset>
+                <fieldset>
+                    <div class="mb-2">
+                        <label> @Localizer["OrgName"]</label>
+                        <input type="text" asp-for="OrgName" class="form-control" required="required" autocomplete="off" />
+                        <span asp-validation-for="OrgName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label> @Localizer["SolutionNumber"]</label>
+                        <input type="text" asp-for="SolutionNumber" class="form-control" required="required" autocomplete="off" />
+                        <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label> @Localizer["SolutionDate"]</label>
+                        <input type="text" asp-for="SolutionDate" class="datepicker-here form-control" required="required" autocomplete="off" />
+                        <span asp-validation-for="SolutionDate" class="text-danger"></span>
+                    </div>
+               
+                    <div class="form-group mb-2">
+                                <label class="col-form-label pt-0">@Localizer["SolutionFileId"]:<span class="font-danger">*</span></label>
+                                <input type="file"  class="form-control" asp-for="SolutionFileId" accept=".pdf, application/pdf"  name="solutionFile" value="default" required>
+                    </div>
+                   
+           
+                <div class="f1-buttons">
+                    <button class="btn btn-primary btn-previous" type="button">@Localizer["Previous"]</button>
+                    <button class="btn btn-primary btn-next" type="button">@Localizer["Next"]</button>
+                </div>
+                </fieldset>
+                <fieldset>
+                <div class="mb-2">
+                    <label >@Localizer["OrgNameOfAsset"] </label>
+                    <input class="form-control"  type="text" asp-for="OrgNameOfAsset" required="">
+                </div>
+                <div class="mb-2">
+                    <label >@Localizer["TotalCost"]</label>
+                   <input id="totalCost" type="text" asp-for="TotalCost" class="form-control" oninput="validity.valid||(value='');" required="required" />
+                     <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBePost"]   </span>
+                </div>
+            
+                <div class="f1-buttons">
+                    <button class="btn btn-primary btn-previous" type="button">@Localizer["Previous"]</button>
+                    <button class="btn btn-primary btn-next" type="button">@Localizer["Next"]</button>
+                </div>
+                </fieldset>
+                 <fieldset>
+                    
+                    <div class="mb-2">
+                        <label> @Localizer["ActAndAssetNumber"]</label>
+                        <input type="text" asp-for="ActAndAssetNumber" class="form-control" required="required" autocomplete="off" />
+                        <span asp-validation-for="ActAndAssetNumber" class="text-danger"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label> @Localizer["ActAndAssetDate"]</label>
+                        <input type="text" asp-for="ActAndAssetDate" class="datepicker-here form-control" required="required" autocomplete="off" />
+                        <span asp-validation-for="ActAndAssetDate" class="text-danger"></span>
+                    </div>
+               
+                    <div class="form-group mb-2">
+                                <label class="col-form-label pt-0">@Localizer["ActAndAssetFileId"]:<span class="font-danger">*</span></label>
+                                <input type="file"  class="form-control" asp-for="ActAndAssetFileId" accept=".pdf, application/pdf"  name="actAndAssetFile" value="default" required>
+                    </div>
+                   
+           
+                <div class="f1-buttons">
+                    <button class="btn btn-primary btn-previous" type="button">@Localizer["Previous"]</button>
+                    <button class="btn btn-primary btn-next" type="button">@Localizer["Next"]</button>
+                </div>
+                </fieldset>
+                <fieldset>
+                    
+                    <div class="mb-2">
+                        <label> @Localizer["AgreementNumber"]</label>
+                        <input type="text" asp-for="AgreementNumber" class="form-control" required="required" autocomplete="off" />
+                        <span asp-validation-for="AgreementNumber" class="text-danger"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label> @Localizer["AgreementDate"]</label>
+                        <input type="text" asp-for="AgreementDate" class="datepicker-here form-control" required="required" autocomplete="off" />
+                        <span asp-validation-for="AgreementDate" class="text-danger"></span>
+                    </div>
+               
+                    <div class="form-group mb-2">
+                                <label class="col-form-label pt-0">@Localizer["AgreementFileId"]:<span class="font-danger">*</span></label>
+                                <input type="file"  class="form-control" asp-for="AgreementFileId" accept=".pdf, application/pdf"  name="agreementFile" value="default" required>
+                    </div>
+                   
+                <input name="target" value="@ViewBag.Target" hidden />
+                <div class="f1-buttons">
+                    <button class="btn btn-primary btn-previous" type="button">@Localizer["Previous"]</button>
+                    <button class="btn btn-primary btn-submit" id="submit" type="submit" asp-controller="TransferredAssets" asp-action="Create">@Localizer["Create"]</button>
+                </div>
+                </fieldset>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+@*<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel card">
+            <div class="x_title">
+                <a class="btn btn-outline-secondary" type="button" asp-controller="transferredassets" asp-action="index"><i class="fas fa-backward"></i>@localizer["back"] </a>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="modelonly" class="text-danger"></div>
+
+                    @if (viewbag.target == 1)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @localizer["realestate"] <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@viewbag.name readonly />
+                                <input name="id" value="@viewbag.id" hidden />
+                            </div>
+                        </div>
+                    }
+
+                    @if (viewbag.target == 2)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @localizer["share"]  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@viewbag.name readonly />
+                                <input name="id" value="@viewbag.id" hidden />
+                            </div>
+                        </div>
+                    }
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["transferformname"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select name="transferformid" class="form-control" asp-items="viewbag.transferformid" required="required"></select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["orgname"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="orgname" class="form-control" required="required" />
+                            <span asp-validation-for="orgname" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["solutionnumber"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="solutionnumber" class="form-control" required="required" />
+                            <span asp-validation-for="solutionnumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["solutiondate"]  <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="solutiondate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timefunctionlong(this)">
+                            <span asp-validation-for="solutiondate" class="text-danger"></span>
+                            <script>
+                                function timefunctionlong(input) {
+                                    settimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["solutionfileid"]<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="file" asp-for="solutionfileid" accept=".pdf, application/pdf" class="form-control" name="solutionfile" value="default" required />
+
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["orgnameofasset"]   <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="orgnameofasset" class="form-control" required="required" />
+                            <span asp-validation-for="orgnameofasset" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["totalcost"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="totalcost" type="text" asp-for="totalcost" class="form-control" oninput="validity.valid||(value='');" required="required" />
+                            <span id="errormsg" style="display:none; color:red;">@localizer["mustbepost"]   </span>
+                            <span asp-validation-for="totalcost" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["actandassetdate"]  <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="actandassetdate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timefunctionlong(this)">
+                            <span asp-validation-for="actandassetdate" class="text-danger"></span>
+                            <script>
+                                function timefunctionlong(input) {
+                                    settimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["actandassetnumber"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="actandassetnumber" class="form-control" required="required" />
+                            <span asp-validation-for="actandassetnumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["actandassetfileid"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="file" asp-for="actandassetfileid" name="actandassetfile" accept=".pdf, application/pdf" class="form-control" value="default" required />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["agreementdate"] <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="agreementdate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timefunctionlong(this)">
+                            <span asp-validation-for="agreementdate" class="text-danger"></span>
+                            <script>
+                                function timefunctionlong(input) {
+                                    settimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["agreementnumber"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="agreementnumber" class="form-control" required="required" />
+                            <span asp-validation-for="agreementnumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @localizer["agreementfileid"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="file" asp-for="agreementfileid" name="agreementfile" accept=".pdf, application/pdf" class="form-control" value="default" required />
+
+                        </div>
+                    </div>
+
+                    <input name="target" value="@viewbag.target" hidden />
+                    <div class="ln_solid"></div>
+
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button class="btn btn-primary" asp-controller="transferredassets" asp-action="index" type="button">@localizer["back"]</button>
+                            <button id="submit" type="submit" asp-controller="transferredassets" asp-action="create" value="create" class="btn btn-success">@localizer["create"]</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>*@
+
+@section scripts{
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/valiadationMessages.js"></script>
+
+    <script>
+ 
+
+        var v = document.getElementById("totalCost");
+        var flag = true;
+
+        $("#submit").click(function () {
+
+            if (v.value == "") {
+
+                v.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v.value) && v.value >= 0) {
+
+                v.style.borderColor = "green";
+                $('#errorMsg').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v.style.borderColor = "red";
+                $('#errorMsg').show();
+            }
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+    </script>
+
+}

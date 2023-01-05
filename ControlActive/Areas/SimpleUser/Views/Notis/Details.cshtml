@@ -1,0 +1,123 @@
+﻿@model ControlActive.Models.Noti
+
+@{
+    ViewData["Title"] = "Батафсил";
+}
+
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>
+                    Хабар маълумотлари
+                </h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Users" asp-action="Dashboard">                                       <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Хабарлар</li>
+                    <li class="breadcrumb-item active">Батафсил</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="email-wrap">
+            <div class="row">
+
+                <div class="col-xl-9 box-col-9 col-md-12 xl-70">
+                    <div class="email-right-aside">
+                        <div class="card email-body">
+                            <div class="email-profile">
+                                <div class="email-right-aside">
+                                    <div class="email-body">
+                                        <div class="email-content">
+                                            <div class="email-top">
+                                                <div class="row">
+                                                    <div class="col-xl-12">
+                                                        <div class="media">
+                                                            <img class="me-3 rounded-circle" src="~/assets/images/user/user.png" alt="">
+                                                            <div class="media-body">
+                                                                <h6 class="d-block">@Model.FromUserName                                                             </h6>
+                                                                <p>@ViewBag.OrgName</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="email-wrapper">
+                                                <div class="emailread-group">
+                                                    <div class="read-group">
+
+                                                        <p>Хайрли кун</p>
+                                                        <p>@Model.ToUserName,</p>
+                                                    </div>
+                                                    <div class="read-group">
+                                                        <h5>@Model.Message</h5>
+                                                        <p>Таргет:@ViewBag.Target</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="emailread-group">
+                                                    @if (Model.ObjectType == 1 || Model.ObjectType == 2)
+                                                    {
+                                                        <div class="dt-ext table-responsive" id="table1">
+
+                                                            <table id="myTable" class="table  " style="width:auto">
+                                                                <thead>
+                                                                    <tr hidden>
+                                                                        <th></th>
+
+                                                                    </tr>
+                                                                </thead>
+
+
+                                                            </table>
+
+                                                        </div>
+
+                                                        <div id="permissionDiv" class="emailread-group" hidden>
+
+                                                            <div class="read-group">
+                                                                <h5><i style="color:green" class="fa fa-check-circle-o fa-2x"></i> РУХСАТ БЕРИЛДИ!</h5>
+                                                                @*<p id="dateTime">Рухсат берилган вақт: </p>*@
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+                                                    <div class="action-wrapper">
+                                                        <ul class="actions">
+                                                            
+                                                            <li><a class="btn btn-secondary" asp-action="Index"><i class="fa fa-caret-square-o-right"></i> Ортга қайтиш</a></li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Container-fluid Ends-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<p id="objectId" hidden>@ViewBag.ObjectId</p>
+<p id="type" hidden>@ViewBag.Type</p>
+<p id="fromUserId" hidden>@Model.FromUserId</p>
+<p id="toUserId" hidden>@Model.ToUserId</p>
+<p id="isPermitted" hidden>@Model.isPermitted</p>
+<p id="notiId" hidden>@Model.NotiId</p>
+
+@section Scripts{
+    <script src="~/js/userNotisDetails.js"></script>
+
+}

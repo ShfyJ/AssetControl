@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ControlActive.Models.TechnicalCharc>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+}
+
+<h1>Техник хусусиятлари</h1>
+
+<p>
+    <a class="btn btn-dark" asp-action="Create">Янги яратиш</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Техник хусусиятлар
+            </th>
+            <th>
+               Фаол
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TechnicalCharcName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TechnicalCharcId">Ўзгартириш</a> 
+                
+                @*<a asp-action="Delete" asp-route-id="@item.TechnicalCharcId">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

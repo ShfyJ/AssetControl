@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ControlActive.Models.Infrastucture>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Инфратузилмалар</h1>
+
+<p>
+    <a class="btn btn-dark" asp-action="Create">Янги яратиш</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Инфратузилма
+            </th>
+            <th>
+              Фаол
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfrastructureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InfrastructureId">Ўзгартириш</a> 
+             
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

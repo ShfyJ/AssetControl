@@ -1,0 +1,313 @@
+﻿@model ControlActive.Models.TransferredAsset
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h4>@Localizer["Edit"]</h4>
+        <h3>@Localizer["TransferredAssets"]</h3>
+    </div>
+
+
+</div>
+<div class="clearfix"></div>
+
+
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AssetId" />
+            <div class="form-group">
+                <label asp-for="TransferFormId" class="control-label"></label>
+                <select asp-for="TransferFormId" class="form-control" asp-items="ViewBag.TransferFormId"></select>
+                <span asp-validation-for="TransferFormId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrgName" class="control-label"></label>
+                <input asp-for="OrgName" class="form-control" />
+                <span asp-validation-for="OrgName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionNumber" class="control-label"></label>
+                <input asp-for="SolutionNumber" class="form-control" />
+                <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionDate" class="control-label"></label>
+                <input asp-for="SolutionDate" class="form-control" />
+                <span asp-validation-for="SolutionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileLink" class="control-label"></label>
+                <input asp-for="SolutionFileLink" class="form-control" />
+                <span asp-validation-for="SolutionFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileId" class="control-label"></label>
+                <input asp-for="SolutionFileId" class="form-control" />
+                <span asp-validation-for="SolutionFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrgNameOfAsset" class="control-label"></label>
+                <input asp-for="OrgNameOfAsset" class="form-control" />
+                <span asp-validation-for="OrgNameOfAsset" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalCost" class="control-label"></label>
+                <input asp-for="TotalCost" class="form-control" />
+                <span asp-validation-for="TotalCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActAndAssetDate" class="control-label"></label>
+                <input asp-for="ActAndAssetDate" class="form-control" />
+                <span asp-validation-for="ActAndAssetDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActAndAssetNumber" class="control-label"></label>
+                <input asp-for="ActAndAssetNumber" class="form-control" />
+                <span asp-validation-for="ActAndAssetNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActAndAssetFileLink" class="control-label"></label>
+                <input asp-for="ActAndAssetFileLink" class="form-control" />
+                <span asp-validation-for="ActAndAssetFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActAndAssetFileId" class="control-label"></label>
+                <input asp-for="ActAndAssetFileId" class="form-control" />
+                <span asp-validation-for="ActAndAssetFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementDate" class="control-label"></label>
+                <input asp-for="AgreementDate" class="form-control" />
+                <span asp-validation-for="AgreementDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementNumber" class="control-label"></label>
+                <input asp-for="AgreementNumber" class="form-control" />
+                <span asp-validation-for="AgreementNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AggreementFileLink" class="control-label"></label>
+                <input asp-for="AggreementFileLink" class="form-control" />
+                <span asp-validation-for="AggreementFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementFileId" class="control-label"></label>
+                <input asp-for="AgreementFileId" class="form-control" />
+                <span asp-validation-for="AgreementFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel card">
+            <div class="x_title">
+                <a class="btn btn-outline-secondary" type="button" asp-controller="TransferredAssets" asp-action="Index"><i class="fas fa-backward"></i>@Localizer["Back"] </a>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="AssetId" />
+                    <input type="hidden" asp-for="SolutionFileId" />
+                    <input type="hidden" asp-for="SolutionFileLink" />
+                    <input type="hidden" asp-for="ActAndAssetFileId" />
+                    <input type="hidden" asp-for="ActAndAssetFileLink" />
+                    <input type="hidden" asp-for="AgreementFileId" />
+                    <input type="hidden" asp-for="AggreementFileLink" />
+                    <input name="target" value="@ViewBag.Target" hidden />
+                    @if (ViewBag.Target == 1)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["RealEstate"]  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="id1" value="@ViewBag.Id1" hidden />
+                            </div>
+                        </div>
+                    }
+
+                    @if (ViewBag.Target == 2)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["Share"]  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="id1" value="@ViewBag.Id1" hidden />
+                            </div>
+                        </div>
+                    }
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["TransferFormName"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select asp-for="TransferFormId" class="form-control" asp-items="ViewBag.TransferFormId" required="required"></select>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["OrgName"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="OrgName" class="form-control" required="required" />
+                            <span asp-validation-for="OrgName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["SolutionNumber"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="SolutionNumber" class="form-control" required="required" />
+                            <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["SolutionDate"]  <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input asp-for="SolutionDate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                            <span asp-validation-for="SolutionDate" class="text-danger"></span>
+                            <script>
+                                function timeFunctionLong(input) {
+                                    setTimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <label asp-for="SolutionFileLink" class="control-label"></label>
+                            <input asp-for="SolutionFileLink" class="form-control" />
+                            <span asp-validation-for="SolutionFileLink" class="text-danger"></span>
+                        </div>*@
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["OrgNameOfAsset"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="OrgNameOfAsset" class="form-control" required="required" />
+                            <span asp-validation-for="OrgNameOfAsset" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["TotalCost"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="totalCost" type="text" asp-for="TotalCost" class="form-control" oninput="validity.valid||(value='');" required="required" />
+                            <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBePost"] </span>
+                            <span asp-validation-for="TotalCost" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ActAndAssetDate"] <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input asp-for="ActAndAssetDate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                            <span asp-validation-for="ActAndAssetDate" class="text-danger"></span>
+                            <script>
+                                function timeFunctionLong(input) {
+                                    setTimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ActAndAssetNumber"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="ActAndAssetNumber" class="form-control" required="required" />
+                            <span asp-validation-for="ActAndAssetNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["AgreementDate"] <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="AgreementDate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                            <span asp-validation-for="AgreementDate" class="text-danger"></span>
+                            <script>
+                                function timeFunctionLong(input) {
+                                    setTimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["AgreementNumber"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="AgreementNumber" class="form-control" required="required" />
+                            <span asp-validation-for="AgreementNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <label asp-for="ActAndAssetFileLink" class="control-label"></label>
+                            <input asp-for="ActAndAssetFileLink" class="form-control" />
+                            <span asp-validation-for="ActAndAssetFileLink" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AgreementDate" class="control-label"></label>
+                            <input asp-for="AgreementDate" class="form-control" />
+                            <span asp-validation-for="AgreementDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AgreementNumber" class="control-label"></label>
+                            <input asp-for="AgreementNumber" class="form-control" />
+                            <span asp-validation-for="AgreementNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AgreementFileLink" class="control-label"></label>
+                            <input asp-for="AgreementFileLink" class="form-control" />
+                            <span asp-validation-for="AgreementFileLink" class="text-danger"></span>
+                        </div>*@
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <input type="submit" value="@Localizer["Save"]" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+

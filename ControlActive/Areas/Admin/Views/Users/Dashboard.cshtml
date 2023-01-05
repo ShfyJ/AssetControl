@@ -1,0 +1,727 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<div class="loader-wrapper">
+    <div class="loader">
+        <div class="loader-box">
+            <p style="background-color:black" class="loader-39"></p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>
+                    Асосий Ойна
+                </h3>
+
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+
+                    <li><a id="day" class="badge badge-primary" href="#"></a></li>
+                    <li>:</li>
+                    <li><a id="month" class="badge badge-primary" href="#"></a></li>
+                    <li>:</li>
+                    <li><a id="year" class="badge badge-primary" href="#"></a> </li>
+                    &nbsp;&nbsp;
+
+                    <li class="breadcrumb-item"><a class="home-item" asp-action="Dashboard" asp-area="Admin" asp-controller="Users"><i data-feather="home"></i></a></li>
+
+                    <li class="breadcrumb-item active">Асосий Ойна</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<form  asp-controller="Users" asp-action="Dashboard"  enctype="multipart/form-data" id="form">
+
+    <div class="item row">
+    <div class="col-sm-8"><h1> Асосий Ойна</h1></div>
+
+    <div class="col-sm-2" style="margin-left: auto; margin-right: 0; margin-top:10px">
+    <input type="text" name="chosenDate"  class="datepicker form-control" placeholder=@ViewBag.ChosenDate required="required" onfocus="this.type='date'"
+    onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)" onchange="submitForm('form')" />
+    <script>
+    function timeFunctionLong(input) {
+    setTimeout(function () {
+    input.type = 'text';
+    }, 3000);
+    }
+    </script>
+    </div>
+    <div class="col-sm-2">
+    <button class="btn" onclick="FilterByDate()">Ok</button>
+    </div>
+    </div>
+    </form>*@
+
+
+<!-- Styles -->
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<div class="container-fluid general-widget ecommerce-dash">
+    <div class="row">
+        <div class="col-md-12 project-list">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-10 p-0">
+                        <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
+                            <li class="nav-item"><a class="nav-link " id="top-home-tab" data-bs-toggle="tab" href="#top-home" role="tab" aria-controls="top-home" aria-selected="true"><i data-feather="target"></i>@Localizer["maintabs"]</a></li>
+                            <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile" role="tab" aria-controls="top-profile" aria-selected="false"><i data-feather="info"></i>@Localizer["moretabs"]</a></li>
+                            <li class="nav-item"><a class="nav-link active" id="map-top-tab" data-bs-toggle="tab" href="#top-map" role="tab" aria-controls="top-map" aria-selected="false"><i data-feather="info"></i>@Localizer["map"]</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 p-0">
+                        <form autocomplete="off" asp-controller="Users" asp-action="Dashboard" enctype="multipart/form-data" id="form">
+                            <div class="input-group pill-input-group">
+                                <span class="input-group-text"><i class="fa fa-calendar"> </i></span>
+                                <input name="chosenDate" placeholder=@ViewBag.ChosenDate class="form-control datepicker-here digits" type="text" aria-label="Amount (to the nearest dollar)"><span class="input-group-text "><a class="button" style="cursor:pointer"><i onclick="submitForm('form')" style="color:green" class="fa fa-chevron-circle-right"> </i></a></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+
+            <div class="tab-content" id="top-tabContent">
+                <div class="tab-pane fade " id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+                    <div class="row">
+                        <div class="col-sm-6 col-xl-3 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["RealEstates"]</h6>
+                                            <h4 class="mb-0 counter" id="realEstate">@ViewBag.RealEstates</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="RealEstates">
+
+                                            <i class="icofont icofont-building-alt" style="font-size:3em; color:#ffc500"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-secondary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["Shares"]</h6>
+                                            <h4 class="mb-0 counter">@ViewBag.Shares</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="Shares">
+                                            <i class="fa fa-chart-pie fa-3x" style="color:#7dc006"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-success" role="progressbar" style="width: 60%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["Orgs"]</h6>
+                                            <h4 class="mb-0 counter">@ViewBag.Orgs</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="Organizations">
+                                            <i class="fa fa-cubes fa-3x"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-primary" role="progressbar" style="width: 48%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["Users"]</h6>
+                                            <h4 class="mb-0 counter">@ViewBag.Users</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="Users">
+                                            <i class="fa fa-users fa-3x fa-beat" style="color:#e52727"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-danger" role="progressbar" style=" width: 48%; " aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-md-12  ">
+                        <div class="card">
+                           
+                            <div class="card-body">
+
+                                <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                    <div class="row">
+                        <div class="col-sm-6 col-xl-2 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["TransferredAssets"]</h6>
+                                            <h4 class="mb-0 counter" id="realEstate">@ViewBag.TransfAssets</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="RealEstates">
+
+                                            <i class="fa fa-gifts fa-2x" style=" color:#ffc500"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-secondary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["EvaluatedAssets"]</h6>
+                                            <h4 class="mb-0 counter">@ViewBag.AssetEval</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="Shares">
+                                            <i class="fa fa-star fa-2x" style="color:#7dc006"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-success" role="progressbar" style="width: 60%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["AssetsInAuction"]</h6>
+                                            <h4 class="mb-0 counter">@ViewBag.SubmissionOnB</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="Organizations">
+                                            <i class="fa fa-store fa-2x"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-primary" role="progressbar" style="width: 48%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["ReducedAssets"]</h6>
+                                            <h4 class="mb-0 counter">@ViewBag.ReductionIn</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="Users">
+                                            <i class="icon-stats-down" style="color:#e52727; font-size:2em"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-danger" role="progressbar" style=" width: 48%; " aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["OneTimePayments"]</h6>
+                                            <h4 class="mb-0 counter">@ViewBag.OneTimeP</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="Users">
+                                            <i class="fa fa-dollar-sign fa-2x " style="color:#7dc006"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-success" role="progressbar" style=" width: 48%; color:black" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2 col-lg-6">
+                            <div class="card o-hidden">
+                                <div class="card-body">
+                                    <div class="media static-widget">
+                                        <div class="media-body">
+                                            <h6 class="font-roboto">@Localizer["InstallmentsAssets"]</h6>
+                                            <h4 class="mb-0 counter">@ViewBag.Installment</h4>
+                                        </div>
+                                        <a asp-action="Index" asp-area="Admin" asp-controller="Users">
+                                            <i class="fa fa-th fa-2x " style="color:#ffc500"></i>
+                                        </a>
+                                    </div>
+                                    <div class="progress-widget">
+                                        <div class="progress sm-progress-bar progress-animate">
+                                            <div class="progress-gradient-secondary" role="progressbar" style=" width: 48%; " aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="tab-pane fade show active" id="top-map" role="tabpanel" aria-labelledby="map-top-tab">
+                    <div class="col-md-12 col-sm-12  ">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Активлар сони(вилоятлар кесимида)</h2>
+
+                            </div>
+                            <div class="card-body">
+
+                                <div id="chartdiv2" style="width: 100%; height: 600px;"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<p id="rTransf" hidden>@ViewBag.rTransfAssets</p>
+<p id="rAssetEval" hidden>@ViewBag.rAssetEval</p>
+<p id="rSubmB" hidden>@ViewBag.rSubmissionOnB</p>
+<p id="rReduction" hidden>@ViewBag.rReductionIn</p>
+<p id="rOneTimeP" hidden>@ViewBag.rOneTimeP</p>
+<p id="rTransf" hidden>@ViewBag.rTransfAssets</p>
+<p id="rInstallment" hidden>@ViewBag.rInstallment</p>
+
+<p id="sTransf" hidden>@ViewBag.sTransfAssets</p>
+<p id="sAssetEval" hidden>@ViewBag.sAssetEval</p>
+<p id="sSubmB" hidden>@ViewBag.sSubmissionOnB</p>
+<p id="sReduction" hidden>@ViewBag.sReductionIn</p>
+<p id="sOneTimeP" hidden>@ViewBag.sOneTimeP</p>
+<p id="sTransf" hidden>@ViewBag.sTransfAssets</p>
+<p id="sInstallment" hidden>@ViewBag.sInstallment</p>
+
+@section scripts {
+
+    @*var date = $('datepicker').datepicker('getDate');
+    window.location.href = '@Url.Action("Dashboard", "User")/' + date;*@
+
+<script>
+
+    function submitForm(form) {
+        document.getElementById(form).submit();
+    }
+
+    /* Get todays date*/
+    var today = new Date();
+
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');
+    console.log(month);
+    var day = String(today.getDate()).padStart(2, '0');
+    console.log(day);
+
+    document.getElementById("year").innerHTML = year;
+    document.getElementById("day").innerHTML = day;
+    document.getElementById("month").innerHTML = month;
+    
+
+
+   /* Create treemap chart */
+    var chart = am4core.create("chartdiv", am4charts.TreeMap);
+
+    var d = @Html.Raw(Json.Serialize(@ViewBag.Data));
+    chart.data = JSON.parse(d);
+
+    chart.maxLevels = 1;
+
+    /* Set color step */
+    chart.colors.step = 2;
+
+    /* Define data fields */
+    chart.dataFields.value = "value";
+    chart.dataFields.name = "name";
+    chart.dataFields.children = "children";
+    chart.dataFields.color = "color";
+    chart.dataFields.type = "type";
+
+    var level1 = chart.seriesTemplates.create("0");
+    var level1_column = level1.columns.template;
+    level1_column.column.cornerRadius(10, 10, 10, 10);
+    level1_column.fillOpacity = 0.8;
+    level1_column.stroke = am4core.color("#000");
+    level1_column.strokeWidth = 5;
+    level1_column.strokeOpacity = 1;
+    level1.columns.template.tooltipHTML = '{name}: <b>{value}</b>';
+
+
+    var level1_bullet = level1.bullets.push(new am4charts.LabelBullet());
+    level1_bullet.locationY = 0.5;
+    level1_bullet.locationX = 0.5;
+    level1_bullet.label.text = "{name} \n ({value})";
+    
+    level1_bullet.label.fill = am4core.color("#000");
+   
+
+    var level2 = chart.seriesTemplates.create("1");
+
+    var level2_column = level1.columns.template;
+    level2_column.column.cornerRadius(10, 10, 10, 10);
+    level2_column.fillOpacity = 0.8;
+    level2_column.stroke = am4core.color("#000");
+    level2_column.strokeWidth = 5;
+    level2_column.strokeOpacity = 1;
+
+    var level2_bullet = level2.bullets.push(new am4charts.LabelBullet());
+    level2_bullet.locationY = 0.5;
+    level2_bullet.locationX = 0.5;
+    level2_bullet.label.text = "{name} ({value})";
+    level2_bullet.label.fill = am4core.color("#000");
+
+    level2.tooltip.label.interactionsEnabled = true;
+    level2.tooltip.keepTargetHover = true;
+    level2.columns.template.tooltipHTML = '<b>{name}</b><br><a style="color:black" href="/Admin/{type}/Index">Батафсил</a>';
+
+
+    var level3 = chart.seriesTemplates.create("2");
+
+    var level3_column = level1.columns.template;
+    level3_column.column.cornerRadius(10, 10, 10, 10);
+    level3_column.fillOpacity = 0.8;
+    level3_column.stroke = am4core.color("#fff");
+    level3_column.strokeWidth = 5;
+    level3_column.strokeOpacity = 1;
+
+    var level3_bullet = level3.bullets.push(new am4charts.LabelBullet());
+    level3_bullet.locationY = 0.5;
+    level3_bullet.locationX = 0.5;
+    level3_bullet.label.text = "{name}";
+    level3_bullet.label.fill = am4core.color("#fff");
+
+    
+
+    /* Navigation bar */
+    chart.homeText = "Мавжуд Активлар(ташкилотлар кесимида)";
+    chart.navigationBar = new am4charts.NavigationBar();
+    /* Add a lagend */
+    //chart.legend = new am4charts.Legend();
+
+</script>
+
+<script>
+
+    
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create map instance
+var chart = am4core.create("chartdiv2", am4maps.MapChart);
+
+var mapD = @Html.Raw(Json.Serialize(@ViewBag.MapData));
+var mapData = JSON.parse(mapD);
+
+
+//var mapData = [
+//  { "id": "UZ-BU", "name": "Бухоро", "value": 32358260, "color": chart.colors.getIndex(0) },
+//  { "id": "UZ-NW", "name": "Навоий", "value": 35980193, "color": chart.colors.getIndex(2) },
+//  { "id": "UZ-TK", "name": "Тошкент", "value": 19618432, "color": chart.colors.getIndex(2) },
+//  { "id": "UZ-SA", "name": "Самарқанд", "value": 40764561, "color": chart.colors.getIndex(3) },
+//  { "id": "UZ-JI", "name": "Жиззах", "value": 3100236, "color": chart.colors.getIndex(1) },
+//  { "id": "UZ-QR", "name": "Қорақалпоғистон", "value": 22605732, "color": "#8aabb0" },
+//  { "id": "UZ-FA", "name": "Фарғона", "value": 1323535, "color": chart.colors.getIndex(0) },
+//  { "id": "UZ-NG", "name": "Наманган", "value": 150493, "color": chart.colors.getIndex(0) },
+//  { "id": "UZ-AN", "name": "Андижон", "value": 9559441, "color": chart.colors.getIndex(1) },
+//  { "id": "UZ-QA", "name": "Қашқадарё", "value": 107540565, "color": chart.colors.getIndex(1) },
+//  { "id": "UZ-SU", "name": "Сурхандарё", "value": 9099922, "color": chart.colors.getIndex(2) },
+//  { "id": "UZ-XO", "name": "Хоразм", "value": 10088108, "color": chart.colors.getIndex(3) },
+//  { "id": "UZ-SI", "name": "Сирдарё", "value": 2030738, "color": chart.colors.getIndex(2) },
+  
+//];
+
+
+// Set map definition
+chart.geodata = am4geodata_uzbekistanLow;
+
+// Set projection
+chart.projection = new am4maps.projections.Miller();
+
+// Create map polygon series
+var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+polygonSeries.useGeodata = true;
+polygonSeries.nonScalingStroke = true;
+polygonSeries.strokeWidth = 0.5;
+polygonSeries.calculateVisualCenter = true;
+
+polygonSeries.events.on("validated", function(){
+  imageSeries.invalidate();
+})
+
+
+var imageSeries = chart.series.push(new am4maps.MapImageSeries());
+imageSeries.data = mapData;
+imageSeries.dataFields.value = "value";
+
+var imageTemplate = imageSeries.mapImages.template;
+imageTemplate.nonScaling = true
+
+imageTemplate.adapter.add("latitude", function(latitude, target) {
+  var polygon = polygonSeries.getPolygonById(target.dataItem.dataContext.id);
+  if(polygon){
+    return polygon.visualLatitude;
+   }
+   return latitude;
+})
+
+imageTemplate.adapter.add("longitude", function(longitude, target) {
+  var polygon = polygonSeries.getPolygonById(target.dataItem.dataContext.id);
+  if(polygon){
+    return polygon.visualLongitude;
+   }
+   return longitude;
+})
+
+var circle = imageTemplate.createChild(am4core.Circle);
+circle.fillOpacity = 0.7;
+circle.propertyFields.fill = "color";
+circle.tooltipText = "{name}: [bold]{value} та объектлар[/]";
+
+imageSeries.heatRules.push({
+  "target": circle,
+  "property": "radius",
+  "min": 4,
+  "max": 30,
+  "dataField": "value"
+})
+
+var label = imageTemplate.createChild(am4core.Label);
+label.text = "{name}"
+label.horizontalCenter = "middle";
+label.padding(0,0,0,0);
+label.adapter.add("dy", function(dy, target){
+  var circle = target.parent.children.getIndex(0);
+  return circle.pixelRadius;
+})
+
+</script>
+
+/*
+@*<!-- Donut Chart code -->
+<script>
+
+    var realEstate = document.getElementById('realEstate').innerHTML;
+    var share = document.getElementById('share').innerHTML;
+    var transf = document.getElementById('transf').innerHTML;
+    var assetEval = document.getElementById('assetEval').innerHTML;
+    var submB = document.getElementById('submB').innerHTML;
+    var reduction = document.getElementById('reduction').innerHTML;
+    var oneTimeP = document.getElementById('oneTimeP').innerHTML;
+    var installment = document.getElementById('installment').innerHTML;
+    am4core.ready(function () {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        // Create chart
+        var chart = am4core.create("chartdiv", am4charts.PieChart);
+        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+        chart.data = [
+            {
+                parametr: "Кўчмас мулк" + '\n' + "объектлари",
+                value: realEstate
+            },
+            {
+                parametr: "Улуш",
+                value: share
+            },
+            {
+                parametr: "Ўтказилган активлар",
+                value: transf
+            },
+            {
+                parametr: "Баҳоланганлари",
+                value: assetEval
+            },
+            {
+                parametr: "Ким ошди" + '\n' + "савдосида",
+                value: submB
+            },
+            {
+                parametr: "Қиймати" + '\n' + "босқичма-босқич" + '\n' + "пасайтирилганлар",
+                value: reduction
+            },
+            {
+                parametr: "Бир марталик" + '\n' + "тўлов асосида" + '\n' + "сотилган активлар",
+                value: oneTimeP
+            },
+            {
+                parametr: "Бўлиб-бўлиб" + '\n' + "сотилган активлар",
+                value: installment
+            }
+        ];
+
+        var series = chart.series.push(new am4charts.PieSeries());
+        series.dataFields.value = "value";
+        series.dataFields.radiusValue = "value";
+        series.dataFields.category = "parametr";
+        series.slices.template.cornerRadius = 6;
+        series.colors.step = 3;
+
+        series.hiddenState.properties.endAngle = -90;
+
+        chart.legend = new am4charts.Legend();
+
+    }); // end am4core.ready()
+</script>
+*/
+<!-- Bar Chart code -->
+/*<script>
+
+    var rTransf = document.getElementById('rTransf').innerHTML;
+    var rAssetEval = document.getElementById('rAssetEval').innerHTML;
+    var rSubmB = document.getElementById('rSubmB').innerHTML;
+    var rReduction = document.getElementById('rReduction').innerHTML;
+    var rOneTimeP = document.getElementById('rOneTimeP').innerHTML;
+    var rInstallment = document.getElementById('rInstallment').innerHTML;
+
+    var sTransf = document.getElementById('sTransf').innerHTML;
+    var sAssetEval = document.getElementById('sAssetEval').innerHTML;
+    var sSubmB = document.getElementById('sSubmB').innerHTML;
+    var sReduction = document.getElementById('sReduction').innerHTML;
+    var sOneTimeP = document.getElementById('sOneTimeP').innerHTML;
+    var sInstallment = document.getElementById('sInstallment').innerHTML;
+
+    am4core.ready(function () {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        // Create chart instance
+        var chart = am4core.create("chartdiv2", am4charts.XYChart);
+
+        // Add percent sign to all numbers
+        chart.numberFormatter.numberFormat = "#.#''";
+
+        // Add data
+        chart.data = [{
+            "block": "Ўтказилган" + '\n' + "активлар",
+            "realEstate": rTransf,
+            "share": sTransf
+        }, {
+            "block": "Баҳоланганлари",
+            "realEstate": rAssetEval,
+            "share": sAssetEval
+        }, {
+            "block": "Ким ошди" + '\n' + "савдосида",
+            "realEstate": rSubmB,
+            "share": sSubmB
+        }, {
+            "block": "Қиймати" + '\n' + "босқичма-босқич" + '\n' + "пасайтирилганлар",
+            "realEstate": rReduction,
+            "share": sReduction
+        }, {
+            "block": "Бир марталик" + '\n' + "тўлов асосида" + '\n' + "сотилганлар",
+            "realEstate": rOneTimeP,
+            "share": sOneTimeP
+        }, {
+            "block": "Бўлиб-бўлиб" + '\n' + "сотилганлар",
+            "realEstate": rInstallment,
+            "share": sInstallment
+        }];
+
+        // Create axes
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "block";
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.minGridDistance = 30;
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text = "Таққослаш";
+        valueAxis.title.fontWeight = 800;
+
+        // Create series
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "realEstate";
+        series.dataFields.categoryX = "block";
+        series.clustered = false;
+        series.tooltipText = "{categoryX} у Объектов Недвижимости : [bold]{valueY}[/]";
+
+        var series2 = chart.series.push(new am4charts.ColumnSeries());
+        series2.dataFields.valueY = "share";
+        series2.dataFields.categoryX = "block";
+        series2.clustered = false;
+        series2.columns.template.width = am4core.percent(50);
+        series2.tooltipText = "{categoryX} у Долей : [bold]{valueY}[/]";
+
+        chart.cursor = new am4charts.XYCursor();
+        chart.cursor.lineX.disabled = true;
+        chart.cursor.lineY.disabled = true;
+
+    }); // end am4core.ready()
+</script>*@
+*/
+} 

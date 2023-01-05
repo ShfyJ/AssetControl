@@ -1,0 +1,477 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<!-- Styles -->
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+
+    /*.progress-gradient-evaluation{
+		background-image: linear-gradient(to right, rgba(0,0,0,0),#19a6b0 );
+		position: relative;
+    }
+    .progress-gradient-evaluation:hover{
+        background-size: 100%;
+    }
+    
+    .progress-gradient-evaluation:before{
+        -webkit-box-sizing: border-box;
+    }
+
+	.progress-gradient-evaluation:after {
+			position: absolute;
+			content: '';
+			top: -3px;
+			right: -1px;
+			background-color: #19a6b0;
+			width: 10px;
+			height: 10px;
+			border-radius: 100%;
+            -webkit-box-shadow:0 0 17px 4px rgba(#19a6b0, 0.36);
+			box-shadow: 0 0 17px 4px rgba(#19a6b0, 0.36);
+            box-sizing: border-box;
+		}
+		.progress-gradient-evaluation.animate-circle {
+			position: absolute;
+			top: -11px;
+			right: -8px;
+			height: 25px;
+			width: 25px;
+			border: 5px solid #19a6b0;
+			border-radius: 70px;
+			animation: heartbit 1s ease-out;
+			animation-iteration-count: infinite;
+		}
+
+        .progress-gradient-evaluation {
+		background-color: #19a6b0; 
+		border-radius: 50px;
+        }
+		.progress-gradient-evaluation.progress-bar {
+			background-color: #19a6b0;
+			border-radius: 50px;
+		}*/
+
+	
+</style>
+
+<div class="container-fluid">
+            <div class="page-title">
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                  <h3>
+                     Асосий Ойна</h3>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="home-item" asp-action="Index" asp-area="SimpleUser" asp-controller="Home"><i data-feather="home"></i></a></li>
+                    
+                    <li class="breadcrumb-item active">Асосий Ойна</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid general-widget ecommerce-dash">
+              <div class="row">
+             <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                  <div class="card-body">
+                    <div class="media static-widget">
+                      <div class="media-body">
+                        <h6 class="font-roboto">@Localizer["RealEstates"]</h6>
+                        <h4 class="mb-0 counter" id="realEstate">@ViewBag.RealEstates</h4>
+                      </div>
+                      <a asp-action="Index" asp-area="SimpleUser" asp-controller="RealEstates">
+                      
+                      <i class="fa fa-building-o fa-3x" style="color:#ffc500"></i></a>
+                    </div>
+                    <div class="progress-widget">
+                      <div class="progress sm-progress-bar progress-animate">
+                        <div class="progress-gradient-secondary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                  <div class="card-body">
+                    <div class="media static-widget">
+                      <div class="media-body">
+                        <h6 class="font-roboto">@Localizer["Shares"]</h6>
+                        <h4 class="mb-0 counter">@ViewBag.Shares</h4>
+                      </div>
+                      <a asp-action="Index" asp-area="SimpleUser" asp-controller="Shares">
+                          <i class="fa fa-chart-pie fa-3x" style="color:#7dc006"></i>
+                      </a>
+                    </div>
+                    <div class="progress-widget">
+                      <div class="progress sm-progress-bar progress-animate">
+                        <div class="progress-gradient-success" role="progressbar" style="width: 60%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                  <div class="card-body">
+                    <div class="media static-widget">
+                      <div class="media-body">
+                        <h6 class="font-roboto">@Localizer["TransfAssets"]</h6>
+                        <h4 class="mb-0 counter">@ViewBag.TransfAssets</h4>
+                      </div>
+                      <a asp-action="Index" asp-area="SimpleUser" asp-controller="TransferredAssets">
+                          <i class="fa fa-gift fa-3x" ></i>
+                      </a>
+                    </div>
+                    <div class="progress-widget">
+                      <div class="progress sm-progress-bar progress-animate">
+                        <div class="progress-gradient-primary" role="progressbar" style="width: 48%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                  <div class="card-body">
+                    <div class="media static-widget">
+                      <div class="media-body">
+                        <h6 class="font-roboto">@Localizer["AssetEval"]</h6>
+                        <h4 class="mb-0 counter">@ViewBag.AssetEval</h4>
+                      </div>
+                      <a asp-action="Index" asp-area="SimpleUser" asp-controller="AssetEvaluations">
+                          <i class="fa fa-certificate fa-3x" style="color:#19a6b0"></i>
+                      </a>
+                    </div>
+                    <div class="progress-widget" >
+                      <div class="progress sm-progress-bar progress-animate" >
+                        <div class="progress-gradient-warning" role="progressbar" style=" width: 48%; " aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                  <div class="card-body">
+                    <div class="media static-widget">
+                      <div class="media-body">
+                        <h6 class="font-roboto">@Localizer["SubmissionOnB"]</h6>
+                        <h4 class="mb-0 counter" id="realEstate">@ViewBag.SubmissionOnB</h4>
+                      </div>
+                      <a asp-action="Index" asp-area="SimpleUser" asp-controller="SubmissionOnBiddings">
+                      
+                      <i class="fa fa-legal fa-3x" style="color:#ffc500"></i></a>
+                    </div>
+                    <div class="progress-widget">
+                      <div class="progress sm-progress-bar progress-animate">
+                        <div class="progress-gradient-secondary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                  <div class="card-body">
+                    <div class="media static-widget">
+                      <div class="media-body">
+                        <h6 class="font-roboto">@Localizer["ReductionIn"]</h6>
+                        <h4 class="mb-0 counter">@ViewBag.ReductionIn</h4>
+                      </div>
+                      <a asp-action="Index" asp-area="SimpleUser" asp-controller="ReductionInAssets">
+                          <i class="fa fa-sort-amount-down fa-3x" style="color:#7dc006"></i>
+                      </a>
+                    </div>
+                    <div class="progress-widget">
+                      <div class="progress sm-progress-bar progress-animate">
+                        <div class="progress-gradient-success" role="progressbar" style="width: 60%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                  <div class="card-body">
+                    <div class="media static-widget">
+                      <div class="media-body">
+                        <h6 class="font-roboto">@Localizer["OneTimeP"]</h6>
+                        <h4 class="mb-0 counter">@ViewBag.OneTimeP</h4>
+                      </div>
+                      <a asp-action="Index" asp-area="SimpleUser" asp-controller="OneTimePaymentAssets">
+                          <i class="fa fa-star fa-3x" ></i>
+                      </a>
+                    </div>
+                    <div class="progress-widget">
+                      <div class="progress sm-progress-bar progress-animate">
+                        <div class="progress-gradient-primary" role="progressbar" style="width: 48%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="card o-hidden">
+                  <div class="card-body">
+                    <div class="media static-widget">
+                      <div class="media-body">
+                        <h6 class="font-roboto">@Localizer["Installment"]</h6>
+                        <h4 class="mb-0 counter">@ViewBag.Installment</h4>
+                      </div>
+                      <a asp-action="Index" asp-area="SimpleUser" asp-controller="InstallmentAssets">
+                          <i class="fa fa-star-o fa-3x" style="color:#19a6b0"></i>
+                      </a>
+                    </div>
+                    <div class="progress-widget" >
+                      <div class="progress sm-progress-bar progress-animate" >
+                        <div class="progress-gradient-warning" role="progressbar" style=" width: 48%; " aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              </div>
+              </div>
+
+
+
+
+
+<div class="row">
+              <div class="col-xl-7 col-md-12 box-col-12">
+                <div class="card o-hidden">
+                  <div class="card-header pb-0">
+                    <div class="media">
+                      <div class="media-body">
+                        <h5>@Localizer["record"]</h5>
+                      </div>
+                     @* <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+                        <div class="icon-box-show onhover-show-div">
+                          <ul> 
+                            <li> <a>
+                                 Done</a></li>
+                            <li> <a>
+                                 Pending</a></li>
+                            <li> <a>
+                                 Rejected</a></li>
+                            <li> <a>In Progress</a></li>
+                          </ul>
+                        </div>
+                      </div>*@
+                    </div>
+                  </div>
+                  <div class="bar-chart-widget">
+                    <div class="bottom-content card-body">
+                      <div class="row">
+                        <div class="col-12">
+                          <div id="chartdiv2" style="height:400px;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="col-xl-3 xl-50 col-md-6 box-col-6">
+                <div class="card">
+                  <div class="cal-date-widget card-body">
+                    <div class="cal-datepicker" style="width:auto">
+                      <div class="datepicker-here float-sm-end" data-language="uz">    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+<p id="rTransf" hidden>@ViewBag.rTransfAssets</p>
+<p id="rAssetEval" hidden>@ViewBag.rAssetEval</p>
+<p id="rSubmB" hidden>@ViewBag.rSubmissionOnB</p>
+<p id="rReduction" hidden>@ViewBag.rReductionIn</p>
+<p id="rOneTimeP" hidden>@ViewBag.rOneTimeP</p>
+<p id="rTransf" hidden>@ViewBag.rTransfAssets</p>
+<p id="rInstallment" hidden>@ViewBag.rInstallment</p>
+
+<p id="sTransf" hidden>@ViewBag.sTransfAssets</p>
+<p id="sAssetEval" hidden>@ViewBag.sAssetEval</p>
+<p id="sSubmB" hidden>@ViewBag.sSubmissionOnB</p>
+<p id="sReduction" hidden>@ViewBag.sReductionIn</p>
+<p id="sOneTimeP" hidden>@ViewBag.sOneTimeP</p>
+<p id="sTransf" hidden>@ViewBag.sTransfAssets</p>
+<p id="sInstallment" hidden>@ViewBag.sInstallment</p>
+
+@section scripts {
+
+ @*   <!-- Donut Chart code -->
+    <script>
+
+        var realEstate = document.getElementById('realEstate').innerHTML;
+        var share = document.getElementById('share').innerHTML;
+        var transf = document.getElementById('transf').innerHTML;
+        var assetEval = document.getElementById('assetEval').innerHTML;
+        var submB = document.getElementById('submB').innerHTML;
+        var reduction = document.getElementById('reduction').innerHTML;
+        var oneTimeP = document.getElementById('oneTimeP').innerHTML;
+        var installment = document.getElementById('installment').innerHTML;
+        am4core.ready(function () {
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            // Create chart
+            var chart = am4core.create("chartdiv", am4charts.PieChart);
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+            chart.data = [
+                {
+                    parametr: '@Localizer["RealEstates"]',
+                    value: realEstate
+                },
+                {
+                    parametr: '@Localizer["Shares"]',
+                    value: share
+                },
+                {
+                    parametr: '@Localizer["TransfAssets"]',
+                    value: transf
+                },
+                {
+                    parametr: '@Localizer["AssetEval"]',
+                    value: assetEval
+                },
+                {
+                    parametr: '@Localizer["SubmissionOnB"]',
+                    value: submB
+                },
+                {
+                    parametr: '@Localizer["ReductionIn"]',
+                    value: reduction
+                },
+                {
+                    parametr: '@Localizer["OneTimeP"] ',
+                    value: oneTimeP
+                },
+                {
+                    parametr: '@Localizer["Installment"]',
+                    value: installment
+                }
+            ];
+
+            var series = chart.series.push(new am4charts.PieSeries());
+            series.dataFields.value = "value";
+            series.dataFields.radiusValue = "value";
+            series.dataFields.category = "parametr";
+            series.slices.template.cornerRadius = 6;
+            series.colors.step = 3;
+
+            series.hiddenState.properties.endAngle = -90;
+
+            chart.legend = new am4charts.Legend();
+
+        }); // end am4core.ready()
+    </script>*@
+
+    <!-- Bar Chart code -->
+    <script>
+
+        var rTransf = document.getElementById('rTransf').innerHTML;
+        var rAssetEval = document.getElementById('rAssetEval').innerHTML;
+        var rSubmB = document.getElementById('rSubmB').innerHTML;
+        var rReduction = document.getElementById('rReduction').innerHTML;
+        var rOneTimeP = document.getElementById('rOneTimeP').innerHTML;
+        var rInstallment = document.getElementById('rInstallment').innerHTML;
+
+        var sTransf = document.getElementById('sTransf').innerHTML;
+        var sAssetEval = document.getElementById('sAssetEval').innerHTML;
+        var sSubmB = document.getElementById('sSubmB').innerHTML;
+        var sReduction = document.getElementById('sReduction').innerHTML;
+        var sOneTimeP = document.getElementById('sOneTimeP').innerHTML;
+        var sInstallment = document.getElementById('sInstallment').innerHTML;
+
+        am4core.ready(function () {
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            // Create chart instance
+            var chart = am4core.create("chartdiv2", am4charts.XYChart);
+
+            // Add percent sign to all numbers
+            chart.numberFormatter.numberFormat = "#.#''";
+
+            // Add data
+            chart.data = [{
+                "block": "Топширилган" + '\n' + "активлар",
+                "realEstate": rTransf,
+                "share": sTransf
+            }, {
+                "block": "Баҳоланган" + '\n' + " активлар",
+                "realEstate": rAssetEval,
+                "share": sAssetEval
+            }, {
+                "block": "Ким ошди" + '\n' + "савдосига қўйиш",
+                "realEstate": rSubmB,
+                "share": sSubmB
+            }, {
+                "block": "Босқичма-босқич" + '\n' + "пасайтитириш",
+                "realEstate": rReduction,
+                "share": sReduction
+            }, {
+                "block": "Бир марталик" + '\n' + "тўлов асосида" + '\n' + "сотилган активлар",
+                "realEstate": rOneTimeP,
+                "share": sOneTimeP
+            }, {
+                "block": "Бўлиб-бўлиб" + '\n' + "тўланган активлар",
+                "realEstate": rInstallment,
+                "share": sInstallment
+            }];
+
+            // Create axes
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "block";
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.renderer.minGridDistance = 30;
+
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.title.text = "@Localizer["Sravnenie"]";
+            valueAxis.title.fontWeight = 800;
+
+            // Create series
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.valueY = "realEstate";
+            series.dataFields.categoryX = "block";
+            series.clustered = false;
+            series.tooltipText = "{categoryX} у Объектов Недвижимости : [bold]{valueY}[/]";
+
+            var series2 = chart.series.push(new am4charts.ColumnSeries());
+            series2.dataFields.valueY = "share";
+            series2.dataFields.categoryX = "block";
+            series2.clustered = false;
+            series2.columns.template.width = am4core.percent(50);
+            series2.tooltipText = "{categoryX} у Долей : [bold]{valueY}[/]";
+
+            chart.cursor = new am4charts.XYCursor();
+            chart.cursor.lineX.disabled = true;
+            chart.cursor.lineY.disabled = true;
+
+        }); // end am4core.ready()
+    </script>
+
+} 

@@ -1,0 +1,1098 @@
+﻿@model IEnumerable<ControlActive.Models.Template>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Index";
+    var count = Model.Count();
+}
+<style>
+    .stroked {
+        text-decoration: line-through;
+    }
+
+    .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+</style>
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>
+                    @Localizer["ControlTemplates"]
+                </h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Users" asp-action="Dashboard"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">@Localizer["Catalog"]</li>
+                    <li class="breadcrumb-item active">@Localizer["Templates"]</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        @*<div class="col-xl-3 box-col-3 pe-0 xl-30">
+            <div class="md-sidebar">
+                <a class="btn btn-primary md-sidebar-toggle" href="javascript:void(0)">file filter</a>
+                <div class="md-sidebar-aside job-left-aside custom-scrollbar">
+                    <div class="file-sidebar">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul>
+                                    <li>
+                                        <div class="btn btn-primary"><i data-feather="home"></i>Home </div>
+                                    </li>
+                                    <li>
+                                        <div class="btn btn-light"><i data-feather="folder"></i>All    </div>
+                                    </li>
+                                    <li>
+                                        <div class="btn btn-light"><i data-feather="clock"></i>Recent    </div>
+                                    </li>
+                                    <li>
+                                        <div class="btn btn-light"><i data-feather="star"></i>Starred      </div>
+                                    </li>
+                                    <li>
+                                        <div class="btn btn-light"><i data-feather="alert-circle"></i>Recovery        </div>
+                                    </li>
+                                    <li>
+                                        <div class="btn btn-light"><i data-feather="trash-2"></i>Deleted </div>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <ul>
+                                    <li>
+                                        <div class="btn btn-outline-primary"><i data-feather="database">   </i>Storage   </div>
+                                        <div class="m-t-15">
+                                            <div class="progress sm-progress-bar mb-1">
+                                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <h6>25 GB of 100 GB used</h6>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <ul>
+                                    <li>
+                                        <div class="btn btn-outline-primary"><i data-feather="grid">   </i>Pricing plan</div>
+                                    </li>
+                                    <li>
+                                        <div class="pricing-plan">
+                                            <h6>Trial Version </h6>
+                                            <h5>FREE</h5>
+                                            <p> 100 GB Space</p>
+                                            <div class="btn btn-outline-primary btn-xs">Selected</div><img class="bg-img" src="../assets/images/dashboard/folder.png" alt="">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="pricing-plan">
+                                            <h6>Premium</h6>
+                                            <h5>$5/month</h5>
+                                            <p> 200 GB Space</p>
+                                            <div class="btn btn-outline-primary btn-xs">Contact Us</div><img class="bg-img" src="../assets/images/dashboard/folder1.png" alt="">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <div class="col-xl-9 col-md-12 box-col-9 xl-70">
+            <div class="file-content">
+                <div class="card">
+
+                    <div class="card-body file-manager">
+                        <div style="margin-top:30px; margin-right:10px; margin-bottom:10px; float:right; ">
+                            <form class="d-inline-flex" action="#" method="POST" enctype="multipart/form-data" name="myForm">
+                                <div style="height: 0px;width: 0px; overflow:hidden;">
+                                    <input id="upfile" type="file" onchange="sub(this)">
+                                </div>
+                            </form>
+                            <div data-bs-toggle="modal" data-bs-target="#templateModal" class="btn btn-outline-primary ms-2"><i data-feather="upload"></i>@Localizer["upload"]</div>
+                        </div>
+                        <h5 class="mt-4">@Localizer["folders"]</h5>
+                        <ul class="folder">
+
+                            <li class="folder-box">
+                                <div class="media" id="realEstateF" style="cursor:pointer">
+                                    <i class="fa fa-folder f-36 txt-warning"></i>
+                                    <div class="media-body ms-3">
+                                        <h6 class="mb-0">@Localizer["RealEstate"]</h6>
+                                        <p>@ViewBag.RCount @Localizer["templateCount"]</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="folder-box">
+                                <div class="media" id="shareF" style="cursor:pointer">
+                                    <i class="fa fa-folder f-36 txt-warning"></i>
+                                    <div class="media-body ms-3">
+                                        <h6 class="mb-0">@Localizer["Share"]</h6>
+                                        <p>@ViewBag.SCount @Localizer["templateCount"]</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <br>
+                        @if (ViewBag.Target == 0){
+                            <h4>@Localizer["allTemplates"]</h4>
+                        }
+                        @if (ViewBag.Target == 1)
+                                    {
+                            <h4>@Localizer["realEstateTemplates"]</h4>
+                        }
+                        @if (ViewBag.Target == 2)
+                        {
+                            <h4>@Localizer["shareTemplates"]</h4>
+                        }
+                        
+                         @if(count == 0){
+                            <h6>@Localizer["noTemplatesAvailable"]</h6>
+                        }
+
+                        
+
+                        <ul class="files">
+                            
+                            @foreach(var item in Model){
+                                <li class="file-box">
+
+                                    <div class="file-top ">
+                                        <i class="fa fa-file-excel-o txt-success"></i>
+
+                                        <i class=" fa fa-ellipsis-v f-14 ellips"></i>
+                                        
+                                    </div>
+
+                                    <div class="file-bottom">
+                                        <h6>@item.TemplateName </h6>
+                                        @if(item.IsActive){
+
+                                            <span class="badge rounded-pill badge-success">@Localizer["active"]</span>
+                            
+                                            <form id="changeStatus1">
+                                                <div class="col media-body switch-sm icon-state switch-outline text-end">
+                                                    <label class="switch">
+                                                        <input name="Status" id="toPassive" type="checkbox" checked=""><span class="switch-state bg-primary"></span>
+                                                    </label>
+                                                </div>
+                                                <input name="TemplateId" type="text" value="@item.TemplateId" hidden />
+                                            </form>
+                                            <i style="cursor:pointer" class="fa fa-edit" onclick='Edit(@item.TemplateId, "@item.IsRealEstate", "@item.IsShare", "@item.HasTransferredAssets", "@item.HasAssetEvaluation", "@item.HasAuction", "@item.HasReductionInAsset", "@item.HasOneTimePaymentAsset", "@item.HasInstallmentAsset", "@item.HasUser", "@item.TemplateName", "@item.File.SystemPath")'></i>
+                                            <i style="cursor:pointer" class="fa fa-trash-o" onclick="Delete('/Admin/Templates/Delete/@item.TemplateId')"></i>
+                                            <i style="cursor:pointer" class="fa fa-download" onclick="Download(@item.TemplateId)"></i>
+                                        }
+                                        @if (!item.IsActive)
+                                        {
+
+                                            <span class="badge rounded-pill badge-secondary ">@Localizer["passive"]</span>
+
+                                            <form id="changeStatus2">
+                                            <div class="col media-body switch-sm icon-state switch-outline text-end">
+                                                <label class="switch">
+                                                    <input name="Status" id="toActive" type="checkbox" ><span class="switch-state bg-primary"></span>
+                                                </label>
+                                            </div>
+                                            <input name="TemplateId" type="text" value="@item.TemplateId" hidden />
+                                            </form>
+                                            <i style="cursor:pointer" class="fa fa-edit" onclick='Edit(@item.TemplateId, "@item.IsRealEstate", "@item.IsShare", "@item.HasTransferredAssets", "@item.HasAssetEvaluation", "@item.HasAuction", "@item.HasReductionInAsset", "@item.HasOneTimePaymentAsset", "@item.HasInstallmentAsset", "@item.HasUser", "@item.TemplateName", "@item.File.SystemPath")'></i>
+                                            <i style="cursor:pointer" class="fa fa-trash-o" onclick="Delete('/Admin/Templates/Delete/@item.TemplateId')"></i>
+                                            <i style="cursor:pointer" class="fa fa-download" onclick="Download(@item.TemplateId)"></i>
+                                           
+                                            
+                                        }
+                                    </div>
+                                </li>
+                            }
+                            
+                            
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Add Template-->
+<div class="modal fade" id="templateModal" tabindex="-1" role="dialog" aria-labelledby="templateModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["templateModalTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form autocomplete="off" id="template-form" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">
+
+                    
+                    <div class="card-body animate-chk">
+                        <div class="row">
+                            @if (ViewBag.Target == 0)
+                            {
+                                <div class="col">
+                                    <label class="d-block" for="edo-ani">
+                                        <input class="radio_animated"  value="1" type="radio" name="SelectedType" checked="">@Localizer["RealEstate"]
+                                    </label>
+                                    <label class="d-block" for="edo-ani1">
+                                        <input class="radio_animated"  value="2" type="radio" name="SelectedType">@Localizer["Share"]
+                                    </label>
+                                </div>
+
+                            }
+
+                            @if (ViewBag.Target == 1)
+                            {
+                                <div class="col">
+                                    <label class="d-block" for="edo-ani">
+                                        <input class="radio_animated" value="1" type="radio" name="SelectedType" checked="">@Localizer["RealEstate"]
+                                    </label>
+                                </div>
+                            }
+
+                            @if (ViewBag.Target == 2)
+                            {
+                                <div class="col">
+                                    <label class="d-block" for="edo-ani1">
+                                        <input class="radio_animated" value="2" type="radio" name="SelectedType" checked="">@Localizer["Share"]
+                                    </label>
+                                </div>
+                            }
+                            
+                            <div class="col">
+                                <label class="d-block" for="block2" id="lblock2">
+                                    <input class="checkbox_animated" name="HasTransferredAsset" id="block2" type="checkbox" >@Localizer["Transferred"]
+                                </label>
+                                <label class="d-block" for="block3" id="lblock3">
+                                    <input class="checkbox_animated" name="HasAssetEvaluation" id="block3" type="checkbox">@Localizer["AssetEvaluation"]
+                                </label>
+                                <label class="d-block" for="block4" id="lblock4">
+                                    <input class="checkbox_animated" name="HasAuction" id="block4" type="checkbox">@Localizer["Auction"]
+                                </label>
+                                <label class="d-block" for="block5" id="lblock5">
+                                    <input class="checkbox_animated" name="HasReduction" id="block5" type="checkbox">@Localizer["Reduction"]
+                                </label>
+                                <label class="d-block" for="block6" id="lblock6">
+                                    <input class="checkbox_animated" name="HasOneTimePayment" id="block6" type="checkbox">@Localizer["OneTimePayment"]
+                                </label>
+                                <label class="d-block" for="block7" id="lblock7">
+                                    <input class="checkbox_animated" name="HasInstallment" id="block7" type="checkbox">@Localizer["Installment"]
+                                </label>
+                                <label class="d-block" for="block8" id="lblock8">
+                                    <input class="checkbox_animated" name="HasUser" id="block8" type="checkbox">@Localizer["User"]
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["TemplateFile"] <span class="required">*</span>
+                        </label>
+                        <a style="text-align:center; cursor:pointer;display:block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('TemplateFileIn').click()">Шаблон файлини танланг</a>
+                        <span style="margin-top:10px; color:green" id="display-TemplateFile"></span>
+                        <input type="file" name="TemplateFile" placeholder="Шаблон файли *" id="TemplateFileIn" onchange="getTemplateFile(this)" style="display:none" accept=".xlsx, .xlsm, .xls" class="form-control" value="default" required />
+                        <span style="display:none; color:red" id="errorFileMsg"><i class="fa fa-ban"></i> Тўғри форматдаги файлни танланг</span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["TemplateName"] <span class="required">*</span>
+                        </label>
+                        <input type="text" id="tName" name="TemplateName" placeholder="Шаблон номи" class="form-control" required />
+                    </div>                  
+
+                    <div class="ln_solid"></div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button id="create-btn" type="button" asp-controller="Templates" asp-action="Create" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i> @Localizer["AddTemplate"] </button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="templateModalEdit" tabindex="-1" role="dialog" aria-labelledby="templateModalEdit" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["templateModalEditTitle"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form autocomplete="off" id="template-form-edit" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">
+
+
+                    <div class="card-body animate-chk">
+                        <div class="row">
+
+                            <div class="col">
+                                <label class="d-block" for="edo-ani">
+                                    <input id="isR" class="radio_animated" value="1" type="radio" name="SelectedType" >@Localizer["RealEstate"]
+                                </label>
+                                <label class="d-block" for="edo-ani1">
+                                    <input id="isSh" class="radio_animated" value="2" type="radio" name="SelectedType">@Localizer["Share"]
+                                </label>
+                            </div>                           
+
+                            <div class="col">
+                                <label class="d-block" for="_block2" id="_lblock2">
+                                    <input class="checkbox_animated" name="HasTransferredAsset" id="_block2" type="checkbox">@Localizer["Transferred"]
+                                </label>
+                                <label class="d-block" for="_block3" id="_lblock3">
+                                    <input class="checkbox_animated" name="HasAssetEvaluation" id="_block3" type="checkbox">@Localizer["AssetEvaluation"]
+                                </label>
+                                <label class="d-block" for="_block4" id="_lblock4">
+                                    <input class="checkbox_animated" name="HasAuction" id="_block4" type="checkbox">@Localizer["Auction"]
+                                </label>
+                                <label class="d-block" for="_block5" id="_lblock5">
+                                    <input class="checkbox_animated" name="HasReduction" id="_block5" type="checkbox">@Localizer["Reduction"]
+                                </label>
+                                <label class="d-block" for="_block6" id="_lblock6">
+                                    <input class="checkbox_animated" name="HasOneTimePayment" id="_block6" type="checkbox">@Localizer["OneTimePayment"]
+                                </label>
+                                <label class="d-block" for="_block7" id="_lblock7">
+                                    <input class="checkbox_animated" name="HasInstallment" id="_block7" type="checkbox">@Localizer["Installment"]
+                                </label>
+                                <label class="d-block" for="_block8" id="_lblock8">
+                                    <input class="checkbox_animated" name="HasUser" id="_block8" type="checkbox">@Localizer["User"]
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            <a id="tFile" href="">@Localizer["TemplateFile"]</a>
+                        </label>
+                        <a style="text-align:center; cursor:pointer;display:block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('_TemplateFileIn').click()">Янги файл танлаш</a>
+                        <span style="margin-top:10px; color:green" id="_display-TemplateFile"></span>
+                        <input type="file" name="TemplateFile" placeholder="Шаблон файли *" id="_TemplateFileIn" onchange="_getTemplateFile(this)" style="display:none" accept=".xlsx, .xlsm, .xls" class="form-control" value="default" required />
+                        <span style="display:none; color:red" id="_errorFileMsg"><i class="fa fa-ban"></i> Тўғри форматдаги файлни танланг</span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["TemplateName"] <span class="required">*</span>
+                        </label>
+                        <input type="text" id="_tName" name="TemplateName" placeholder="Шаблон номи" class="form-control" required />
+                    </div>
+                    <input type="text" id="tId" name="TemplateId" hidden />
+                    <div class="ln_solid"></div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button id="edit-btn" type="button" asp-controller="Templates" asp-action="Edit" value="Edit" class="btn btn-info"><i class="fas fa-plus-circle"></i> @Localizer["Save"] </button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $('#realEstateF').click(function(){
+
+            window.location.href = "/Admin/Templates/Index/?target="+ 1;
+
+        });
+
+        $('#shareF').click(function () {
+
+            window.location.href = "/Admin/Templates/Index/?target="+2;
+
+        });
+
+        function Edit(id, isRealEstate, isShare, hasBlock2, hasBlock3, hasBlock4, hasBlock5, hasBlock6, hasBlock7, hasBlock8, name, link){
+            
+            $("#tId").val(id);
+            if(isRealEstate == "True"){
+                $("#isR").prop('checked', true);
+            }
+            if(isShare == "True"){
+                $("#isSh").prop('checked', true);
+            }
+
+            if (hasBlock2 == "True") {
+                $("#_block2").prop('checked', true);
+            }
+
+            if (hasBlock3 == "True") {
+                $("#_block3").prop('checked', true);
+            }
+
+            if (hasBlock4 == "True") {
+                $("#_block4").prop('checked', true);
+            }
+
+            if (hasBlock5 == "True") {
+                $("#_block5").prop('checked', true);
+            }
+
+            if (hasBlock6 == "True") {
+                $("#_block6").prop('checked', true);
+            }
+
+            if (hasBlock7 == "True") {
+                $("#_block7").prop('checked', true);
+            }
+             
+            if (hasBlock8 == "True") {
+                $("#_block8").prop('checked', true);
+            }
+
+            $("#_tName").val(name);
+
+            $("#tLink").attr("href", link);
+
+            $("#templateModalEdit").modal("show");
+        }
+
+        function Download(id){
+
+            window.location.href = "/Admin/Templates/DownloadFile/" + id;
+        }
+
+        function Delete(url) {
+            Swal.fire({
+                title: "Ўчиришни тасдиқлайсизми?",
+                text: "Ўчирилгач, қайта тиклай олмайсиз!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Тасдиқлайман!',
+                cancelButtonText: 'Бекор қилиш',
+            }).then(function (willDelete) {
+                if (willDelete.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: url,
+                        success: function (data) {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: "Ўчирилди!",
+                                    icon: "success",
+                                });
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 2000);
+                            }
+                            else {
+                                Swal.fire(data.message);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        $('#toPassive, #toActive').on('click', function(e){
+
+            e.preventDefault();
+            var form = $(this).closest('form')[0];
+            var formData = new FormData(form);
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Templates/ChangeStatus/",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            title: data.message,
+                            icon: "success"
+                        });
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    }
+
+                    else {
+                        Swal.fire({
+                            title: "Хатолик",
+                            text: data.message,
+                            icon: "error"
+                        });
+                    }
+                }
+            });
+
+        });
+
+        $('#create-btn').click(function(e){
+
+            e.preventDefault();
+            var form = $('#template-form')[0];;
+            var formData = new FormData(form);
+
+            var file = document.getElementById('TemplateFileIn');
+            if (!file.value) {
+                var noSFileMsg = document.getElementById("errorFileMsg");
+                $("#display-TemplateFile").css('borderColor', 'red');
+                $('#errorFileMsg').show();
+
+                return false;
+            }
+            else{
+                $("#display-TemplateFile").css('borderColor', 'green');
+            }
+
+            var name = document.getElementById('tName');
+
+            if(name.value == ""){
+                $("#tName").css('borderColor', 'red');
+                return false;
+            }
+            else{
+                $("#tName").css('borderColor', 'green');
+            }
+
+            $('#templateModal').modal('hide');
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Templates/Create/",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            title: data.message,
+                            icon: "success"
+                        });
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1700);
+                    }
+
+                    else {
+                        Swal.fire({
+                            title: "Хатолик",
+                            text: data.message,
+                            icon: "error"
+                        });
+                    }
+                }
+            });
+
+        });
+
+        $('#edit-btn').click(function(e){
+
+            e.preventDefault();
+            var form = $('#template-form-edit')[0];;
+            var formData = new FormData(form);
+
+            var file = document.getElementById('_TemplateFileIn');
+            
+            var name = document.getElementById('_tName');
+
+            if(name.value == ""){
+                $("#_tName").css('borderColor', 'red');
+                return false;
+            }
+            else{
+                $("#_tName").css('borderColor', 'green');
+            }
+
+            $('#templateModalEdit').modal('hide');
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Templates/Edit/",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            title: data.message,
+                            icon: "success"
+                        });
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1700);
+                    }
+
+                    else {
+                        Swal.fire({
+                            title: "Хатолик",
+                            text: data.message,
+                            icon: "error"
+                        });
+                    }
+                }
+            });
+
+        });
+
+        function getTemplateFile(file) {
+
+            var validExts = new Array(".xlsx", ".xls", ".xlsm");
+            var fileExt = file.value;
+            fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+            if (validExts.indexOf(fileExt) < 0) {
+               
+                $('#errorFileMsg').show();
+                $("#display-TemplateFile").text("");
+            }
+
+            else {
+
+
+                var name = file.value.replace(/^.*[\\\/]/, '');
+                console.log(name);
+                $("#display-TemplateFile").text(name);
+
+                $('#errorFileMsg').hide();
+
+            }
+        }
+
+        function _getTemplateFile(file) {
+
+            var validExts = new Array(".xlsx", ".xls", ".xlsm");
+            var fileExt = file.value;
+            fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+            if (validExts.indexOf(fileExt) < 0) {
+
+                $('#_errorFileMsg').show();
+                $("#_display-TemplateFile").text("");
+            }
+
+            else {
+
+
+                var name = file.value.replace(/^.*[\\\/]/, '');
+                console.log(name);
+                $("#_display-TemplateFile").text(name);
+
+                $('#_errorFileMsg').hide();
+
+            }
+        }
+
+        $('#block2').click(function(){
+
+            if($('#block2').prop('checked')){
+                $('#block4').prop('checked', false);
+                $('#block4').attr('disabled', true);
+                $('#block5').prop('checked', false);
+                $('#block5').attr('disabled', true);
+                $('#block6').prop('checked', false);
+                $('#block6').attr('disabled', true);
+                $('#block7').prop('checked', false);
+                $('#block7').attr('disabled', true);
+
+                if (!$('#lblock4').hasClass('stroked')) {
+                    $('#lblock4').addClass('stroked')
+                }
+
+                if (!$('#lblock5').hasClass('stroked')) {
+                    $('#lblock5').addClass('stroked')
+                }
+
+                if (!$('#lblock6').hasClass('stroked')) {
+                    $('#lblock6').addClass('stroked')
+                }
+
+                if (!$('#lblock7').hasClass('stroked')) {
+                    $('#lblock7').addClass('stroked')
+                }
+
+                
+            }
+            else{
+
+                $('#block4').attr('disabled', false);
+                $('#block5').attr('disabled', false);
+                $('#block6').attr('disabled', false);
+                $('#block7').attr('disabled', false);
+
+
+                if ($('#lblock4').hasClass('stroked')) {
+                    $('#lblock4').removeClass('stroked')
+                }
+
+                if ($('#lblock5').hasClass('stroked')) {
+                    $('#lblock5').removeClass('stroked')
+                }
+
+                if ($('#lblock6').hasClass('stroked')) {
+                    $('#lblock6').removeClass('stroked')
+                }
+
+                if ($('#lblock7').hasClass('stroked')) {
+                    $('#lblock7').removeClass('stroked')
+                }
+            }
+        });
+
+        $('#block4').click(function () {
+
+            if ($('#block4').prop('checked')) {
+                $('#block2').prop('checked', false);
+                $('#block2').attr('disabled', true);
+                
+                $('#block7').prop('checked', false);
+                $('#block7').attr('disabled', true);
+
+                if (!$('#lblock2').hasClass('stroked')) {
+                    $('#lblock2').addClass('stroked')
+                }
+
+                if (!$('#lblock7').hasClass('stroked')) {
+                    $('#lblock7').addClass('stroked')
+                }
+
+                
+
+            }
+            else {
+
+                $('#block2').attr('disabled', false);                
+                $('#block7').attr('disabled', false);
+
+
+                if ($('#lblock2').hasClass('stroked')) {
+                    $('#lblock2').removeClass('stroked')
+                }
+
+                if ($('#lblock7').hasClass('stroked')) {
+                    $('#lblock7').removeClass('stroked')
+                }
+
+            }
+
+        });
+
+        $('#block6').click(function () {
+
+            if ($('#block6').prop('checked')) {
+                $('#block2').prop('checked', false);
+                $('#block2').attr('disabled', true);
+
+                $('#block7').prop('checked', false);
+                $('#block7').attr('disabled', true);
+
+                if (!$('#lblock2').hasClass('stroked')) {
+                    $('#lblock2').addClass('stroked')
+                }
+
+                if (!$('#lblock7').hasClass('stroked')) {
+                    $('#lblock7').addClass('stroked')
+                }
+
+               
+
+            }
+            else {
+
+                $('#block2').attr('disabled', false);
+                $('#block7').attr('disabled', false);
+
+                if ($('#lblock2').hasClass('stroked')){
+                    $('#lblock2').removeClass('stroked')
+                }
+
+                if ($('#lblock7').hasClass('stroked')) {
+                    $('#lblock7').removeClass('stroked')
+                }
+
+
+            }
+
+
+        });
+
+        $('#block7').click(function () {
+
+            if ($('#block7').prop('checked')) {
+                $('#block2').prop('checked', false);
+                $('#block2').attr('disabled', true);
+
+                $('#block4').prop('checked', false);
+                $('#block4').attr('disabled', true);
+
+                $('#block5').prop('checked', false);
+                $('#block5').attr('disabled', true);
+
+                $('#block6').prop('checked', false);
+                $('#block6').attr('disabled', true);
+
+                if (!$('#lblock2').hasClass('stroked')){
+                    $('#lblock2').addClass('stroked')
+                }
+
+                if (!$('#lblock4').hasClass('stroked')) {
+                    $('#lblock4').addClass('stroked')
+                }
+
+                if (!$('#lblock5').hasClass('stroked')) {
+                    $('#lblock5').addClass('stroked')
+                }
+
+                if (!$('#lblock6').hasClass('stroked')) {
+                    $('#lblock6').addClass('stroked')
+                }
+
+            }
+            else {
+
+                $('#block2').attr('disabled', false);
+                $('#block4').attr('disabled', false);
+                $('#block5').attr('disabled', false);
+                $('#block6').attr('disabled', false);
+
+                if ($('#lblock2').hasClass('stroked')) {
+                    $('#lblock2').removeClass('stroked')
+                }
+
+                if ($('#lblock4').hasClass('stroked')) {
+                    $('#lblock4').removeClass('stroked')
+                }
+
+                if ($('#lblock5').hasClass('stroked')) {
+                    $('#lblock5').removeClass('stroked')
+                }
+
+                if ($('#lblock6').hasClass('stroked')) {
+                    $('#lblock6').removeClass('stroked')
+                }
+
+            }
+
+        });
+
+        $('#_block2').click(function(){
+
+            if ($('#_block2').prop('checked')) {
+                $('#_block4').prop('checked', false);
+                $('#_block4').attr('disabled', true);
+                $('#_block5').prop('checked', false);
+                $('#_block5').attr('disabled', true);
+                $('#_block6').prop('checked', false);
+                $('#_block6').attr('disabled', true);
+                $('#_block7').prop('checked', false);
+                $('#_block7').attr('disabled', true);
+
+                if (!$('#_lblock4').hasClass('stroked')) {
+                    $('#_lblock4').addClass('stroked')
+                }
+
+                if (!$('#_lblock5').hasClass('stroked')) {
+                    $('#_lblock5').addClass('stroked')
+                }
+
+                if (!$('#_lblock6').hasClass('stroked')) {
+                    $('#_lblock6').addClass('stroked')
+                }
+
+                if (!$('#_lblock7').hasClass('stroked')) {
+                    $('#_lblock7').addClass('stroked')
+                }
+
+
+            }
+            else {
+
+                $('#_block4').attr('disabled', false);
+                $('#_block5').attr('disabled', false);
+                $('#_block6').attr('disabled', false);
+                $('#_block7').attr('disabled', false);
+
+
+                if ($('#_lblock4').hasClass('stroked')) {
+                    $('#_lblock4').removeClass('stroked')
+                }
+
+                if ($('#_lblock5').hasClass('stroked')) {
+                    $('#_lblock5').removeClass('stroked')
+                }
+
+                if ($('#_lblock6').hasClass('stroked')) {
+                    $('#_lblock6').removeClass('stroked')
+                }
+
+                if ($('#_lblock7').hasClass('stroked')) {
+                    $('#_lblock7').removeClass('stroked')
+                }
+            }
+        });
+
+        $('#_block4').click(function () {
+
+            if ($('#_block4').prop('checked')) {
+                $('#_block2').prop('checked', false);
+                $('#_block2').attr('disabled', true);
+
+                $('#_block7').prop('checked', false);
+                $('#_block7').attr('disabled', true);
+
+                if (!$('#_lblock2').hasClass('stroked')) {
+                    $('#_lblock2').addClass('stroked')
+                }
+
+                if (!$('#_lblock7').hasClass('stroked')) {
+                    $('#_lblock7').addClass('stroked')
+                }
+
+
+
+            }
+            else {
+
+                $('#_block2').attr('disabled', false);
+                $('#_block7').attr('disabled', false);
+
+
+                if ($('#_lblock2').hasClass('stroked')) {
+                    $('#_lblock2').removeClass('stroked')
+                }
+
+                if ($('#_lblock7').hasClass('stroked')) {
+                    $('#_lblock7').removeClass('stroked')
+                }
+
+            }
+
+        });
+
+        $('#_block6').click(function () {
+
+            if ($('#_block6').prop('checked')) {
+                $('#_block2').prop('checked', false);
+                $('#_lock2').attr('disabled', true);
+
+                $('#_block7').prop('checked', false);
+                $('#_block7').attr('disabled', true);
+
+                if (!$('#_lblock2').hasClass('stroked')) {
+                    $('#_lblock2').addClass('stroked')
+                }
+
+                if (!$('#_lblock7').hasClass('stroked')) {
+                    $('#_lblock7').addClass('stroked')
+                }
+
+
+
+            }
+            else {
+
+                $('#_block2').attr('disabled', false);
+                $('#_block7').attr('disabled', false);
+
+                if ($('#_lblock2').hasClass('stroked')) {
+                    $('#_lblock2').removeClass('stroked')
+                }
+
+                if ($('#_lblock7').hasClass('stroked')) {
+                    $('#_lblock7').removeClass('stroked')
+                }
+
+
+            }
+
+
+        });
+
+        $('#_block7').click(function () {
+
+            if ($('#_block7').prop('checked')) {
+                $('#_block2').prop('checked', false);
+                $('#_block2').attr('disabled', true);
+
+                $('#_block4').prop('checked', false);
+                $('#_block4').attr('disabled', true);
+
+                $('#_block5').prop('checked', false);
+                $('#_block5').attr('disabled', true);
+
+                $('#_block6').prop('checked', false);
+                $('#_block6').attr('disabled', true);
+
+                if (!$('#_block2').hasClass('stroked')) {
+                    $('#_lblock2').addClass('stroked')
+                }
+
+                if (!$('#_lblock4').hasClass('stroked')) {
+                    $('#_block4').addClass('stroked')
+                }
+
+                if (!$('#_lblock5').hasClass('stroked')) {
+                    $('#_lblock5').addClass('stroked')
+                }
+
+                if (!$('#_lblock6').hasClass('stroked')) {
+                    $('#_lblock6').addClass('stroked')
+                }
+
+            }
+            else {
+
+                $('#_block2').attr('disabled', false);
+                $('#_block4').attr('disabled', false);
+                $('#_block5').attr('disabled', false);
+                $('#_block6').attr('disabled', false);
+
+                if ($('#_lblock2').hasClass('stroked')) {
+                    $('#_block2').removeClass('stroked')
+                }
+
+                if ($('#_lblock4').hasClass('stroked')) {
+                    $('#_lblock4').removeClass('stroked')
+                }
+
+                if ($('#_lblock5').hasClass('stroked')) {
+                    $('#_lblock5').removeClass('stroked')
+                }
+
+                if ($('#_lblock6').hasClass('stroked')) {
+                    $('#_lblock6').removeClass('stroked')
+                }
+
+            }
+
+        });
+
+    </script>
+}

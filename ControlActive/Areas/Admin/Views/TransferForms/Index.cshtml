@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ControlActive.Models.TransferForm>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+}
+
+<h1>Ўтказиш шакли</h1>
+
+<p>
+    <a class="btn btn-dark" asp-action="Create">Янги яратиш</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ўтказиш шакллари
+            </th>
+            <th>
+                Фаол
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransferFormName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TransferFormId">Ўзгартириш</a> 
+              
+                @*<a asp-action="Delete" asp-route-id="@item.TransferFormId">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

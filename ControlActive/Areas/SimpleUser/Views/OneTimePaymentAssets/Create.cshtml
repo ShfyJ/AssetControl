@@ -1,0 +1,141 @@
+﻿@model ControlActive.Models.OneTimePaymentAsset
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>@Localizer["Obsh"]</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href=""> <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item"> </li>
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="card col-sm-6">
+        <div class="job-search">
+            <div class="card-header pb-0">
+
+                <div class="media">
+
+                    <span class="img-40 img-fluid m-r-20 fa fa-star fa-3x"></span>
+                    <div class="media-body ">
+                        <h6 class="f-w-600"><a href="job-details.html">@Localizer["FillForm"]</a><span class="pull-right">@*3 days ago*@</span></h6>
+                        <p class=" loader-box" style="height:30px">@Localizer["CreateAction"]</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <form autocomplete="off" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AssetName"]  <span class="required">*</span>
+                        </label>
+
+                        <input class="form-control" name="name" required="required" value="@ViewBag.Name" readonly />
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["GoverningBodyName"]   <span class="required">*</span>
+                        </label>
+
+                        <input type="text" asp-for="GoverningBodyName" class="form-control" required="required" />
+                        <span asp-validation-for="GoverningBodyName" class="text-danger"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["SolutionNumber"]  <span class="required">*</span>
+                        </label>
+
+                        <input type="text" asp-for="SolutionNumber" class="form-control" required="required" />
+                        <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["SolutionDate"]  <span class="required">*</span>
+                        </label>
+
+                        <input type="text" asp-for="SolutionDate" class="datepicker-here form-control" required="required" />
+                        <span asp-validation-for="SolutionDate" class="text-danger"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["SolutionFileId"]   <span class="required">*</span>
+                        </label>
+                        <a style="text-align:center; cursor:pointer;display:block; width:150px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('SolutionFileIn').click()">@Localizer["Choose"]</a>
+                        <span style="margin-left:3px; margin-top:10px;" id="display-SolutionFile"></span>
+                        <span style="display:none;" id="noFileMsg">@Localizer["nofile"]</span>
+
+                        <input type="file" asp-for="SolutionFileId" id="SolutionFileIn" onchange="getSolutionFile(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" name="solutionFile" value="default" required />
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["BiddingDate"]  <span class="required">*</span>
+                        </label>
+
+                        <input type="text" asp-for="BiddingDate" value="@ViewBag.BiddingDate" class="datepicker-here form-control" required="required" readonly/>
+                        <span asp-validation-for="BiddingDate" class="text-danger"></span>
+
+                    </div>
+
+
+                    <input name="target" value="@ViewBag.Target" hidden />
+
+                    <div class="mb-3">
+                        <button id="submit" type="submit" asp-controller="OneTimePaymentAssets" asp-action="Create" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i> @Localizer["Create"]</button>
+
+                        <a asp-action="Index" class="btn btn-secondary">@Localizer["Back"]</a>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts{
+
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+
+<script src="~/js/valiadationMessages.js"></script>
+<script>
+
+
+    function getSolutionFile(fileName) {
+
+        $("#display-SolutionFile").html(fileName.replace(/^.*[\\\/]/, ''));
+        $('#noFileMsg').hide();
+    }
+
+
+</script>
+}

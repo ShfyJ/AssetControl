@@ -1,0 +1,176 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+@*<style>
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #fff;
+        background-color: #17a2b8;
+    }
+
+    a:link {
+        color: #17a2b8;
+        background-color: transparent;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #17a2b8;
+        background-color: transparent;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #07515a;
+        background-color: transparent;
+        text-decoration: underline;
+    }
+</style>*@
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Шахсий Кабинет</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Redirect" asp-action="Index"><i data-feather="home"></i> Асосий ойна</a></li>
+                    <li class="breadcrumb-item">Шахсий Кабинет</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="edit-profile">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+
+                    <div class="card-header pb-0">
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row mb-2">
+                                <div class="profile-title">
+                                    <div class="media">
+                                        <img class="img-70 rounded-circle" alt="" src="~/assets/images/user/7.jpg">
+                                        <a data-target="tooltip" data-bs-placement="bottom" title="Расм ўзгартириш" style="margin-top:50px; margin-left:-10px;" class="icon-wrapper" href="edit-profile.html"><i class="icofont icofont-pencil-alt-5"></i></a>
+                                        <div class="media-body">
+                                            <h3 class="mb-1 f-20 txt-primary">@Model.Name @Model.FName</h3>
+                                            <p class="f-12">@Model.Username</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </form>
+                        <div>
+                            <a asp-page="./ChangePassword" style="cursor:pointer; color:black" data-target="tooltip" data-bs-placement="right" title="Паролни ўзгартириш"><i class="fa fa-2x fa-spin fa-cog"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card">
+                   <div class="card-header pb-0">
+                    <h5 class="m-b-0">Менинг маълумотларим</h5>
+                  </div>
+                    <div class="card-body">
+                        
+                            <form method="post">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Ташкилот номи</label>
+                                            <select type="text" asp-for="Input.OrgId" asp-items="@Model.Organizations" class="form-control" id="orgName" placeholder="Ташкилот номи"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Лавозим</label>
+                                            <input type="text" asp-for="Input.Lavozm" class="form-control" id="position" placeholder="Лавозим">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Исм</label>
+                                            <input type="text" asp-for="Input.Name" class="form-control" id="firstName" placeholder="Исм">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Фамилия</label>
+                                            <input type="text" asp-for="Input.FName" class="form-control" id="lastname" placeholder="Фамилия">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Шариф</label>
+                                            <input type="text" asp-for="Input.SName" class="form-control" id="middlename" placeholder="Отасининг исми">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Логин</label>
+                                            <input type="email" asp-for="Username" class="form-control" id="userName" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Тел.рақам</label>
+                                            <input type="tel" asp-for="Input.PhoneNumber" class="form-control" id="tel" placeholder="тел. рақами">
+                                             <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-end">
+                                    <button style="cursor:pointer" type="submit" class="btn btn-primary">Сақлаш</button>
+                                </div>
+                            </form>
+                            
+                            
+                       
+                    </div>
+                </div>
+            </div>
+            <!-- Container-fluid Ends-->
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function showPasswords() {
+            var x = document.getElementById("inputpassw");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+
+            var x1= document.getElementById("newPassw");
+            if (x1.type === "password") {
+                x1.type = "text";
+            } else {
+                x1.type = "password";
+            }
+
+            var x2 = document.getElementById("confirmPassw");
+            if (x2.type === "password") {
+                x2.type = "text";
+            } else {
+                x2.type = "password";
+            }
+        }
+    </script>
+}

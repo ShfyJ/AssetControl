@@ -1,0 +1,188 @@
+﻿@model ControlActive.Models.SubmissionOnBidding
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>@Localizer["Title"]</h3>
+    </div>
+
+
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <a class="btn btn-outline-secondary" type="button" asp-controller="SubmissionOnBiddings" asp-action="Index"><i class="fas fa-backward"></i>@Localizer["Back"] </a>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    @if (ViewBag.Target == 1)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["RealEstate"] <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="realEstateId" value="@ViewBag.Id" hidden />
+                            </div>
+                        </div>
+                    }
+                    @if (ViewBag.Target == 2)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["Share"]  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="shareId" value="@ViewBag.Id" hidden />
+                            </div>
+                        </div>
+                    }
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["TradingPlatformName"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="TradingPlatformName" class="form-control" required="required" />
+                            <span asp-validation-for="TradingPlatformName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["AmountOnBidding"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="number" asp-for="AmountOnBidding" class="form-control" oninput="validity.valid||(value='');" min="1" required="required" />
+                            <span asp-validation-for="AmountOnBidding" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["BiddingExposureDate"] <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="BiddingExposureDate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                            <span asp-validation-for="BiddingExposureDate" class="text-danger"></span>
+                            <script>
+                                function timeFunctionLong(input) {
+                                    setTimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ExposureTime"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="number" asp-for="ExposureTime" class="form-control" oninput="validity.valid||(value='');" step="1" required="required" />
+                            <span asp-validation-for="ExposureTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ActiveValue"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="activeValue" type="text" asp-for="ActiveValue" class="form-control" value="@ViewBag.Price" required="required" />
+                            <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            <span asp-validation-for="ActiveValue" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["BiddingHoldDate"]   <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="BiddingHoldDate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                            <span asp-validation-for="BiddingHoldDate" class="text-danger"></span>
+                            <script>
+                                function timeFunctionLong(input) {
+                                    setTimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <input name="target" value="@ViewBag.Target" hidden />
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+
+                            <button id="submit" type="submit" asp-controller="SubmissionOnBiddings" asp-action="Create" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i>@Localizer["Create"] </button>
+
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/valiadationMessages.js"></script>
+
+    <script>
+        var v = document.getElementById("activeValue");
+        var flag = true;
+
+        $("#submit").click(function () {
+
+            if (v.value == "") {
+
+                v.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v.value) && v.value >= 0) {
+
+                v.style.borderColor = "green";
+                $('#errorMsg').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v.style.borderColor = "red";
+                $('#errorMsg').show();
+            }
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+    </script>
+
+}

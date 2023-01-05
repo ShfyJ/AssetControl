@@ -1,0 +1,105 @@
+﻿@model ControlActive.Models.AssetEvaluation
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>AssetEvaluation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AssetEvaluationId" />
+            <div class="form-group">
+                <label asp-for="EvaluatingOrgName" class="control-label"></label>
+                <input asp-for="EvaluatingOrgName" class="form-control" />
+                <span asp-validation-for="EvaluatingOrgName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportDate" class="control-label"></label>
+                <input asp-for="ReportDate" class="form-control" />
+                <span asp-validation-for="ReportDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportRegNumber" class="control-label"></label>
+                <input asp-for="ReportRegNumber" class="form-control" />
+                <span asp-validation-for="ReportRegNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportFileLink" class="control-label"></label>
+                <input asp-for="ReportFileLink" class="form-control" />
+                <span asp-validation-for="ReportFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportFileId" class="control-label"></label>
+                <input asp-for="ReportFileId" class="form-control" />
+                <span asp-validation-for="ReportFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MarketValue" class="control-label"></label>
+                <input asp-for="MarketValue" class="form-control" />
+                <span asp-validation-for="MarketValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExaminingOrgName" class="control-label"></label>
+                <input asp-for="ExaminingOrgName" class="form-control" />
+                <span asp-validation-for="ExaminingOrgName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExamReportDate" class="control-label"></label>
+                <input asp-for="ExamReportDate" class="form-control" />
+                <span asp-validation-for="ExamReportDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExamReportRegNumber" class="control-label"></label>
+                <input asp-for="ExamReportRegNumber" class="form-control" />
+                <span asp-validation-for="ExamReportRegNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExamReportFileLink" class="control-label"></label>
+                <input asp-for="ExamReportFileLink" class="form-control" />
+                <span asp-validation-for="ExamReportFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExamReportFileId" class="control-label"></label>
+                <input asp-for="ExamReportFileId" class="form-control" />
+                <span asp-validation-for="ExamReportFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="ReportStatus" /> @Html.DisplayNameFor(model => model.ReportStatus)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealEstateId" class="control-label"></label>
+                <select asp-for="RealEstateId" class="form-control" asp-items="ViewBag.RealEstateId"></select>
+                <span asp-validation-for="RealEstateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareId" class="control-label"></label>
+                <select asp-for="ShareId" class="form-control" asp-items="ViewBag.ShareId"></select>
+                <span asp-validation-for="ShareId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

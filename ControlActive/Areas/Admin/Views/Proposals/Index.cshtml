@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ControlActive.Models.Proposal>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+}
+
+<h1>Таклифлар</h1>
+
+<p>
+    <a class="btn btn-dark" asp-action="Create">Янги яратиш</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Таклифлар
+            </th>
+            <th>
+              Фаол
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProposalName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProposalId">Ўзгартириш</a>
+                
+                @*<a asp-action="Delete" asp-route-id="@item.ProposalId">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

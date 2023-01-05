@@ -1,0 +1,595 @@
+﻿@model ControlActive.Models.SubmissionOnBidding
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .dropbtn {
+        width: fit-content;
+        font-size: 16px;
+        border: none;
+    }
+
+
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
+    th {
+        font-size: 10px;
+    }
+
+    .switch:hover #icon_off,
+    .switch #icon_on {
+        display:none;
+        color:red
+    }
+
+    .switch:hover #icon_on{
+        display:inline;
+        color:green
+    }
+
+
+
+</style>
+
+<br />
+
+<div class="container-fluid ">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>@Localizer["Title"]</h3>
+
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb" style="float:right">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home"> <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item active">@Localizer["Title"]</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="email-wrap bookmark-wrap">
+        <div class="row">
+            <div class="col-xl-3 box-col-3 xl-30">
+                <div class="email-sidebar">
+                    <a class="btn btn-primary email-aside-toggle" href="javascript:void(0)">@Localizer["Bookmark"]</a>
+                    <div class="email-left-aside">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="email-app-sidebar left-bookmark">
+
+                                    <ul class="nav main-menu custom-scrollbar" role="tablist">
+                                        <li class="nav-item">
+                                            <div class="dropdown">
+
+                                                <button class="dropbtn btn-primary badge-light btn-block btn-mail w-100" type="button"><i class="me-2" data-feather="plus-circle"></i>@Localizer["NewAuction"]</button>
+                                                <div class="dropdown-content">
+                                                    <a data-bs-toggle="modal" data-bs-target="#exampleModal1">@Localizer["RealEstate"]</a>
+                                                    <a data-bs-toggle="modal" data-bs-target="#exampleModal2">@Localizer["Share"]</a>
+
+                                                </div>
+                                            </div>
+
+
+                                        </li>
+                                        <li class="nav-item"><span class="main-title"> @Localizer["Status"]</span></li>
+                                        <li><a id="pills-insale-tab" data-bs-toggle="pill" href="#pills-insale" role="tab" aria-controls="pills-insale" aria-selected="true"><span class="title"> @Localizer["OnSale"]</span><span style="color:white" class="badge badge-secondary" href="#">@ViewBag.InSale</span> </a></li>
+                                        <li><a class="show" id="pills-sold-tab" data-bs-toggle="pill" href="#pills-sold" role="tab" aria-controls="pills-sold" aria-selected="false"><span class="title"> @Localizer["Sold"]</span><span style="color:white" class="badge badge-success">@ViewBag.Sold</span> </a></li>
+                                        <li><a class="show" id="pills-notsold-tab" data-bs-toggle="pill" href="#pills-notsold" role="tab" aria-controls="pills-notsold" aria-selected="false"><span class="title"> @Localizer["NotSold"]</span><span style="color:white" class="badge badge-danger">@ViewBag.NotSold</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 box-col-9 col-md-12 xl-70">
+                <div class="email-right-aside bookmark-tabcontent">
+                    <div class="card email-body radius-left">
+                        <div class="ps-0">
+                            <div class="tab-content">
+                                <div class="tab-pane fade active show" id="pills-insale" role="tabpanel" aria-labelledby="pills-insale-tab">
+                                    <div class="card mb-0">
+                                        <div class="card-header d-flex">
+                                            <h5 class="mb-0">@Localizer["OnSale"]</h5>@*<a href="#"><i class="me-2" data-feather="printer"></i>Print</a>*@
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <ul class="nav nav-tabs border-tab nav-secondary nav-left" id="danger-tab1" role="tablist">
+                                                <li class="nav-item"><a class="nav-link active" id="danger-home1-tab" data-bs-toggle="tab" href="#danger-home1" role="tab" aria-controls="danger-home1" aria-selected="true" data-bs-original-title="" title=""><i class="icofont icofont-ui-home"></i>@Localizer["RealEstate"]</a></li>
+                                                <li class="nav-item"><a class="nav-link" id="profile1-danger-tab" data-bs-toggle="tab" href="#danger-profile1" role="tab" aria-controls="danger-profile1" aria-selected="false" data-bs-original-title="" title=""><i class="icofont icofont-man-in-glasses"></i>@Localizer["Share"]</a></li>
+
+                                            </ul>
+                                            <div class="tab-content" id="danger-tabContent1">
+                                                <div class="tab-pane fade show active" id="danger-home1" role="tabpanel" aria-labelledby="danger-home1-tab">
+                                                    <div class="taskadd">
+                                                        <div class="dt-ext table-responsive">
+                                                            <table id="myTable1" class="table row-border cell-border display dt-responsive nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>@Localizer["RealEstateName"]</th>
+                                                                        <th>@Localizer["BiddingExposureDate"]</th>
+                                                                        <th>@Localizer["TradingPlatformName"]</th>
+                                                                        <th>@Localizer["ExposureTime"]</th>
+                                                                        <th>@Localizer["ActiveValue"]</th>
+
+                                                                        <th>#</th>
+                                                               
+
+                                                                    </tr>
+                                                                </thead>
+
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="danger-profile1" role="tabpanel" aria-labelledby="profile1-danger-tab">
+                                                    <div class="taskadd">
+                                                        <div class="dt-ext table-responsive">
+                                                            <table id="myTable2" class="table row-border cell-border display dt-responsive nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>@Localizer["BusinessEntityName"]</th>
+                                                                        <th>@Localizer["BiddingExposureDate"]</th>
+                                                                        <th>@Localizer["TradingPlatformName"]</th>
+                                                                        <th>@Localizer["ExposureTime"]</th>
+                                                                        <th>@Localizer["ActiveValue"]</th>
+
+                                                                        <th>#</th>
+
+                                                                    </tr>
+                                                                </thead>
+
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fade tab-pane" id="pills-sold" role="tabpanel" aria-labelledby="pills-sold-tab">
+                                    <div class="card mb-0">
+                                        <div class="card-header d-flex">
+                                            <h6 class="mb-0">@Localizer["Sold"]</h6>@*<a href="javascript:void(0)"><i class="me-2" data-feather="printer"></i>Print</a>*@
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="nav nav-tabs border-tab nav-secondary nav-left" id="danger-tab2" role="tablist">
+                                                <li class="nav-item"><a class="nav-link active" id="danger-home2-tab" data-bs-toggle="tab" href="#danger-home2" role="tab" aria-controls="danger-home2" aria-selected="true" data-bs-original-title="" title=""><i class="icofont icofont-ui-home"></i>@Localizer["RealEstate"]</a></li>
+                                                <li class="nav-item"><a class="nav-link" id="profile2-danger-tab" data-bs-toggle="tab" href="#danger-profile2" role="tab" aria-controls="danger-profile2" aria-selected="false" data-bs-original-title="" title=""><i class="icofont icofont-man-in-glasses"></i>@Localizer["Share"]</a></li>
+
+                                            </ul>
+                                            <div class="tab-content" id="danger-tabContent2">
+                                                <div class="tab-pane fade show active" id="danger-home2" role="tabpanel" aria-labelledby="danger-home2-tab">
+                                                    <div class="taskadd">
+                                                        <div class="dt-ext table-responsive">
+                                                            <table id="myTable3" class="table row-border cell-border display dt-responsive nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>@Localizer["RealEstateName"]</th>
+                                                                        <th>@Localizer["BiddingExposureDate"]</th>
+                                                                        <th>@Localizer["TradingPlatformName"]</th>
+                                                                        <th>@Localizer["ExposureTime"]</th>
+                                                                        <th>@Localizer["ActiveValue"]</th>
+
+                                                                        <th>#</th>
+
+                                                                    </tr>
+                                                                </thead>
+
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="danger-profile2" role="tabpanel" aria-labelledby="profile2-danger-tab">
+                                                    <div class="taskadd">
+                                                        <div class="dt-ext table-responsive">
+                                                            <table id="myTable4" class="table row-border cell-border display dt-responsive nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>@Localizer["BusinessEntityName"]</th>
+                                                                        <th>@Localizer["BiddingExposureDate"]</th>
+                                                                        <th>@Localizer["TradingPlatformName"]</th>
+                                                                        <th>@Localizer["ExposureTime"]</th>
+                                                                        <th>@Localizer["ActiveValue"]</th>
+
+                                                                        <th>#</th>
+
+                                                                    </tr>
+                                                                </thead>
+
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fade tab-pane" id="pills-notsold" role="tabpanel" aria-labelledby="pills-notsold-tab">
+                                    <div class="card mb-0">
+                                        <div class="card-header d-flex">
+                                            <h6 class="mb-0">@Localizer["NotSold"]</h6>@*<a href="javascript:void(0)"><i class="me-2" data-feather="printer"></i>Print</a>*@
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="nav nav-tabs border-tab nav-secondary nav-left" id="danger-tab3" role="tablist">
+                                                <li class="nav-item"><a class="nav-link active" id="danger-home3-tab" data-bs-toggle="tab" href="#danger-home3" role="tab" aria-controls="danger-home3" aria-selected="true" data-bs-original-title="" title=""><i class="icofont icofont-ui-home"></i>@Localizer["RealEstate"]</a></li>
+                                                <li class="nav-item"><a class="nav-link" id="profile3-danger-tab" data-bs-toggle="tab" href="#danger-profile3" role="tab" aria-controls="danger-profile3" aria-selected="false" data-bs-original-title="" title=""><i class="icofont icofont-man-in-glasses"></i>@Localizer["Share"]</a></li>
+
+                                            </ul>
+                                            <div class="tab-content" id="danger-tabContent3">
+                                                <div class="tab-pane fade show active" id="danger-home3" role="tabpanel" aria-labelledby="danger-home3-tab">
+                                                    <div class="taskadd">
+                                                        <div class="dt-ext table-responsive">
+                                                            <table id="myTable5" class="table row-border cell-border display dt-responsive nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>@Localizer["RealEstateName"]</th>
+                                                                        <th>@Localizer["BiddingExposureDate"]</th>
+                                                                        <th>@Localizer["TradingPlatformName"]</th>
+                                                                        <th>@Localizer["ExposureTime"]</th>
+                                                                        <th>@Localizer["ActiveValue"]</th>
+                                                                        
+                                                                        <th>#</th>
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="danger-profile3" role="tabpanel" aria-labelledby="profile3-danger-tab">
+                                                    <div class="taskadd">
+                                                        <div class="dt-ext table-responsive">
+                                                            <table id="myTable6" class="table row-border cell-border display dt-responsive nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>@Localizer["BusinessEntityName"]</th>
+                                                                        <th>@Localizer["BiddingExposureDate"]</th>
+                                                                        <th>@Localizer["TradingPlatformName"]</th>
+                                                                        <th>@Localizer["ExposureTime"]</th>
+                                                                        <th>@Localizer["ActiveValue"]</th>
+
+                                                                        <th>#</th>
+
+                                                                    </tr>
+                                                                </thead>
+
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-bookmark" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">@Localizer["SubmitToAuction"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">                                                 </button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" method="post" asp-action="Create" enctype="multipart/form-data" class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                        <div class="form-group col-md-12 m-b-20">
+
+                            <label for="task-title">@Localizer["RealEstate"]</label>
+                            <select class="form-control" id="object-title" name="id" asp-items="@ViewBag.List1" autocomplete="off" required="">
+                                <option selected disabled value="">--@Localizer["choose"]--</option>
+                            </select>
+                            
+
+                        </div>
+
+                        <div class="form-group col-md-12 m-b-20">
+                            <label for="sub-task">
+                                @Localizer["TradingPlatformName"]
+                                <span class="required">*</span>
+                            </label>
+                            <input class="form-control" type="text" asp-for="TradingPlatformName" required="" autocomplete="off">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col m-b-20">
+                                <input type="number" asp-for="AmountOnBidding" placeholder="@Localizer["AmountOnBidding"]" class="form-control digits" oninput="validity.valid||(value='');" min="1" required="required" />
+                            </div>
+                            <div class="form-group col m-b-20">
+                                <input asp-for="BiddingExposureDate" class="datepicker-here form-control digits" type="text" data-language="en" placeholder="@Localizer["BiddingExposureDate"]" required="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 m-b-20">
+                            <div class="d-flex date-details">
+                                <div class="d-inline-block">
+                                    <label class="d-block mb-0">
+                                        <input class="checkbox_animated" type="checkbox">@Localizer["RemindOn"]
+                                    </label>
+                                </div>
+                                <div class="d-inline-block">
+                                    <input asp-for="BiddingHoldDate" class="datepicker-here form-control digits" type="text" data-language="uz" placeholder="@Localizer["BiddingHoldDate"]"  required="">
+                                </div>
+                                <div class="d-inline-block">
+                                    <input class="form-control digits" type="time" required="">
+                                </div>
+                                <div class="d-inline-block">
+                                    <label class="d-block mb-0">
+                                        <input class="checkbox_animated" type="checkbox">@Localizer["Notification"]
+                                    </label>
+                                </div>
+                                <div class="d-inline-block">
+                                    <label class="d-block mb-0">
+                                        <input class="checkbox_animated" type="checkbox">@Localizer["Mail"]
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col m-b-20">
+                                <label class="control-label ">
+                                    @Localizer["ActiveValue"] <span class="required">*</span>
+                                </label>
+                                <input id="activeValueR" type="text" asp-for="ActiveValue" class="form-control"  required="required" readonly/>
+                                <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            </div>
+                            <div class="form-group col m-b-20">
+                                <label class="control-label ">
+                                    @Localizer["URL"] <span class="required">*</span>
+                                </label>
+                                <input id="Url" type="text" asp-for="Url" class="form-control" placeholder="https://sayt.uz/auktsion" required="required" />
+                                <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <input name="target" value="1" hidden />
+                    <button id="submit" type="submit" asp-controller="SubmissionOnBiddings" asp-action="Create" value="Create" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> @Localizer["Create"] </button>
+
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i class="fa fa-times-circle"></i>  @Localizer["Cancel"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-bookmark" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">@Localizer["SubmitToAuction"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" method="post" asp-action="Create" enctype="multipart/form-data" class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                        <div class="form-group col-md-12 m-b-20">
+
+                            <label for="task-title">@Localizer["Share"]</label>
+                            <select class="form-control" id="share-title" name="id" asp-items="@ViewBag.List2" autocomplete="off" required="required">
+                                <option selected disabled value="">--@Localizer["choose"]--</option>
+                            </select>
+                            
+                        </div>
+
+                        <div class="form-group col-md-12 m-b-20">
+                            <label for="sub-task">
+                                @Localizer["TradingPlatformName"]
+                                <span class="required"></span>
+                            </label>
+                            <input class="form-control" type="text" asp-for="TradingPlatformName" required="" autocomplete="off">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col m-b-20">
+                                <input type="number" asp-for="AmountOnBidding" placeholder="@Localizer["AmountOnBidding"]" class="form-control digits" oninput="validity.valid||(value='');" min="1" required="required" />
+                            </div>
+                            <div class="form-group col m-b-20">
+                                <input asp-for="BiddingExposureDate" class="datepicker-here form-control digits" type="text" data-language="uz" placeholder="@Localizer["BiddingExposureDate"]" required="required" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 m-b-20">
+                            <div class="d-flex date-details">
+                                <div class="d-inline-block">
+                                    <label class="d-block mb-0">
+                                        <input class="checkbox_animated" type="checkbox">@Localizer["RemindOn"]
+                                    </label>
+                                </div>
+                                <div class="d-inline-block">
+                                    <input asp-for="BiddingHoldDate" class="datepicker-here form-control digits" type="text" data-language="uz" placeholder="@Localizer["BiddingHoldDate"]" required="" >
+                                </div>
+                                <div class="d-inline-block">
+                                    <input class="form-control digits" type="time" required="required">
+                                </div>
+                                <div class="d-inline-block">
+                                    <label class="d-block mb-0">
+                                        <input class="checkbox_animated" type="checkbox">@Localizer["Notification"]
+                                    </label>
+                                </div>
+                                <div class="d-inline-block">
+                                    <label class="d-block mb-0">
+                                        <input class="checkbox_animated" type="checkbox">@Localizer["Mail"]
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col m-b-20">
+                                <label class="control-label ">
+                                    @Localizer["ActiveValue"] <span class="required">*</span>
+                                </label>
+                                <input id="activeValueS" type="text" asp-for="ActiveValue" class="form-control"  required="required" readonly />
+                                <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            </div>
+                            <div class="form-group col m-b-20">
+                                <label class="control-label ">
+                                    @Localizer["URL"] <span class="required">*</span>
+                                </label>
+                                <input id="Url" type="text" asp-for="Url" class="form-control" placeholder="https://sayt.uz/auktsion" required="required" />
+                                <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            </div>
+                        </div>
+                    </div>
+                    <input name="target" value="2" hidden />
+                    <button id="submit" type="submit" asp-controller="SubmissionOnBiddings" asp-action="Create" value="Create" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> @Localizer["Create"] </button>
+
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i class="fa fa-times-circle"></i> @Localizer["Cancel"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p id="success" style="visibility:hidden">@ViewBag.Success</p>
+<p id="failure" style="visibility:hidden">@ViewBag.Failure</p>
+<p id="activeError" style="visibility:hidden">@ViewBag.ActiveError</p>
+
+@section Scripts{
+<script src="~/js/submissionOnBiddings.js"></script>
+
+<script>
+
+    
+
+    var success = document.getElementById('success').innerHTML;
+    //var success = true;
+    console.log("value: ", success)
+    
+    if (success == "True") {      
+            swal.fire({
+                  title: '@Localizer["Success"]',
+                  text: '@Localizer["Актив аукционга қўйилди!"]',
+                  icon: "success",
+                  
+                });
+           
+    }
+
+    var failure = document.getElementById('failure').innerHTML;
+    
+    if(failure == "True"){
+            swal.fire({
+                  title: '@Localizer["Failure"]',
+                  text: '@Localizer["InfoValidationError"]',
+                  icon: "error",
+                 
+                });
+    }
+
+    var avtiveError = document.getElementById('activeError').innerHTML;
+    
+    if(activeError == "True"){
+           swal.fire({
+                  title: '@Localizer["ActiveError"]',
+                  text: '@Localizer["ActiveAvailabilityError"]',
+                  icon: "error",
+                 
+                });
+    }
+
+    var collectionR = @Html.Raw(Json.Serialize(ViewBag.RealEstatesD));
+    console.log(collectionR);
+
+    var collectionS = @Html.Raw(Json.Serialize(ViewBag.SharesD));
+    console.log(collectionS);
+
+    //Bind dropdownlist
+        $("#object-title").change(function () {
+            var id = $("#object-title").val();
+            
+
+                    var item = "";
+                    $("#activeValueR").empty();
+                    $.each(collectionR, function (key, value) {
+                        if(key == id){
+                            item = value;
+                        }
+                    });
+                    console.log(item);
+                    $("#activeValueR").val(item);
+               
+        });
+
+        $("#share-title").change(function () {
+            var id = $("#share-title").val();
+            
+
+                    var item = "";
+                    $("#activeValueS").empty();
+                    $.each(collectionS, function (key, value) {
+                        if(key == id){
+                            item = value;
+                        }
+                    });
+                    console.log(item);
+                    $("#activeValueS").val(item);
+               
+        });
+
+</script>
+
+}

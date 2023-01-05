@@ -1,0 +1,171 @@
+﻿@model ControlActive.Models.OneTimePaymentStep2
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>@Localizer["ContractStep"] (@Localizer["Obsh"])</h3>
+    </div>
+
+
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <a class="btn" type="button" asp-controller="OneTimePaymentAssets" asp-action="Index"><i class="fas fa-backward"></i>@Localizer["Back"] </a>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AssetBuyerName"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input type="text" asp-for="AssetBuyerName" class="form-control" required="required" />
+                            <span asp-validation-for="AssetBuyerName" class="text-danger"></span>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AmountOfAssetSold"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="amountSold" type="text" asp-for="AmountOfAssetSold" class="form-control" required="required" />
+                            <span id="errorMsg1" style="display:none; color:red;">  @Localizer["MustBe"] </span>
+                            <span asp-validation-for="AmountOfAssetSold" class="text-danger"></span>
+                 
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AggreementDate"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input type="date" asp-for="AggreementDate" class="form-control" required="required" />
+                            <span asp-validation-for="AggreementDate" class="text-danger"></span>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AggreementNumber"]   <span class="required">*</span>
+                        </label>
+                       
+                            <input type="text" asp-for="AggreementNumber" class="form-control" required="required" />
+                            <span asp-validation-for="AggreementNumber" class="text-danger"></span>
+                     
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AggreementFileId"] <span class="required">*</span>
+                        </label>                       
+                    <input type="file" asp-for="AggreementFileId" name="agreementFile" accept=".pdf, application/pdf" class="form-control" value="default" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AmountPayed"] (сум) <span class="required">*</span>
+                        </label>
+                        <div class="mb-3">
+                            <input id="amountPayed" type="text" asp-for="AmountPayed" class="form-control" required="required" />
+                            <span id="errorMsg2" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            <span asp-validation-for="AmountPayed" class="text-danger"></span>
+                        </div>
+                    </div>
+       
+                    <input name="paymentId" value="@ViewBag.PaymentId" hidden />
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+
+                            <button id="submit" type="submit" asp-controller="OneTimePaymentAssets" asp-action="CreateContract" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i>@Localizer["Create"] </button>
+
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/valiadationMessages.js"></script>
+
+    <script>
+        var v = document.getElementById("amountSold");
+        var v2 = document.getElementById("amountPayed");
+        var flag = true;
+
+        $("#submit").click(function () {
+
+            if (v.value == "") {
+
+                v.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v.value) && v.value >= 0) {
+
+                v.style.borderColor = "green";
+                $('#errorMsg1').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v.style.borderColor = "red";
+                $('#errorMsg1').show();
+            }
+
+            if (v2.value == "") {
+
+                v2.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v2.value) && v2.value >= 0) {
+
+                v2.style.borderColor = "green";
+                $('#errorMsg2').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v2.style.borderColor = "red";
+                $('#errorMsg2').show();
+            }
+
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+    </script>
+
+}

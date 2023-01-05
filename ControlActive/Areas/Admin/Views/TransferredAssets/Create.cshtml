@@ -1,0 +1,104 @@
+﻿@model ControlActive.Models.TransferredAsset
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>TransferredAsset</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TransferFormId" class="control-label"></label>
+                <select asp-for="TransferFormId" class ="form-control" asp-items="ViewBag.TransferFormId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrgName" class="control-label"></label>
+                <input asp-for="OrgName" class="form-control" />
+                <span asp-validation-for="OrgName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionNumber" class="control-label"></label>
+                <input asp-for="SolutionNumber" class="form-control" />
+                <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionDate" class="control-label"></label>
+                <input asp-for="SolutionDate" class="form-control" />
+                <span asp-validation-for="SolutionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileLink" class="control-label"></label>
+                <input asp-for="SolutionFileLink" class="form-control" />
+                <span asp-validation-for="SolutionFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileId" class="control-label"></label>
+                <input asp-for="SolutionFileId" class="form-control" />
+                <span asp-validation-for="SolutionFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrgNameOfAsset" class="control-label"></label>
+                <input asp-for="OrgNameOfAsset" class="form-control" />
+                <span asp-validation-for="OrgNameOfAsset" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalCost" class="control-label"></label>
+                <input asp-for="TotalCost" class="form-control" />
+                <span asp-validation-for="TotalCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActAndAssetDate" class="control-label"></label>
+                <input asp-for="ActAndAssetDate" class="form-control" />
+                <span asp-validation-for="ActAndAssetDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActAndAssetNumber" class="control-label"></label>
+                <input asp-for="ActAndAssetNumber" class="form-control" />
+                <span asp-validation-for="ActAndAssetNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActAndAssetFileLink" class="control-label"></label>
+                <input asp-for="ActAndAssetFileLink" class="form-control" />
+                <span asp-validation-for="ActAndAssetFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActAndAssetFileId" class="control-label"></label>
+                <input asp-for="ActAndAssetFileId" class="form-control" />
+                <span asp-validation-for="ActAndAssetFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementDate" class="control-label"></label>
+                <input asp-for="AgreementDate" class="form-control" />
+                <span asp-validation-for="AgreementDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementNumber" class="control-label"></label>
+                <input asp-for="AgreementNumber" class="form-control" />
+                <span asp-validation-for="AgreementNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AggreementFileLink" class="control-label"></label>
+                <input asp-for="AggreementFileLink" class="form-control" />
+                <span asp-validation-for="AggreementFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementFileId" class="control-label"></label>
+                <input asp-for="AgreementFileId" class="form-control" />
+                <span asp-validation-for="AgreementFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

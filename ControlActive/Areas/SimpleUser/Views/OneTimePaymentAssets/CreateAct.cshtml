@@ -1,0 +1,102 @@
+﻿@model ControlActive.Models.OneTimePaymentStep3
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>@Localizer["ActStep"] (@Localizer["Obsh"])</h3>
+    </div>
+
+
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <a class="btn" type="button" asp-controller="OneTimePaymentAssets" asp-action="Index"><i class="fas fa-backward"></i> @Localizer["Back"]</a>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (ViewBag.Target == 1)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["RealEstate"] <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+
+                            </div>
+                        </div>
+                    }
+                    @if (ViewBag.Target == 2)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["Share"] <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+
+                            </div>
+                        </div>
+                    }
+
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ActAndAssetDate"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="date" asp-for="ActAndAssetDate" class="form-control" required="required" />
+                            <span asp-validation-for="ActAndAssetDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ActAndAssetNumber"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="ActAndAssetNumber" class="form-control" required="required" />
+                            <span asp-validation-for="ActAndAssetNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ActAndAssetFileId"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="file" asp-for="ActAndAssetFileId" name="actAndAssetFile" accept=".pdf, application/pdf" class="form-control" value="default" required />
+                        </div>
+                    </div>
+                    <input name="paymentId" value="@ViewBag.PaymentId" hidden />
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+
+                            <button type="submit" asp-controller="OneTimePaymentAssets" asp-action="CreateAct" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i> @Localizer["Create"] </button>
+
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+
+}

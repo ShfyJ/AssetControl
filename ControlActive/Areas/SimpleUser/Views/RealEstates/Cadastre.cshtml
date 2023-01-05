@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ControlActive.Models.RealEstate>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>@Localizer[""]</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">                                       <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item"> @Localizer["RealEstates"]</li>
+                    <li class="breadcrumb-item active"> @Localizer["CadastreInfo"]</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-4">
+    <div class="card">
+        <div class="card-header pb-0">
+            <h5>@Localizer["ConfirmCadastre"]</h5><span><a href="#">Кадастр</a> рақами орқали Объект маълумотларини тасдиқланг</span>
+        </div>
+        <form class="theme-form" id="oneForm">
+        <div class="card-body">
+            
+                <div class="mb-3">
+                    <label class="col-form-label pt-0" >@Localizer["CadastreNumber"]</label>
+                    <input id="cadastre" type="text" class="form-control"  data-inputmask="'mask' : '99:99:99:99:99:9999'" required />@*<small class="form-text text-muted" id="emailHelp">We'll never share your email with anyone else.</small>*@
+                </div>
+                <input id="id" value="1"  hidden/>
+                <input id="time" value="@DateTime.Now" hidden/>
+           
+        </div>
+        <div class="card-footer">
+            <button type="submit" id="submit" class="btn btn-primary">@Localizer["Submit"]</button>
+            <button class="btn btn-secondary">@Localizer["Back"]</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>$(":input").inputmask();</script>
+
+    <script>
+    
+    // this is the id of the form
+$("#submit").click(function(e) {
+
+    var username = "uzbekneftegaz" ;
+    var password = "uzbekneftegaz@87218964741";
+    var id = document.getElementById("id").value;
+    var cad_num = document.getElementById("cadastre").value;
+    var time = document.getElementById("cadastre").value;
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var actionUrl = "/SimpleUser/RealEstates/GetCadastre";
+    data= {cad_num:cad_num};
+    $.ajax({
+        type: "POST",
+        
+        url: actionUrl,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data), // .
+        success: function(data)
+        {
+          alert(data.message); // show response from the php script.
+        }
+        
+    });
+    
+});
+    
+    </script>
+
+}

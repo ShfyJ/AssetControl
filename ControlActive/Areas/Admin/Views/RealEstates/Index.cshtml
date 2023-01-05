@@ -1,0 +1,1085 @@
+﻿@model IEnumerable<ControlActive.Models.RealEstate>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+
+    ViewData["Title"] = "Кўчмас мулк объектлари";
+    var dateAndTime = DateTime.Now;
+    var date = dateAndTime.ToShortDateString();
+
+
+
+}
+
+<style>
+
+.file-icon{
+        transition: transform .5s;
+}
+.file-icon:hover{
+        transform: scale(1.5);
+}
+
+    .deleteC:hover {
+        color: red;
+    }
+
+    .editC:hover {
+        color: #fcba03;
+    }
+
+    .passC:hover {
+        color: #3809b8
+    }
+
+    .filesC:hover {
+        color: #c91697
+    }
+
+    .detailC:hover {
+        color: #02cbcf
+    }
+
+    .userC:hover {
+        color: #56c700
+    }
+
+    .loader-w {
+        position: fixed;
+        left: 0px;
+        top: 40%;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+    }
+
+</style>
+
+
+<div id="loader" class="loader-w" hidden>
+
+    <div  class="loader-box">
+            <div style="font-size:30px; " class="loader-10"></div>
+        </div>
+   
+</div>
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Умумий маълумотлар<small>(кўчмас мулк объектлари)</small></h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href=""><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item"> </li>
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-xl-12">
+            <div class="card">
+                <div class="card-header b-l-primary border-3 ">
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <label class="col-form-label">Ташкилотни танланг</label>
+                            <select asp-items=@ViewBag.Organizations name="org" id="org" class="js-example-basic-hide-search col-sm-6">
+                                <option selected value="0"> -Барчаси-</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <label class="col-sm-12 col-form-label">@Localizer["OnBalance"]</label>
+
+                            <div class="media-body text-start icon-state">
+                                <label class="switch">
+                                    <input id="balance" name="balance" type="checkbox" checked><span class="switch-state"></span>
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="col-sm-12 col-form-label">@Localizer["NotOnBalance"]</label>
+
+                            <div class="media-body text-start icon-state">
+                                <label class="switch">
+                                    <input id="notBalance" name="notBalance" type="checkbox" checked><span class="switch-state"></span>
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="col-form-label">Вилоятни танланг</label>
+                            <select asp-items=@ViewBag.Regions name="region" id="region" class="js-example-basic-hide-search col-sm-6">
+                                <option selected value="0"> -Барчаси-</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <div style="margin-top:35px;">
+                                <span data-bs-toggle="modal" data-bs-target="#reportModal"><button data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="ҳисобот олиш" class="btn btn-outline-success"><i class="icofont icofont-flash"></i><i class="icofont icofont-table"></i></button></span>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="card-body">
+                    <div class="dt-ext table-responsive" id="table1">
+
+                        <table id="myTable" class="table display dt-responsive " style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="font-size:12px">
+                                        Объект номи @*<a hidden id="bulkDelete" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Танланган ташкилот бўйича барчасини ўчириш" onclick="DeleteByOrganization(document.getElementById('org').options[document.getElementById('org').selectedIndex].value, document.getElementById('org').options[document.getElementById('org').selectedIndex].text)" class="deleteC" style="cursor:pointer; width:120px">
+                                            <i style="color:black" class="fa fa-long-arrow-right"></i><i style="color:black" class="fas fa-trash-alt"></i>  &nbsp &nbsp
+                                        </a>*@
+                                    </th>
+                                    <th style="font-size:12px">Кадастр рақами</th>
+                                    <th style="font-size:12px">Ишга тушириш санаси</th>
+                                    <th style="font-size:12px">Фаолият тури</th>
+                                    <th style="font-size:12px">Вилоят</th>
+                                    <th style="font-size:12px">Баланс сақловчи ташкилот</th>
+                            
+                                    <th style="text-align:center"><i class="fa fa-gears"></i></th>
+
+                                </tr>
+                            </thead>
+
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-bookmark" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">@Localizer["CreateReport"]</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">                                                 </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="RealEstates" asp-action="ExcelReport" class="form-bookmark " id="report-form" novalidate="">
+
+                    <div class="form-group col-md-12 m-b-20">
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <label class="col-form-label">Ташкилотни танланг</label>
+                                <select asp-items=@ViewBag.Organizations name="orgId" id="org_" class="js-example-basic-hide-search col-sm-6">
+                                    <option selected value="0"> -Барчаси-</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-1">
+                                <label style="font-size:11px;" class="col-sm-12 col-form-label">@Localizer["OnBalance"]</label>
+
+                                <div class="media-body text-start icon-state">
+                                    <label class="switch">
+                                        <input id="balance_" name="balance" type="checkbox" checked><span class="switch-state"></span>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <label style="font-size:11px;" class="col-sm-12 col-form-label">@Localizer["NotOnBalance"]</label>
+
+                                <div class="media-body text-start icon-state">
+                                    <label class="switch">
+                                        <input id="notBalance_" name="notBalance" type="checkbox" checked><span class="switch-state"></span>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Вилоятни танланг</label>
+                                <select asp-items=@ViewBag.Regions name="region" id="region_" class="js-example-basic-hide-search col-sm-6">
+                                    <option selected value="0"> -Барчаси-</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-form-label">Санани танланг</label>
+                                <input value="@date" name="chosenDate" id="chosenDate" class="datepicker-here form-control digits input-air-primary" />
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr class="mt-4 mb-4">
+                    <!-- Case for all assets -->
+                    <div id="case1">
+
+                        <div id="case2" style="display:none">
+                            <div class="row">
+                                <div id="c2block2" class="media col-sm-4">
+                                    <label class="col-form-label">@Localizer["TransferredAssets"]</label>&nbsp;&nbsp;&nbsp;
+                                    <div class="media-body text-start icon-state switch-outline">
+                                        <label class="switch">
+                                            <input id="c2-block2" name="notBalance_block2" type="checkbox" checked><span class="switch-state bg-info"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="c2block6" class="media col-sm-4">
+                                    <label class="col-form-label">@Localizer["OneTimeP"]</label>&nbsp;&nbsp;&nbsp;
+                                    <div class="media-body text-start icon-state switch-outline">
+                                        <label class="switch">
+                                            <input id="c2-block6" name="notBalance_block6" type="checkbox" checked><span class="switch-state bg-info"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="c2block7" class="media col-sm-4">
+                                    <label class="col-form-label">@Localizer["Installment"]</label>&nbsp;&nbsp;&nbsp;
+                                    <div class="media-body text-start icon-state switch-outline">
+                                        <label class="switch">
+                                            <input id="c2-block7" name="notBalance_block7" type="checkbox" checked><span class="switch-state bg-info"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="case3" style="display:none">
+                            <div class="row">
+                                <div class="media col-sm-4">
+                                    <label class="col-form-label">@Localizer["AssetsNotSale"]</label>&nbsp;&nbsp;&nbsp;
+                                    <div class="media-body text-start icon-state switch-outline">
+                                        <label class="switch">
+                                            <input id="c3-block1" name="balance_block1" type="checkbox" checked><span class="switch-state bg-info"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="media col-sm-4">
+                                    <label class="col-form-label">@Localizer["AssetsOnSale"]</label>&nbsp;&nbsp;&nbsp;
+                                    <div class="media-body text-start icon-state switch-outline">
+                                        <label class="switch">
+                                            <input id="c3-block4" name="balance_block4" type="checkbox" checked><span class="switch-state bg-info"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="m-t-15 m-checkbox-inline" id="filter1">
+                            <div id="inline1" class="form-check form-check-inline checkbox checkbox-solid-primary mb-0">
+                                <input class="form-check-input caseOne" id="inline-1" name="block1" type="checkbox" checked />
+                                <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Объект умумий маълумотлари" class="form-check-label" for="inline-1">Блок<span class="digits"> 1</span></label>
+                            </div>
+                            <div id="inline2" class="form-check form-check-inline checkbox checkbox-solid-primary mb-0">
+                                <input class="form-check-input caseOne" id="inline-2" name="block2" type="checkbox" checked />
+                                <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Топшириш маълумотлари" class="form-check-label" for="inline-2">Блок<span class="digits"> 2</span></label>
+                            </div>
+                            <div id="inline3" class="form-check form-check-inline checkbox checkbox-solid-primary mb-0">
+                                <input class="form-check-input caseOne" id="inline-3" name="block3" type="checkbox" checked />
+                                <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Баҳолаш маълумотлари" class="form-check-label" for="inline-3">Блок<span class="digits"> 3</span></label>
+                            </div>
+                            <div id="inline4" class="form-check form-check-inline checkbox checkbox-solid-primary mb-0">
+                                <input class="form-check-input caseOne" id="inline-4" name="block4" type="checkbox" checked />
+                                <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Аукцион маълумотлари" class="form-check-label" for="inline-4">Блок<span class="digits"> 4</span></label>
+                            </div>
+                            <div id="inline5" class="form-check form-check-inline checkbox checkbox-solid-primary mb-0">
+                                <input class="form-check-input caseOne" id="inline-5" name="block5" type="checkbox" checked />
+                                <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Қийматни пасайтириш маълумотлари" class="form-check-label" for="inline-5">Блок<span class="digits"> 5</span></label>
+                            </div>
+                            <div id="inline6" class="form-check form-check-inline checkbox checkbox-solid-primary mb-0">
+                                <input class="form-check-input caseOne" id="inline-6" name="block6" type="checkbox" checked />
+                                <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Бир марталик тўлов асосида сотиш маълумотлари" class="form-check-label" for="inline-6">Блок<span class="digits"> 6</span></label>
+                            </div>
+                            <div id="inline7" class="form-check form-check-inline checkbox checkbox-solid-primary mb-0">
+                                <input class="form-check-input caseOne" id="inline-7" name="block7" type="checkbox" checked />
+                                <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Бўлиб-бўлиб тўлашга сотиш маълумотлари" class="form-check-label" for="inline-7">Блок<span class="digits"> 7</span></label>
+                            </div>
+                            <div id="inline8" class="form-check form-check-inline checkbox checkbox-solid-primary mb-0">
+                                <input class="form-check-input caseOne" id="inline-8" name="block8" type="checkbox" checked />
+                                <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Масул шахс маълумотлари" class="form-check-label" for="inline-8">Блок<span class="digits"> 8</span></label>
+                            </div>
+                        </div>
+
+
+                        <div class="social-tab">
+                            <ul class="nav nav-tabs" id="top-tab" role="tablist">
+                                <li style="font-size:12px;" class="nav-item"><a class="nav-link " id="top-block1" data-bs-toggle="tab" href="#tab-block1" role="tab" aria-controls="tab-block1" aria-selected="true"><i class="icofont icofont-spreadsheet"></i>1-Блок</a></li>
+                                <li style="font-size:12px;" class="nav-item"><a class="nav-link" id="top-block2" data-bs-toggle="tab" href="#tab-block2" role="tab" aria-controls="tab-block2" aria-selected="false"><i class="icofont icofont-spreadsheet"></i>2-Блок</a></li>
+                                <li style="font-size:12px;" class="nav-item"><a class="nav-link" id="top-block3" data-bs-toggle="tab" href="#tab-block3" role="tab" aria-controls="tab-block3" aria-selected="false"><i class="icofont icofont-spreadsheet"></i>3-Блок</a></li>
+                                <li style="font-size:12px;" class="nav-item"><a class="nav-link" id="top-block4" data-bs-toggle="tab" href="#tab-block4" role="tab" aria-controls="tab-block4" aria-selected="false"><i class="icofont icofont-spreadsheet"></i>4-Блок</a></li>
+                                <li style="font-size:12px;" class="nav-item"><a class="nav-link" id="top-block5" data-bs-toggle="tab" href="#tab-block5" role="tab" aria-controls="tab-block5" aria-selected="true"><i class="icofont icofont-spreadsheet"></i>5-Блок</a></li>
+                                <li style="font-size:12px;" class="nav-item"><a class="nav-link" id="top-block6" data-bs-toggle="tab" href="#tab-block6" role="tab" aria-controls="tab-block6" aria-selected="false"><i class="icofont icofont-spreadsheet"></i>6-Блок</a></li>
+                                <li style="font-size:12px;" class="nav-item"><a class="nav-link" id="top-block7" data-bs-toggle="tab" href="#tab-block7" role="tab" aria-controls="tab-block7" aria-selected="false"><i class="icofont icofont-spreadsheet"></i>7-Блок</a></li>
+                                <li style="font-size:12px;" class="nav-item"><a class="nav-link" id="top-block8" data-bs-toggle="tab" href="#tab-block8" role="tab" aria-controls="tab-block8" aria-selected="false"><i class="icofont icofont-spreadsheet"></i>8-Блок</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-content" id="top-tabContent">
+
+                            <div class="tab-pane fade" id="tab-block1" role="tabpanel" style="border-style: solid; border-color: #f7f7fe;" aria-labelledby="tab-block1">
+                                <div class="m-t-15 m-checkbox-inline row">
+                                    <div class="form-check col">
+                                        <label style="cursor:not-allowed;" class="d-block" for="chk-ani">
+                                            <input class="checkbox_animated cellGroupOne " id="rName" name="rNameB1" type="checkbox" disabled>@Localizer["RealEstateName"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="cadNumberB1" type="checkbox">@Localizer["CadastreNumber"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani2">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="cadDateB1" id="chk-ani2" type="checkbox">@Localizer["CadastreRegDate"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="activityB1" id="chk-ani3" type="checkbox">@Localizer["Activity"]
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <div class="m-t-15 m-checkbox-inline row">
+
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="comDateB1" id="chk-ani3" type="checkbox">@Localizer["CommisioningDate"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="regionB1" id="chk-ani3" type="checkbox">@Localizer["RegionId"]
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="districtB1" id="chk-ani3" type="checkbox">@Localizer["DistrictId"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="adressB1" id="chk-ani3" type="checkbox">@Localizer["Address"]
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <div class="m-t-15 m-checkbox-inline row">
+
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="assetHNameB1" id="chk-ani3" type="checkbox">@Localizer["AssetHolderName"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="bAreaB1" id="chk-ani3" type="checkbox">@Localizer["BuildingArea"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="fAreaB1" id="chk-ani3" type="checkbox">@Localizer["FullArea"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="infraB1" id="chk-ani3" type="checkbox">@Localizer["Infrastructures"]
+                                        </label>
+                                    </div>
+
+
+                                </div>
+                                <div class="m-t-15 m-checkbox-inline row">
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="noEmployeeB1" id="chk-ani3" type="checkbox">@Localizer["NumberOfEmployee"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="maintCostB1" id="chk-ani3" type="checkbox">@Localizer["MaintenanceCostForYear"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="initCostB1" id="chk-ani3" type="checkbox">@Localizer["InitialCostOfObject"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="wearB1" id="chk-ani3" type="checkbox">@Localizer["Wear"]
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="m-t-15 m-checkbox-inline row">
+
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="resValueB1" id="chk-ani3" type="checkbox">@Localizer["ResidualValueOfObject"]
+                                        </label>
+                                    </div>
+                                    <div class="form-check col blockOneDiv">
+                                        <label class="d-block" for="chk-ani3">
+                                            <input class="checkbox_animated cellGroupOne blockOne" name="proposalB1" id="chk-ani3" type="checkbox">@Localizer["ProposalId"]
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-block2" role="tabpanel" style="border-style: solid; border-color: #f7f7fe;" aria-labelledby="tab-block2">
+                                <div class="m-t-15 m-checkbox-inline">
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="trFormB2" id="chk-ani" type="checkbox">@Localizer["TransferForm"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="orgNameB2" type="checkbox">@Localizer["OrgName"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani2">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="sNumberB2" id="chk-ani2" type="checkbox">@Localizer["SolutionNumber"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="sDateB2" id="chk-ani3" type="checkbox">@Localizer["SolutionDate"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="orgNameAssetB2" id="chk-ani3" type="checkbox">@Localizer["OrgNameOfAsset"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="tCostB2" id="chk-ani3" type="checkbox">@Localizer["TotalCost"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="vatB2" id="chk-ani3" type="checkbox">@Localizer["VAT"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="actDateB2" id="chk-ani3" type="checkbox">@Localizer["ActAndAssetDate"]
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="actNumberB2" id="chk-ani3" type="checkbox">@Localizer["ActAndAssetNumber"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="agDateB2" id="chk-ani3" type="checkbox">@Localizer["AgreementDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockTwo" name="agNumberB2" id="chk-ani3" type="checkbox">@Localizer["AgreementNumber"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-block3" role="tabpanel" style="border-style: solid; border-color: #f7f7fe;" aria-labelledby="tab-block3">
+                                <div class="m-t-15 m-checkbox-inline">
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated cellGroupOne blockThree" name="evOrgNameB3" id="chk-ani" type="checkbox">@Localizer["EvaluatingOrgName"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block">
+                                                <input class="checkbox_animated cellGroupOne blockThree" name="rDateB3" type="checkbox">@Localizer["ReportDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani2">
+                                                <input class="checkbox_animated cellGroupOne blockThree" name="rRegNumberB3" id="chk-ani2" type="checkbox">@Localizer["ReportRegNumber"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockThree" name="mValueB3" id="chk-ani3" type="checkbox">@Localizer["MarketValue"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockThree" name="examOrgNameB3" id="chk-ani3" type="checkbox">@Localizer["ExaminingOrgName"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockThree" name="examRDateB3" id="chk-ani3" type="checkbox">@Localizer["ExamReportDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockThree" name="examRNumberB3" id="chk-ani3" type="checkbox">@Localizer["ExamReportRegNumber"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockThree" name="rStatusB3" id="chk-ani3" type="checkbox">@Localizer["ReportStatus"]
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-block4" role="tabpanel" style="border-style: solid; border-color: #f7f7fe;" aria-labelledby="tab-block4">
+                                <div class="m-t-15 m-checkbox-inline">
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated cellGroupOne blockFour" name="tradePNameB4" id="chk-ani" type="checkbox">@Localizer["TradingPlatformName"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block">
+                                                <input class="checkbox_animated cellGroupOne blockFour" name="amountBidB4" type="checkbox">@Localizer["AmountOnBidding"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani2">
+                                                <input class="checkbox_animated cellGroupOne blockFour" name="biddingExpDateB4" id="chk-ani2" type="checkbox">@Localizer["BiddingExposureDate"]
+                                            </label>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockFour" name="expoTimeB4" id="chk-ani3" type="checkbox">@Localizer["ExposureTime"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockFour" name="activeValB4" id="chk-ani3" type="checkbox">@Localizer["ActiveValue"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockFour" name="bidHoldDateB4" id="chk-ani3" type="checkbox">@Localizer["BiddingHoldDate"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-block5" role="tabpanel" style="border-style: solid; border-color: #f7f7fe;" aria-labelledby="tab-block5">
+                                <div class="m-t-15 m-checkbox-inline">
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated cellGroupOne blockFive" name="gBodyNameB5" id="chk-ani" type="checkbox">@Localizer["GoverningBodyName"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block">
+                                                <input class="checkbox_animated cellGroupOne blockFive" name="sDateB5" type="checkbox">@Localizer["SolutionDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani2">
+                                                <input class="checkbox_animated cellGroupOne blockFive" name="sNumberB5" id="chk-ani2" type="checkbox">@Localizer["SolutionNumber"]
+                                            </label>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockFive" name="percentageB5" id="chk-ani3" type="checkbox">@Localizer["Percentage"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockFive" name="amountB5" id="chk-ani3" type="checkbox">@Localizer["Amount"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockFive" name="numberStepsB5" id="chk-ani3" type="checkbox">@Localizer["NumberOfSteps"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockFive" name="assetValDecB5" id="chk-ani3" type="checkbox">@Localizer["AssetValueAfterDecline"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-block6" role="tabpanel" style="border-style: solid; border-color: #f7f7fe;" aria-labelledby="tab-block6">
+                                <div class="m-t-15 m-checkbox-inline">
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="gBodyNameB6" id="chk-ani" type="checkbox">@Localizer["GoverningBodyName_"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="sDateB6" type="checkbox">@Localizer["SolutionDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani2">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="sNumberB6" id="chk-ani2" type="checkbox">@Localizer["SolutionNumber"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="bidDateB6" id="chk-ani3" type="checkbox">@Localizer["BiddingDate"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="assetBNameB6" id="chk-ani3" type="checkbox">@Localizer["AssetBuyerName"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="amountAssetSoldB6" id="chk-ani3" type="checkbox">@Localizer["AmountOfAssetSold"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="agDateB6" id="chk-ani3" type="checkbox">@Localizer["AggreementDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="agNumberB6" id="chk-ani3" type="checkbox">@Localizer["AggreementNumber"]
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="amountPayedB6" id="chk-ani3" type="checkbox">@Localizer["AmountPayed"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="percentB6" id="chk-ani3" type="checkbox">@Localizer["Percentage_block6"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="actDateB6" id="chk-ani3" type="checkbox">@Localizer["ActAndAssetDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSix" name="actNumberB6" id="chk-ani3" type="checkbox">@Localizer["ActAndAssetNumber"]
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-block7" role="tabpanel" style="border-style: solid; border-color: #f7f7fe;" aria-labelledby="tab-block7">
+                                <div class="m-t-15 m-checkbox-inline">
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="gBodyNameB7" id="chk-ani" type="checkbox">@Localizer["GoverningBodyName_"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="sDateB7" type="checkbox">@Localizer["SolutionDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani2">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="sNumberB7" id="chk-ani2" type="checkbox">@Localizer["SolutionNumber"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="bidDateB7" id="chk-ani3" type="checkbox">@Localizer["BiddingDate_"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="assetBNameB7" id="chk-ani3" type="checkbox">@Localizer["AssetBuyerName"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="amountAssetB7" id="chk-ani3" type="checkbox">@Localizer["AmountOfAssetSold"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="agDateB7" id="chk-ani3" type="checkbox">@Localizer["AggreementDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="agNumB7" id="chk-ani3" type="checkbox">@Localizer["AggreementNumber"]
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="instTimeB7" id="chk-ani3" type="checkbox">@Localizer["InstallmentTime"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="minInitPB7" id="chk-ani3" type="checkbox">@Localizer["MinInitialPaymentAmount"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="actInitPercentB7" id="chk-ani3" type="checkbox">@Localizer["ActualInitPaymentPercentage"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="paymentPeriodB7" id="chk-ani3" type="checkbox">@Localizer["PaymentPeriodType"]
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="scheduleAmountB7" id="chk-ani3" type="checkbox">@Localizer["ScheduledAmount"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="actPaymentB7" id="chk-ani3" type="checkbox">@Localizer["ActualPayment"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="diffB7" id="chk-ani3" type="checkbox">@Localizer["Difference"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="m-t-15 m-checkbox-inline row">
+
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="actDateB7" id="chk-ani3" type="checkbox">@Localizer["ActAndAssetDate"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockSeven" name="actNumB7" id="chk-ani3" type="checkbox">@Localizer["ActAndAssetNumber"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-block8" role="tabpanel" style="border-style: solid; border-color: #f7f7fe;" aria-labelledby="tab-block8">
+                                <div class="m-t-15 m-checkbox-inline">
+                                    <div class="m-t-15 m-checkbox-inline row">
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated cellGroupOne blockEight" name="fNameB8" id="chk-ani" type="checkbox">@Localizer["Fullname"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block">
+                                                <input class="checkbox_animated cellGroupOne blockEight" name="positionB8" type="checkbox">@Localizer["Position"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <label class="d-block" for="chk-ani2">
+                                                <input class="checkbox_animated cellGroupOne blockEight" name="phNumberB8" id="chk-ani2" type="checkbox">@Localizer["PhoneNumber"]
+                                            </label>
+                                        </div>
+                                        <div class="form-check col ">
+                                            <label class="d-block" for="chk-ani3">
+                                                <input class="checkbox_animated cellGroupOne blockEight" name="emailB8" id="chk-ani3" type="checkbox">@Localizer["Email"]
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr class="mt-4 mb-4 ">
+
+                    <button class="btn btn-pill btn-secondary btn-air-light" id="create-btn" type="submit">@Localizer["createExReport"]</button>&nbsp;
+                    <button asp-controller="RealEstates" asp-action="PassportReport" class="btn btn-pill btn-warning btn-air-light" type="submit" id="passport-btn" >@Localizer["createPassport"]</button>&nbsp;
+                    <button class="btn btn-pill btn-primary btn-air-light" type="button" data-bs-dismiss="modal">@Localizer["cancel"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="userModal" tabindex="-1" aria-labelledby="userModalCenter" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="card custom-card">
+                
+                <div class="card-profile"><img class="rounded-circle" src="../assets/images/avtar/3.jpg" alt=""></div>
+                <div class="text-center profile-details">
+                    <a id="userProfile" href="">
+                        <h4 id="userFName"></h4>
+                    </a>
+                    <h5 id="userOrg"></h5>
+                    <h6 id="userPosition"></h6>
+                </div>
+                <ul class="card-social">
+                    <li><a id="telegram" href=""><i class="fa fa-telegram"></i></a></li>
+                    <li><a id="phone" href=""><i class="fa fa-phone"></i></a></li>
+                    <li><a id="mail" href=""><i class="fa fa-envelope"></i></a></li>
+                </ul>
+                <div class="card-footer row">
+                    <div class="col-4 col-sm-4">
+                        <h6>@Localizer["realEstates"]</h6>
+                        <h3 id="realEstateCounter" class="counter"></h3>
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <h6>@Localizer["shares"]</h6>
+                        <h3 id="sharesCounter"><span class="counter"></span></h3>
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <h6>@Localizer["sold"]</h6>
+                        <h3 id="soldCounter"><span class="counter"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <div style="justify-content:center" class="modal-footer">
+                
+                <button class="btn btn-secondary mr-auto" type="button" data-bs-dismiss="modal" data-bs-original-title="" title="">Ok</button>
+                <button class="btn btn-success active" type="button" data-bs-dismiss="modal" onclick="openUserChangeModal()" data-original-title="btn btn-danger btn-xs"><i class="icofont icofont-edit-alt"></i> <i class="icofont icofont-funky-man"></i></button>
+            </div>
+
+        
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " id="detailModal" tabindex="-1" aria-labelledby="detailModalCenter" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+           
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header b-t-success b-b-success"><h4>Объект маълумотлари</h4>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+                    </div>
+                        <div class="categories">
+                            
+                            <ul>
+                                <li><a href="#" data-bs-original-title="" title="">Объект номи </a>
+                                    <p id="_rName"></p>
+                                </li>
+                                <li><a href="#" data-bs-original-title="" title="">Баланс сақловчи ташкилот </a>
+                                    <p id="_orgName"></p>
+                                </li>
+                                <li><a href="#" data-bs-original-title="" title="">Кадастр рақами </a>
+                                    <p id="_cadNum"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Кадастрни рўйхатдан ўтказиш санаси </a>
+                                    <p id="_cadDate"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Ишга тушириш санаси </a>
+                                    <p id="_comDate"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Фаолият тури </a>
+                                    <p id="_activity"></p>
+                                </li>
+                                <li><a href="#" data-bs-original-title="" title="">Вилоят </a>
+                                    <p id="_reg"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Туман </a>
+                                    <p id="_dist"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Манзил (махалла, кўчаси, уй, КФЙ) </a>
+                                    <p id="_address"></p>
+                                </li>                                
+                                <li><a href="#" data-bs-original-title="" title="">Бино иншоот майдони (кв.м.) </a>
+                                    <p id="_building"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Умумий майдон (га) </a>
+                                    <p id="_allArea"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Инфратузилманинг мавжудлиги </a>
+                                    <p id="_infra"></p>
+                                </li>
+                                <li><a href="#" data-bs-original-title="" title="">Ишчилар сони </a>
+                                    <p id="_numberEm"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Ўртача йиллик сақлаш харажатлари (минг сўм) </a>
+                                    <p id="_maintCost"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Объектнинг дастлабки қиймати (минг сўм) </a>
+                                    <p id="_initCost"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Амортизатсия (минг сўм) </a>
+                                    <p id="_wear"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Объектнинг баланс (қолдиқ) қиймати (минг сўм) </a>
+                                    <p id="_resCost"></p></li>
+                                <li><a href="#" data-bs-original-title="" title="">Активдан янада самарали фойдаланиш бўйича таклифлар </a>
+                                    <p id="_proposal"></p>
+                                </li>
+                                <li><a href="#" data-bs-original-title="" title="">Изоҳ </a>
+                                    <p id="_comment"></p>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                        
+                    
+                </div>
+            </div>
+            <div style="justify-content:center" class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal" data-bs-original-title="" title="">Ok</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " id="filesModal" tabindex="-1" aria-labelledby="filesModalCenter" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Файллар</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+            </div>
+            <div class="card">                
+                <div class="card-body file-manager">
+                    <div class="files row">
+                        
+                        <div class="file-box col-3">
+                            <div class="file-top"><a id="file1" href="" target="_blank"><i class="fa fa-file-text-o txt-info  fa-3x file-icon"></i></a></div>
+                            <div class="file-bottom">
+                                <h6>Кадастр ҳужжати </h6>
+                                @*<p class="mb-1">2.0 MB</p>
+                                <p> <b>last open : </b>1 hour ago</p>*@
+                            </div>
+                        </div>
+                        <div class="file-box col-3">
+                            <div class="file-top"><a id="file2" href="" target="_blank"><i class="fa fa-file-image-o txt-primary fa-3x file-icon"></i></a></div>
+                            <div class="file-bottom">
+                                <h6>Объект 1-расми</h6>
+                               
+                            </div>
+                        </div>
+                        <div class="file-box col-3">
+                            <div class="file-top"><a id="file3" href="" target="_blank"><i class="fa fa-file-image-o txt-success fa-3x file-icon"></i></a></div>
+                            <div class="file-bottom">
+                                <h6>Объект 2-расми</h6>
+                               
+                            </div>
+                        </div>
+                        <div class="file-box col-3">
+                            <div class="file-top"><a id="file4" href="" target="_blank"><i class="fa fa-file-image-o txt-secondary fa-3x file-icon"></i></a></div>
+                            <div class="file-bottom">
+                                <h6>Объект 3-расми </h6>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="changeUserModal" tabindex="-1" aria-labelledby="changeUserModal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Объектни фойдаланувчига бириктириш</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+            </div>
+            <div class="card">
+                <div class="card-body ">
+                    <div class="mb-3 ">
+                        <div class="select2-drpdwn">
+                            <label class="col-form-label">Фойдаланувчилар рўйхати</label>
+                            <select id="users" class="ids col-sm-12 form-control form-control-primary btn-square" onfocus="this.size=5" onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 ">
+                        <p>Объект номи: <span id="rEstateName"></span></p>
+                    </div>
+                    <p id="rEstateId" hidden></p>
+                </div>
+                <div style="justify-content:center" class="modal-footer">
+
+                    <button class="btn btn-secondary mr-auto" type="button" onclick="changeUserOfAsset()" data-bs-dismiss="modal" data-bs-original-title="" title="">Сақлаш</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script src="~/js/adminRealEstate.js"></script>
+
+}
+
+
+
+
+

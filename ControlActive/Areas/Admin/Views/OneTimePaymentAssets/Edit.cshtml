@@ -1,0 +1,81 @@
+﻿@model ControlActive.Models.OneTimePaymentAsset
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>OneTimePaymentAsset</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OneTimePaymentAssetId" />
+            <div class="form-group">
+                <label asp-for="GoverningBodyName" class="control-label"></label>
+                <input asp-for="GoverningBodyName" class="form-control" />
+                <span asp-validation-for="GoverningBodyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionNumber" class="control-label"></label>
+                <input asp-for="SolutionNumber" class="form-control" />
+                <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionDate" class="control-label"></label>
+                <input asp-for="SolutionDate" class="form-control" />
+                <span asp-validation-for="SolutionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileLink" class="control-label"></label>
+                <input asp-for="SolutionFileLink" class="form-control" />
+                <span asp-validation-for="SolutionFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileId" class="control-label"></label>
+                <input asp-for="SolutionFileId" class="form-control" />
+                <span asp-validation-for="SolutionFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BiddingDate" class="control-label"></label>
+                <input asp-for="BiddingDate" class="form-control" />
+                <span asp-validation-for="BiddingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealEstateId" class="control-label"></label>
+                <select asp-for="RealEstateId" class="form-control" asp-items="ViewBag.RealEstateId"></select>
+                <span asp-validation-for="RealEstateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareId" class="control-label"></label>
+                <select asp-for="ShareId" class="form-control" asp-items="ViewBag.ShareId"></select>
+                <span asp-validation-for="ShareId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OneTimePaymentStep2Id" class="control-label"></label>
+                <select asp-for="OneTimePaymentStep2Id" class="form-control" asp-items="ViewBag.OneTimePaymentStep2Id"></select>
+                <span asp-validation-for="OneTimePaymentStep2Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OneTimePaymentStep3Id" class="control-label"></label>
+                <select asp-for="OneTimePaymentStep3Id" class="form-control" asp-items="ViewBag.OneTimePaymentStep3Id"></select>
+                <span asp-validation-for="OneTimePaymentStep3Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

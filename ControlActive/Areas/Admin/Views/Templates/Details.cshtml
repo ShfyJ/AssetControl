@@ -1,0 +1,84 @@
+﻿@model ControlActive.Models.Template
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Template</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TemplateName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TemplateName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsShare)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsShare)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsRealEstate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsRealEstate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HasUser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HasUser)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HasTransferredAssets)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HasTransferredAssets)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HasAssetEvaluation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HasAssetEvaluation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HasAuction)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HasAuction)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HasReductionInAsset)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HasReductionInAsset)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HasOneTimePaymentAsset)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HasOneTimePaymentAsset)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HasInstallmentAsset)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HasInstallmentAsset)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.File)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.File.FileId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TemplateId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

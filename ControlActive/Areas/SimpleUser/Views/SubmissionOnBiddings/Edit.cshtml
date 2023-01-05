@@ -1,0 +1,156 @@
+﻿@model ControlActive.Models.SubmissionOnBidding
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+ <div class="container-fluid">
+            <div class="page-title">
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                  <h3>@Localizer["Title"]</h3>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href=""> <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item"> </li>
+                    <li class="breadcrumb-item active"></li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+<div class="container-fluid">
+    <div class="card col-sm-6">
+        <div class="card-header pb-0">
+            <h5>@Localizer["Edit"]</h5>
+        </div>
+        <div class="card-body">
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" asp-action="Edit" asp-route-id="@Model.SubmissionOnBiddingId">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="SubmissionOnBiddingId" />
+                <input type="hidden" asp-for="RealEstateId" />
+                <input type="hidden" asp-for="ShareId" />
+                <input type="hidden" asp-for="Status" />
+                
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AssetName"]  <span class="required">*</span>
+                        </label>
+
+                        <input class="form-control" name="name" required="required" value="@ViewBag.Name" readonly />
+
+                    </div>
+                
+                <div class="mb-3">
+                    <label class="col-form-label">
+                        @Localizer["TradingPlatformName"] <span class="required">*</span>
+                    </label>
+
+                    <input type="text" asp-for="TradingPlatformName" class="form-control" required="required" />
+                    <span asp-validation-for="TradingPlatformName" class="text-danger"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="col-form-label">
+                        @Localizer["AmountOnBidding"]  <span class="required">*</span>
+                    </label>
+
+                    <input type="number" asp-for="AmountOnBidding" class="form-control" oninput="validity.valid||(value='');" min="1" required="required" />
+                    <span asp-validation-for="AmountOnBidding" class="text-danger"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="col-form-label">
+                        @Localizer["BiddingExposureDate"] <span class="required">*</span>
+                    </label>
+
+                    <input type="text" asp-for="BiddingExposureDate" class="datepicker-here form-control" required="required" autocomplete="off">
+                    <span asp-validation-for="BiddingExposureDate" class="text-danger"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="col-form-label">
+                        @Localizer["ExposureTime"] <span class="required">*</span>
+                    </label>
+
+                    <input type="number" asp-for="ExposureTime" class="form-control" oninput="validity.valid||(value='');" step="1" required="required" readonly />
+                    <span asp-validation-for="ExposureTime" class="text-danger"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="control-label col-md-3 col-sm-3 label-align">
+                        @Localizer["ActiveValue"] <span class="required">*</span>
+                    </label>
+
+                    <input id="activeValue" type="text" asp-for="ActiveValue" class="form-control" value="@ViewBag.Price" required="required" readonly />
+                    <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                    <span asp-validation-for="ActiveValue" class="text-danger"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label class="control-label col-md-3 col-sm-3 label-align">
+                        @Localizer["BiddingHoldDate"] <span class="required">*</span>
+                    </label>
+
+
+                    <input type="text" asp-for="BiddingHoldDate" class="datepicker-here form-control" required="required" autocomplete="off">
+                    <span asp-validation-for="BiddingHoldDate" class="text-danger"></span>
+
+
+                </div>
+
+                <div class="card-footer">
+
+                    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+                    <a asp-action="Index" class="btn btn-secondary">@Localizer["Back"]</a>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+@section scripts {
+
+    <script>
+        var flag = true;
+
+        $("#submit").click(function () {
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+        $("#share").keyup(function () {
+
+            if (!isNaN($('#share').val())) {
+                if ($('#share').val() < 0 || $('#share').val() > 50) {
+                    $('#errorMsg').show();
+                    flag = false;
+                }
+                else {
+                    $('#errorMsg').hide();
+                    flag = true;
+                }
+            }
+
+            else {
+                $('#errorMsg').show();
+                flag = false;
+            }
+        });
+    </script>
+}

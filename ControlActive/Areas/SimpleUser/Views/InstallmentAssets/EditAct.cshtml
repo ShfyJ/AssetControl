@@ -1,0 +1,195 @@
+﻿@model ControlActive.Models.InstallmentStep2
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h4> @Localizer["Edit"]</h4>
+        <h3>@Localizer["AktStep2"] @Localizer["Obsh"]</h3>
+    </div>
+
+
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <a class="btn btn-outline-secondary" type="button" asp-controller="InstallmentAssets" asp-action="Index"><i class="fas fa-backward"></i> @Localizer["Back"] </a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" asp-action="EditAct" asp-route-idInst="@Model.InstallmentStep2Id">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="InstallmentStep2Id" />
+                    <input type="hidden" asp-for="ActAndAssetFileId" />
+                    <input type="hidden" asp-for="ActAndAssetFileLink" />
+                    @if (ViewBag.Target == 1)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["RealEstates"]  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="id" value="@ViewBag.Id" hidden />
+                            </div>
+                        </div>
+                    }
+                    @if (ViewBag.Target == 2)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["Shares"] <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="id" value="@ViewBag.Id" hidden />
+                            </div>
+                        </div>
+                    }
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ActAndAssetDate"]  <span class="required">*</span>
+                        </label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            <input asp-for="ActAndAssetDate" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                            <span asp-validation-for="ActAndAssetDate" class="text-danger"></span>
+                            <script>
+                                function timeFunctionLong(input) {
+                                    setTimeout(function () {
+                                        input.type = 'text';
+                                    }, 60000);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["ActAndAssetNumber"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="ActAndAssetNumber" class="form-control" required="required" />
+                            <span asp-validation-for="ActAndAssetNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*<div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                Акт приём-передачи актива в формате PDF <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="file" asp-for="ActAndAssetFileId" name="actAndAssetFile" accept=".pdf, application/pdf" class="form-control" value="default" required />
+                            </div>
+                        </div>*@
+                    <div class="ln_solid"></div>
+
+                    <input name="installmentId" value="@ViewBag.Id" readonly hidden />
+                    <div class="form-group">
+                        <input type="submit" value=" @Localizer["Save"]" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/valiadationMessages.js"></script>
+
+    <script>
+        var v = document.getElementById("amountSold");
+        var v2 = document.getElementById("amountInFact");
+        var v3 = document.getElementById("amounLastP");
+        var flag = true;
+
+        $("#submit").click(function () {
+
+            if (v.value == "") {
+
+                v.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v.value) && v.value >= 0) {
+
+                v.style.borderColor = "green";
+                $('#errorMsg1').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v.style.borderColor = "red";
+                $('#errorMsg1').show();
+            }
+
+            if (v2.value == "") {
+
+                v2.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v2.value) && v2.value >= 0) {
+
+                v2.style.borderColor = "green";
+                $('#errorMsg2').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v2.style.borderColor = "red";
+                $('#errorMsg2').show();
+            }
+
+            if (v3.value == "") {
+
+                v2.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v3.value) && v3.value >= 0) {
+
+                v3.style.borderColor = "green";
+                $('#errorMsg3').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v3.style.borderColor = "red";
+                $('#errorMsg3').show();
+            }
+
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+    </script>
+
+
+}
+

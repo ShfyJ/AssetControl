@@ -1,0 +1,117 @@
+﻿@model ControlActive.Models.TransferredAsset
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TransferredAsset</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TransferForm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TransferForm.TransferFormId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrgName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrgName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionFileLink)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionFileLink)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionFileId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionFileId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrgNameOfAsset)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrgNameOfAsset)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalCost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActAndAssetDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActAndAssetDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActAndAssetNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActAndAssetNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActAndAssetFileLink)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActAndAssetFileLink)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActAndAssetFileId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActAndAssetFileId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgreementDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgreementDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgreementNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgreementNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AggreementFileLink)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AggreementFileLink)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgreementFileId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgreementFileId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="AssetId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

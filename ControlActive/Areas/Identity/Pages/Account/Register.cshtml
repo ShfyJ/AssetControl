@@ -1,0 +1,127 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    var defaultPassword = "User@123";
+}
+
+<style>
+    .space{
+        padding-left:80px;
+    }
+</style>
+
+<br />
+
+<div class="card card-absolute col-md-4">
+    <div class="card-header  bg-success">
+        <h5>Рўйхатдан ўтказиш</h5>
+    </div>
+    <form autocomplete="off" class="theme-form mega-form" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div class="card-body">
+        
+
+            <div class="mb-3">
+                <label class="col-form-label">Исми</label>
+                <input class="form-control" type="text" asp-for="Input.FirstName" placeholder="Исми" required>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                <span></span>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Отасининг Исми</label>
+                <input class="form-control" type="text" asp-for="Input.MiddleName" placeholder="Шарифи" required>
+                <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Фамилияси</label>
+                <input class="form-control" type="text" asp-for="Input.LastName" placeholder="Фамилияси" required>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Электрон почта</label>
+                <input asp-for="Input.Email" placeholder="Электрон почта" class="form-control" type="email" placeholder="Электрон почта">
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span class="text-danger">@Model.Message1</span>
+            </div>
+            <div class="mb-3 " >
+                <label class="col-form-label">Телефон рақами</label>
+                <div class="input-group">
+                    <span class="input-group-text">+998</span>
+                    <input type="text" asp-for="Input.PhoneNumber" class="form-control" type="Number" placeholder="Тел.">
+                </div>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="mb-3">
+                <label class="col-form-label">Лавозим</label>
+                <input asp-for="Input.Position" class="form-control" type="text" placeholder="Лавозим">
+                <span asp-validation-for="Input.Position" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Ташкилоти:</label>
+                @Html.DropDownListFor(m => m.Input.OrganizationId, Model.Input.Organizations ?? new List<SelectListItem>(),
+                new { @class = "form-control form-control-primary btn-square", id = "ddl2" })
+
+
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Роли:</label>
+
+                @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList ?? new List<SelectListItem>(),
+                new { @class = "form-control", id = "ddl" })
+
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Стандарт парол</label>
+                <input type="password" asp-for="Input.Password" value=@defaultPassword id="passw" class="form-control" placeholder="Парол" required autocomplete="new-password">
+                <span class="far fa-eye" id="togglePassword" style="margin-top: -45px; float:right; margin-right:10px; cursor: pointer;"></span>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Паролни тасдиқлаш</label>
+                <input type="password" value=@defaultPassword id="passw2" asp-for="Input.ConfirmPassword" class="form-control" placeholder="Паролни тасдиқлаш" required="" />
+                <span class="far fa-eye" id="togglePassword2" style="margin-top: -45px; float:right; margin-right:10px; cursor: pointer;"></span>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+       
+
+    </div>
+     <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Яратиш</button>
+        
+    </div>
+
+   </form>
+   
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#passw');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    const togglePassword2 = document.querySelector('#togglePassword2');
+    const password2 = document.querySelector('#passw2');
+
+    togglePassword2.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type2 = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+        password2.setAttribute('type', type2);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
+}

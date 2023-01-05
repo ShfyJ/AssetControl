@@ -1,0 +1,244 @@
+﻿@model ControlActive.Models.AssetEvaluation
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>@Localizer["AssetEvaluation"]</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href=""> <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item"> </li>
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="card col-sm-6">
+        <div class="card-header pb-0">
+            <h5>@Localizer["Create"]</h5>
+        </div>
+        <div class="card-body">
+            <form autocomplete="off" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (ViewBag.Target == 1)
+                    {
+                        <div class="mb-3">
+                            <label class="col-form-label">
+                                @Localizer["RealEstates"]  <span class="required">*</span>
+                            </label>
+                            
+                                <input class="form-control" name="name" required="required" value="@ViewBag.Name" readonly />
+                                <input name="id" value="@ViewBag.Id" hidden />
+                            
+                        </div>
+                    }
+                    @if (ViewBag.Target == 2)
+                    {
+                        <div class="mb-3">
+                            <label class="col-form-label">
+                                @Localizer["Shares"]<span class="required">*</span>
+                            </label>
+                           
+                                <input class="form-control" name="name" required="required" value="@ViewBag.Name" readonly />
+                                <input name="id" value="@ViewBag.Id" hidden />
+                            
+                        </div>
+                    }
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["EvaluatingOrgName"] <span class="required">*</span>
+                        </label>
+                        
+                            <input type="text" asp-for="EvaluatingOrgName" class="form-control" required="required" />
+                            <span asp-validation-for="EvaluatingOrgName" class="text-danger"></span>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ReportRegNumber"] <span class="required">*</span>
+                        </label>
+                        
+                            <input type="text" asp-for="ReportRegNumber" class="form-control" required="required" />
+                            <span asp-validation-for="ReportRegNumber" class="text-danger"></span>
+                       
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ReportDate"] <span class="required">*</span>
+                        </label>
+
+                        
+                            <input type="text" asp-for="ReportDate" class="datepicker-here form-control" required="required" autocomplete="off">
+                            <span asp-validation-for="ReportDate" class="text-danger"></span>
+                            
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ReportFileId"] <span class="required">*</span>
+                        </label>
+                        <a style="text-align:center; cursor:pointer;display:block; width:150px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('ReportFileIn').click()">@Localizer["Choose"]</a>
+                        <span style="margin-left:3px; margin-top:10px;" id="display-ReportFile"></span>
+
+                        <input type="file" asp-for="ReportFileId" id="ReportFileIn" onchange="getReportFile(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" name="reportFile" value="default" required />
+
+
+                </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["MarketValue"]  <span class="required">*</span>
+                        </label>
+                       
+                            <input id="marketValue" asp-for="MarketValue" type="text" class="form-control" oninput="validity.valid||(value='');" required="required" />
+                            <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            <span asp-validation-for="MarketValue" class="text-danger"></span>
+                      
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ExaminingOrgName"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input type="text" asp-for="ExaminingOrgName" class="form-control" required="required" />
+                            <span asp-validation-for="ExaminingOrgName" class="text-danger"></span>
+                     
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ExamReportDate"]    <span class="required">*</span>
+                        </label>
+
+                      
+                            <input type="text" asp-for="ExamReportDate" class="datepicker-here form-control" required="required" autocomplete="off">
+                            <span asp-validation-for="ExamReportDate" class="text-danger"></span>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ExamReportRegNumber"]   <span class="required">*</span>
+                        </label>
+                       
+                            <input type="text" asp-for="ExamReportRegNumber" class="form-control" required="required" />
+                            <span asp-validation-for="ExamReportRegNumber" class="text-danger"></span>
+                       
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ExamReportFileId"]  <span class="required">*</span>
+                        </label>
+
+                            <a style="text-align:center; cursor:pointer;display:block; width:150px; height:30px; border:solid; border-width:2px;border-color:#ced4da" onclick="document.getElementById('getExamReportFile').click()">@Localizer["Choose"]</a>
+                            <span style="margin-left:3px; margin-top:10px;" id="display-ExamReportFile" ></span>
+                            <input type="file" asp-for="ExamReportFileId" id="getExamReportFile"  onchange="getFile(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" name="examReportFile" value="default" required />
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["ReportStatus"]  <span class="required">*</span>
+                        </label>
+                       
+                            <select asp-for="ReportStatus" class="select2_single form-control">
+                                <option value="true">@Localizer["ReportStatusNice"] </option>
+                                <option value="false">@Localizer["ReportStatusNot"] </option>
+                            </select>
+                            <span asp-validation-for="ReportStatus" class="text-danger"></span>
+                       
+                    </div>
+                    <input name="target" value="@ViewBag.Target" hidden />
+
+                    <div class="card-footer">
+                         <button type="submit" asp-controller="AssetEvaluations" asp-action="Create" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i>@Localizer["Create"]  </button>
+                         <a asp-action="Index" class="btn btn-secondary">@Localizer["Back"]</a>
+                       
+                    </div>
+
+                </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/valiadationMessages.js"></script>
+
+    <script>
+        var v = document.getElementById("marketValue");
+        var flag = true;
+
+        $("#submit").click(function () {
+
+            if (v.value == "") {
+
+                v.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v.value) && v.value >= 0) {
+
+                v.style.borderColor = "green";
+                $('#errorMsg').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v.style.borderColor = "red";
+                $('#errorMsg').show();
+            }
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+    </script>
+
+     <script>
+
+        //$(document).ready(function(){
+
+        //    getFile();
+        //    getReportFile();
+
+        //});
+       
+        function getReportFile(fileName) {
+
+            $("#display-ReportFile").html(fileName.replace(/^.*[\\\/]/, ''));
+        }
+
+        function getFile(fileName) {
+
+            $("#display-ExamReportFile").html(fileName.replace(/^.*[\\\/]/, ''));
+        }
+
+        
+
+    </script>
+}

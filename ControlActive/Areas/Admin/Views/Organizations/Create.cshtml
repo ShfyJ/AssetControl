@@ -1,0 +1,44 @@
+﻿@model ControlActive.Models.Organization
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h4>Ташкилот Қўшиш</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" autocomplete="off">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OrganizationName" class="control-label">Ташкилот номи</label>
+                <input asp-for="OrganizationName" class="form-control" />
+                <span asp-validation-for="OrganizationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegionId" class="control-label">Вилоят</label>
+                <select asp-for="RegionId" class ="form-control" asp-items="ViewBag.RegionId"></select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" checked/> Фаол
+                </label>
+            </div>
+            <div class="row">
+                <div class="form-group col-2">
+                    <input type="submit" value="Яратиш" class="btn btn-primary" />
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-mini btn-secondary" asp-action="Index">Ортга</a>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Рўйхатга қайтиш</a>
+</div>
+

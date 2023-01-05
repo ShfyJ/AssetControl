@@ -1,0 +1,223 @@
+﻿@model IEnumerable<ControlActive.Models.Share>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<style>
+
+    
+
+    #edit:hover {
+        color: white;
+    }
+
+    #delete:hover {
+        color: white;
+    }
+
+    #send:hover {
+        color: white;
+    }
+
+    .swal-text {
+        background-color: #FEFAE3;
+        padding: 17px;
+        border: 1px solid #F0E1A1;
+        display: block;
+        margin: 22px;
+        text-align: center;
+        color: #61534e;
+    }
+
+
+    #profile-tab {
+        border-color: #405e7d;
+        border-style: solid;
+        color: black;
+    }
+
+    #home-tab {
+        border-color: #6c757d;
+        color: black;
+    }
+
+
+    #myTab a:hover span.fa-close {
+        color: #ff0000;
+    }
+
+    #myTab a.active span.fa-close {
+        color: #ff0000;
+    }
+
+    #myTab a.active span.fa-check-double {
+        color: #32a852;
+    }
+
+    #myTab a:hover span.fa-check-double {
+        color: #32a852;
+    }
+</style>
+<br />
+
+<div class="row">
+
+    <div class="col-sm-12 col-xl-12 xl-100">
+
+        <div class="card ">
+            <div class="card-header pb-0">
+                <h5>@Localizer["Obsh"]</h5><small>@Localizer["forDol"]</small> <br><br />
+                <p>
+                    <a class="btn btn-secondary" asp-action="Create"><span class="fas fa-plus"></span> @Localizer["Create"]</a>
+                </p>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs border-tab nav-secondary nav-left" id="danger-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="danger-home-tab" data-bs-toggle="tab" href="#danger-home" role="tab" aria-controls="danger-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>@Localizer["Unsent"]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-danger-tab" data-bs-toggle="tab" href="#danger-profile" role="tab" aria-controls="danger-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>@Localizer["Sent"]</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="danger-tabContent">
+                    <div class="tab-pane fade show active" id="danger-home" role="tabpanel" aria-labelledby="danger-home-tab">
+                        <div class="dt-ext table-responsive">
+                            <table id="myTable" class="table display  dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th> @Localizer["businessEntityName"]</th>
+                                        <th> @Localizer["idRegNumber"]</th>
+                                        <th> @Localizer["parentOrganization"]</th>
+                                        <th> @Localizer["activities"]</th>
+                                        <th> @Localizer["activityShare"]</th>
+                                        <th> @Localizer["foundationYear"]</th>
+                                        <th> @Localizer["stateRegistrationDate"]</th>
+                                        <th>@Localizer["Region"]</th>
+                                        <th>@Localizer["District"]</th>
+                                        <th>@Localizer["address"]</th>
+                                        <th> @Localizer["authorizedCapital"]</th>
+                                        <th> @Localizer["shareHolderName"]</th>
+                                        <th> @Localizer["amountFromAuthCapital"]</th>
+                                        <th> @Localizer["shareOfAuthCapital"]</th>
+                                        <th> @Localizer["numberOfShares"]</th>
+                                        <th> @Localizer["parValueOfShares"]</th>
+                                        <th> @Localizer["administrativeStaff"]</th>
+                                        <th> @Localizer["productionPersonal"]</th>
+                                        <th> @Localizer["allStaff"]</th>
+                                        <th> @Localizer["averageMonthlySalary"]</th>
+                                        <th>@Localizer["maintanenceCostForYear"]</th>
+                                        <th> @Localizer["productionArea"]</th>
+                                        <th> @Localizer["buildingsArea"]</th>
+                                        <th> @Localizer["allArea"]</th>
+                                        <th> @Localizer["amountPayable"]</th>
+                                        <th> @Localizer["amountReceivable"]</th>
+                                        <th id="year1">@Localizer["profitOrLossOfYear1"] </th>
+                                        <th id="year2">@Localizer["profitOrLossOfYear1"] </th>
+                                        <th id="year3">@Localizer["profitOrLossOfYear1"] </th>
+                                        <th>@Localizer["comments"]</th>
+                                        <th></th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="danger-profile" role="tabpanel" aria-labelledby="profile-danger-tab">
+                        <div class="dt-ext table-responsive">
+                            <table id="myTable2" class="table display dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th> @Localizer["businessEntityName"]</th>
+                                        <th> @Localizer["idRegNumber"]</th>
+                                        <th> @Localizer["parentOrganization"]</th>
+                                        <th> @Localizer["activities"]</th>
+                                        <th> @Localizer["activityShare"]</th>
+                                        <th> @Localizer["foundationYear"]</th>
+                                        <th> @Localizer["stateRegistrationDate"]</th>
+                                        <th> @Localizer["Region"]</th>
+                                        <th> @Localizer["District"]</th>
+                                        <th> @Localizer["address"]</th>
+                                        <th> @Localizer["authorizedCapital"]</th>
+                                        <th> @Localizer["shareHolderName"]</th>
+                                        <th> @Localizer["amountFromAuthCapital"]</th>
+                                        <th> @Localizer["shareOfAuthCapital"]</th>
+                                        <th> @Localizer["numberOfShares"]</th>
+                                        <th> @Localizer["parValueOfShares"]</th>
+                                        <th> @Localizer["administrativeStaff"]</th>
+                                        <th> @Localizer["productionPersonal"]</th>
+                                        <th> @Localizer["allStaff"]</th>
+                                        <th> @Localizer["averageMonthlySalary"]</th>
+                                        <th>@Localizer["maintanenceCostForYear"]</th>
+                                        <th> @Localizer["productionArea"]</th>
+                                        <th> @Localizer["buildingsArea"]</th>
+                                        <th> @Localizer["allArea"]</th>
+                                        <th> @Localizer["amountPayable"]</th>
+                                        <th> @Localizer["amountReceivable"]</th>
+                                         <th id="year1">@Localizer["profitOrLossOfYear1"] </th>
+                                        <th id="year2">@Localizer["profitOrLossOfYear1"] </th>
+                                        <th id="year3">@Localizer["profitOrLossOfYear1"] </th>
+                                        <th>@Localizer["comments"]</th>
+                                        <th></th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p id="success" style="visibility:hidden">@ViewBag.Success</p>
+<p id="editSuccess" style="visibility:hidden">@ViewBag.EditSuccess</p>
+
+@section Scripts{
+<script src="~/js/share.js"></script>
+<script>
+
+    //$(document).ready(function(){
+    //    toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
+    //});
+
+    var success = document.getElementById('success').innerHTML;
+    var editSuccess = document.getElementById('editSuccess').innerHTML;
+    console.log("value: ", success)
+    if (success == "True") {
+
+
+        toastr.options = {
+
+            "escapeHtml": true
+        }
+        toastr.success('@Localizer["succCreate"]');
+    }
+
+    if (editSuccess == "True") {
+
+
+        toastr.options = {
+
+            "escapeHtml": true
+        }
+        toastr.success('@Localizer["succEdit"]');
+    }
+
+
+
+
+</script>
+
+}

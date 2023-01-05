@@ -1,0 +1,349 @@
+﻿@model IEnumerable<ControlActive.Models.ReductionInAsset>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+
+
+    .nav-custom .nav-item :hover {
+        text-decoration: underline;
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    .dropbtn {
+        width: fit-content;
+        font-size: 16px;
+        border: none;
+    }
+
+
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
+    th {
+        font-size: 10px;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>@Localizer["Obsh"]</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href=""><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid list-products">
+    <div class="card-body">
+        <div class="default-according style-1" id="accordionoc">
+            <div class="card ">
+                <div class="card-header pb-0 b-b-info">
+
+                    <h6 class="mb-0">
+                        <button class="btn btn-link collapsed text-blue " data-bs-toggle="collapse" data-bs-target="#collapseicon1" aria-expanded="false">
+                            <i class="icofont icofont-support"></i>@Localizer["RealEstates"] <a data-bs-toggle="tooltip" data-bs-placement="right"  data-bs-original-title="@Localizer["add"]" class="badge  badge-secondary" asp-action="SelectRealEstate" asp-controller="RealEstates" asp-route-id="4">
+                                <i class="fas fa-plus fa-xs"></i>
+                            </a>
+                        </button>
+                    </h6>
+                </div>
+
+
+                <div class="collapse show" id="collapseicon1" aria-labelledby="collapseicon" data-bs-parent="#accordionoc">
+
+                    <div class="card-body">
+                        <ul class="nav nav-tabs border-tab nav-secondary nav-left" id="danger-tab1" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="danger-home-tab" data-bs-toggle="tab" href="#danger-home" role="tab" aria-controls="danger-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>@Localizer["NotConfirmed"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-danger-tab" data-bs-toggle="tab" href="#danger-profile" role="tab" aria-controls="danger-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>@Localizer["Confirmed"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="archive-danger-tab" data-bs-toggle="tab" href="#danger-archive" role="tab" aria-controls="danger-archive" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>@Localizer["Archive"]</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="danger-tabContent1">
+                            <div class="tab-pane fade show active" id="danger-home" role="tabpanel" aria-labelledby="danger-home-tab">
+                                <div class="dt-ext table-responsive">
+
+                                    <table id="myTable" class="table display dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                            <tr>
+
+                                                <th>@Localizer["RealEstateName"]</th>
+                                                <th style="width: 10%">Статус</th>
+                                                <th>@Localizer["AssetValueAfterDecline"]</th>
+                                                <th>@Localizer["GoverningBodyName"]</th>
+                                                <th>@Localizer["SolutionNumber"]</th>
+                                                <th>@Localizer["SolutionDate"]</th>
+                                                <th>@Localizer["Percentage"]</th>
+                                                <th>@Localizer["Amount"] </th>
+                                                <th>@Localizer["NumberOfSteps"]</th>
+                                                
+
+                                                <th>@Localizer["Files"]</th>
+
+                                                <th>###</th>
+
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="danger-profile" role="tabpanel" aria-labelledby="profile-danger-tab">
+                                <div class="dt-ext table-responsive">
+                                    <table id="myTable2" class="table display dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["RealEstateName"]</th>
+                                                <th style="width: 10%">Статус</th>
+                                                <th>@Localizer["AssetValueAfterDecline"]</th>
+                                                <th>@Localizer["GoverningBodyName"]</th>
+                                                <th>@Localizer["SolutionNumber"]</th>
+                                                <th>@Localizer["SolutionDate"]</th>
+                                                <th>@Localizer["Percentage"]</th>
+                                                <th>@Localizer["Amount"] </th>
+                                                <th>@Localizer["NumberOfSteps"]</th>
+                                                <th>@Localizer["AssetValueAfterDecline"]</th>
+
+                                                <th>@Localizer["Files"]</th>
+
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="danger-archive" role="tabpanel" aria-labelledby="archive-danger-tab">
+                                <div class="dt-ext table-responsive">
+                                    <table id="myTable3" class="table display dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["RealEstateName"]</th>
+                                                <th style="width: 10%">Статус</th>
+                                                <th>@Localizer["GoverningBodyName"]</th>
+                                                <th>@Localizer["SolutionNumber"]</th>
+                                                <th>@Localizer["SolutionDate"]</th>
+                                                <th>@Localizer["Percentage"]</th>
+                                                <th>@Localizer["Amount"] </th>
+                                                <th>@Localizer["NumberOfSteps"]</th>
+                                                <th>@Localizer["AssetValueAfterDecline"]</th>
+
+                                                <th>@Localizer["Files"]</th>
+
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card ">
+                <div class="card-header pb-0 b-b-info">
+
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-blue " data-bs-toggle="collapse" data-bs-target="#collapseicon2" aria-expanded="true" aria-controls="collapse">
+                            <i class="icofont icofont-briefcase-alt-2"></i> @Localizer["Shares"] <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@Localizer["add"]" class="badge badge-secondary" asp-action="SelectShare" asp-controller="Shares" asp-route-id="4">
+                                <i class="fas fa-plus "></i>
+                            </a>
+                        </button>
+                    </h5>
+                </div>
+                <div class="collapse" id="collapseicon2" aria-labelledby="headingeight" data-bs-parent="#accordionoc">
+
+                    <div class="card-body">
+                        <ul class="nav nav-tabs border-tab nav-secondary nav-left" id="danger-tab2" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="danger-home2-tab" data-bs-toggle="tab" href="#danger-home2" role="tab" aria-controls="danger-home2" aria-selected="true"><i class="icofont icofont-ui-home"></i>@Localizer["NotConfirmed"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile2-danger-tab" data-bs-toggle="tab" href="#danger-profile2" role="tab" aria-controls="danger-profile2" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>@Localizer["Confirmed"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="archive2-danger-tab" data-bs-toggle="tab" href="#danger-archive2" role="tab" aria-controls="danger-archive2" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>@Localizer["Archive"]</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="danger-tabContent2">
+                            <div class="tab-pane fade show active" id="danger-home2" role="tabpanel" aria-labelledby="danger-home2-tab">
+                                <div class="dt-ext table-responsive">
+
+                                    <table id="myTable4" class="table display dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                            <tr>
+
+                                                <th>@Localizer["BusinessEntityName"]</th>
+                                                <th style="width: 10%">Статус</th>
+                                                <th>@Localizer["GoverningBodyName"]</th>
+                                                <th>@Localizer["SolutionNumber"]</th>
+                                                <th>@Localizer["SolutionDate"]</th>
+                                                <th>@Localizer["Percentage"]</th>
+                                                <th>@Localizer["Amount"] </th>
+                                                <th>@Localizer["NumberOfSteps"]</th>
+                                                <th>@Localizer["AssetValueAfterDecline"]</th>
+
+                                                <th>@Localizer["Files"]</th>
+
+                                                <th>###</th>
+
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="danger-profile2" role="tabpanel" aria-labelledby="profile2-danger-tab">
+                                <div class="dt-ext table-responsive">
+                                    <table id="myTable5" class="table display dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["BusinessEntityName"]</th>
+                                                <th style="width: 10%">Статус</th>
+                                                <th>@Localizer["GoverningBodyName"]</th>
+                                                <th>@Localizer["SolutionNumber"]</th>
+                                                <th>@Localizer["SolutionDate"]</th>
+                                                <th>@Localizer["Percentage"]</th>
+                                                <th>@Localizer["Amount"] </th>
+                                                <th>@Localizer["NumberOfSteps"]</th>
+                                                <th>@Localizer["AssetValueAfterDecline"]</th>
+
+                                                <th>@Localizer["Files"]</th>
+
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="danger-archive2" role="tabpanel" aria-labelledby="archive2-danger-tab">
+                                <div class="dt-ext table-responsive">
+                                    <table id="myTable6" class="table display dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["BusinessEntityName"]</th>
+                                                <th style="width: 10%">Статус</th>
+                                                <th>@Localizer["GoverningBodyName"]</th>
+                                                <th>@Localizer["SolutionNumber"]</th>
+                                                <th>@Localizer["SolutionDate"]</th>
+                                                <th>@Localizer["Percentage"]</th>
+                                                <th>@Localizer["Amount"] </th>
+                                                <th>@Localizer["NumberOfSteps"]</th>
+                                                <th>@Localizer["AssetValueAfterDecline"]</th>
+
+                                                <th>@Localizer["Files"]</th>
+
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<p id="success" style="visibility:hidden">@ViewBag.Success</p>
+<p id="valueBeforeDecline" style="visibility:hidden">@ViewBag.ValueBeforeDecline</p>
+<p id="valueAfterDecline" style="visibility:hidden">@ViewBag.ValueAfterDecline</p>
+<div class="clearfix"></div>
+
+
+@section Scripts{
+<script src="~/js/reductionAsset.js"></script>
+<script>
+
+    var success = document.getElementById('success').innerHTML;
+    var valueBefore = document.getElementById('valueBeforeDecline').innerHTML;
+    var valueAfter = document.getElementById('valueAfterDecline').innerHTML;
+    console.log("value: ", success)
+    if (success == "True") {
+
+
+        //toastr.options = {
+
+        //    "escapeHtml": true
+        //}
+        //toastr.success('@Localizer["Succes"]');
+
+        Swal.fire({
+            icon: 'success',
+            title: '@Localizer["NiceWork"]',
+            html:
+                '@Localizer["AmountAktiv"] <b>@Localizer["BeforeD"]</b> ' +
+                '<p style="color:green; font-size:20px;">' + valueBefore + '(сум)</p> ' +
+                '@Localizer["AmountAktiv"] <b>@Localizer["AfretD"]</b> ' +
+                '<p style="color:green; font-size:30px;">' + valueAfter + '(сум)</p>',
+            footer: ''
+        })
+    }
+
+
+
+
+
+
+
+</script>
+}

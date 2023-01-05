@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActAndAssetDate" xml:space="preserve">
+    <value>Акт санаси</value>
+  </data>
+  <data name="ActAndAssetFile" xml:space="preserve">
+    <value>Акт ҳужжати</value>
+  </data>
+  <data name="ActAndAssetNumber" xml:space="preserve">
+    <value>Акт сони</value>
+  </data>
+  <data name="ActTuzish" xml:space="preserve">
+    <value>Акт тузиш</value>
+  </data>
+  <data name="ActualInitPayment" xml:space="preserve">
+    <value>Тўланган бошланғич тўлов</value>
+  </data>
+  <data name="ActualPayment" xml:space="preserve">
+    <value>Ҳақиқий тўлов (ўтган давр учун тўланган сумма)</value>
+  </data>
+  <data name="AggreementDate" xml:space="preserve">
+    <value>Шартнома санаси</value>
+  </data>
+  <data name="AggreementFileId" xml:space="preserve">
+    <value>Олди-сотди шартномаси (PDF)</value>
+  </data>
+  <data name="AggreementNumber" xml:space="preserve">
+    <value>Шартнома рақами</value>
+  </data>
+  <data name="AmountOfAssetSold" xml:space="preserve">
+    <value>Активларни реализация қилиш суммаси, сўм</value>
+  </data>
+  <data name="AssetBuyerName" xml:space="preserve">
+    <value>Актив харидорнинг тўлиқ исми</value>
+  </data>
+  <data name="AssetName" xml:space="preserve">
+    <value>Актив номи</value>
+  </data>
+  <data name="BiddingDate" xml:space="preserve">
+    <value>Сотув санаси</value>
+  </data>
+  <data name="BusinessEntityName" xml:space="preserve">
+    <value>Тадбиркорлик субъекти номи</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Бекор қилиш</value>
+  </data>
+  <data name="choose" xml:space="preserve">
+    <value>танланг</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Янгисини қўшинг</value>
+  </data>
+  <data name="CreateAct" xml:space="preserve">
+    <value>Акт тузиш</value>
+  </data>
+  <data name="DModal" xml:space="preserve">
+    <value>Батафсил маълумот</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Юклаш</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Таҳрирлаш</value>
+  </data>
+  <data name="EditAkt" xml:space="preserve">
+    <value>Акт таҳрирлаш</value>
+  </data>
+  <data name="EndSuccess" xml:space="preserve">
+    <value>Жараён муваффақиятли якунланди!</value>
+  </data>
+  <data name="GoverningBodyName" xml:space="preserve">
+    <value>Бошқарув органининг номи</value>
+  </data>
+  <data name="InstallmentTime" xml:space="preserve">
+    <value>Тўлаш муддати (ой)</value>
+  </data>
+  <data name="NewCreate" xml:space="preserve">
+    <value>Бошқа актив киритиш</value>
+  </data>
+  <data name="Obsh" xml:space="preserve">
+    <value>Бўлиб бўлиб тўлашга сотилган активлар</value>
+  </data>
+  <data name="OnWait" xml:space="preserve">
+    <value>кутишда</value>
+  </data>
+  <data name="PaymentPeriodType" xml:space="preserve">
+    <value>Тўлов вақти</value>
+  </data>
+  <data name="RealEstateName" xml:space="preserve">
+    <value>Объектнинг номи</value>
+  </data>
+  <data name="RealEstates" xml:space="preserve">
+    <value>Кўчмас мулк объектлари</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сақлаш</value>
+  </data>
+  <data name="Shares" xml:space="preserve">
+    <value>Акциялар</value>
+  </data>
+  <data name="SolutionDate" xml:space="preserve">
+    <value>Қарор санаси</value>
+  </data>
+  <data name="SolutionFileId" xml:space="preserve">
+    <value>Бошқарув органининг қарори (PDF)</value>
+  </data>
+  <data name="SolutionNumber" xml:space="preserve">
+    <value>Қарор сони</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>Яратиш</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>Муваффақиятли</value>
+  </data>
+</root>

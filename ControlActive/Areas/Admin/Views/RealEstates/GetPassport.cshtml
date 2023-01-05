@@ -1,0 +1,162 @@
+﻿@model ControlActive.Models.RealEstate
+
+<div class="">
+    <div class="card" style="top:30px;bottom:30px;">
+        <div class="row justify-content-center responsive-center" id="all" style="padding-top:5px">
+           
+                <div class="col-md-5 col-sm-5" style="width:50%; height:100%" >
+                    <table class="table table-bordered" id="passport">
+                        <thead>
+                            <tr>
+                                <th colspan="2" class="text-center"><b>Паспорт объекта</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Наименование объекта</th>
+                                <td>@Model.RealEstateName</td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Месторасположения
+                                </th>
+                                <td>@Model.RegionOfObject.RegionName @Model.DistrictOfObject.DistrictName @Model.Address </td>
+                            </tr>
+                            <tr>
+                                <th>Балансодержатель</th>
+                                <td>@Model.AssetHolderName</td>
+                            </tr>
+
+                            <tr>
+                                <th>Общая площадь объекта (кв.м)</th>
+                                <td>@Model.FullArea</td>
+                            </tr>
+                            <tr>
+                                <th>Площадь построений (кв.м.)</th>
+                                <td>@Model.BuildingArea</td>
+                            </tr>
+                            <tr>
+                                <th>Расходы на содержание (тыс.сум)</th>
+                                <td>@Model.MaintenanceCostForYear</td>
+                            </tr>
+                            @*<tr>
+                                <th>Техническая характеристика (кирпичный или бетонный монолит) и состояние объекта</th>
+                                <td>@Model.TechnicalCharcNames</td>
+                            </tr>*@
+                            <tr>
+                                <th colspan="2" class="text-center">Состояние соединения к коммуникационным сетям (отдаленность от объекта)</th>
+                            </tr>
+                            @foreach (var item in ViewBag.Infrastructures)
+                            {
+                                <tr>
+                                    <th>- @item[0]</th>
+                                    <td>@item[1]</td>
+                                </tr>
+                            }
+
+
+                            <tr>
+                                <th colspan="2" class="text-center">
+                                    Предложения
+                                    по дальнейшему эффективному использованию объекта
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Предложения по дальнейшему использованию объекта</th>
+                                <td>@Model.Proposal.ProposalName</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="col-md-4 col-sm-6" style="width:50%; height:100%">
+                    <div class="image view view-first" style="width:100%; height:70%">
+                        <img width="550" height="220" src="@Model.PhotoOfObjectLink1" alt="image">
+                    </div>
+                    <br />
+                    <div class="image view view-first" style="width:100%; height:70%">
+                        <img width="550" height="220"  src="@Model.PhotoOfObjectLink2" alt="image">
+                    </div>
+                    <br />
+                    <div class="image view view-first" style="width:100%; height:70%">
+                        <img width="550" height="220" src="@Model.PhotoOfObjectLink3" alt="image">
+                    </div>
+
+                </div>
+            </div>
+ 
+             <div class="card-footer">
+         <button  onclick="generatePDF()" id="btncl" class="btn btn-primary"> <i class="fa fa-download"> PDF </i></button>
+ 
+    </div>
+       
+    </div>
+   
+</div>
+
+
+
+
+@section scripts {
+
+    @*<script>
+        jQuery(function () {
+            jQuery('#btncl').click();
+        });
+
+        setTimeout(openUrl, 300); // Wait 5 seconds
+
+        function openUrl() {
+
+            window.open('/Admin/RealEstates/Index/');
+
+        }
+  
+
+    </script>*@
+
+<script>
+    
+    function generatePDF() {
+        // Choose the element that our invoice is rendered in.
+        const element = document.getElementById("all");
+        // Choose the element and save the PDF for our user.
+        var opt = {
+            margin: 1,
+            filename: 'passport.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' }
+        };
+
+        // New Promise-based usage:
+        html2pdf().set(opt).from(element).save();
+
+    }
+    
+    
+
+    //$("#btncl2").click(function () {
+    //    // 1. Create a new Presentation
+
+    //    var pptx = new PptxGenJS();
+        
+    //    pptx.tableToSlides("passport", {
+    //        autoPageLineWeight: -3.0,
+    //        x: 1.0, y: 1.0, w: 7, margin: [1.0, 0.5, 0.0, 0.0], addImage: { path: "images/logo.png", x: 10, y: 0.5, w: 1.2, h: 0.75 }
+    //    });
+
+    //    pptx.defineLayout({ name: 'A3', width: 16.5, height: 14.7 });
+    //    pptx.layout = 'A3'
+    //    pptx.fontSize
+    //    pptx.writeFile();
+        
+
+    //});
+
+
+</script>
+   
+}

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<ControlActive.Models.District>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1>Туманлар рўйхати</h1>
+
+<p>
+    <a class="btn btn-dark" asp-action="Create">Туман қўшиш</a>
+</p>
+        <div class="card-body table-responsive">
+
+            <div class="card-box table-responsive" id="table1">
+
+                <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Туманлар
+                            </th>
+                            <th>
+                                Вилоятлар
+                            </th>
+                            <th>
+                                Фаол
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.DistrictName
+                                </td>
+                                <td>
+                                    @item.Region.RegionName
+                                </td>
+
+                                @if (item.Status == true)
+                                {
+                                    <td>
+                                        Ҳа
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        Йўқ
+                                    </td>
+                                }
+
+
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.DistrictId">Ўзгартириш</a> 
+                                    @*<a asp-action="Details" asp-route-id="@item.DistrictId">Детально</a>*@
+                                    @*<a asp-action="Delete" asp-route-id="@item.DistrictId">Delete</a>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+                
+
+
+
+@section Scripts{
+    <script>
+
+        //var table = $('#example').DataTable();
+
+        //// #myInput is a <input type="text"> element
+        //$('#myInput').on('keyup', function () {
+        //    table.search(this.value).draw();
+        //});
+
+        
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "lengthMenu": "Кўрсат _MENU_ ",
+                    "zeroRecords": "Ҳеч нима топилмади - узур",
+                    "info": "Саҳифа _PAGE_ / _PAGES_",
+                    "infoEmpty": "Ҳеч қандай дата мавжуд эмас",
+                    "infoFiltered": "( Jami _MAX_ та маълумотдан филтер қилинди)",
+                    "oPaginate": {
+                        "sFirst": "Биринчи",
+                        "sLast": "Охирги",
+                        "sNext": "Кейинги",
+                        "sPrevious": "Аввалги"
+                    },
+                    "sSearch": "Қидирув:",
+                },
+                "lengthMenu": [15, 20, 30, 40]
+            });
+        });
+
+
+
+    </script>
+
+} 

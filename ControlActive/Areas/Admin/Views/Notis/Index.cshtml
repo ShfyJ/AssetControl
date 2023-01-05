@@ -1,0 +1,105 @@
+﻿@model IEnumerable<ControlActive.Models.Noti>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Хабарлар";
+}
+
+<style>
+    tbody tr td:nth-last-child(1) div {
+        display: none;
+    }
+
+    tbody tr td:nth-last-child(1) p{
+        display: block;
+    }
+
+    tbody tr:hover td:nth-last-child(1) div {
+        display: block;
+    }
+
+    tbody tr:hover td:nth-last-child(1) p{
+        display: none;
+    }
+
+    .unRead {
+        font-weight: bold
+    }
+
+    .read{
+        background-color: #f2f6fc !important;
+    }
+
+    
+
+    tr:hover {
+        cursor: pointer;
+        transform: translateY(-5px);
+        box-shadow: 0px 2px 2px 0.5px rgba(0, 0, 0, 0.25);
+    }
+
+
+    .form-check-input:checked {
+        background-color: black;
+        border-color: black;
+    }
+
+    
+</style>
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>Хабарлар ойнаси</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Users" asp-action="Dashboard" >                                       <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Хабарлар</li>
+                    @*<li class="breadcrumb-item active">Email App</li>*@
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-xl-12">
+            <div class="card">
+               
+                <div class="card-body">
+                    <div class="dt-ext table-responsive" id="table1">
+
+                        <table id="myTable" class="table  " style="width:auto">
+                            <thead>
+                                <tr id="head">
+                                    <th id="checkHeader"><input id="check" style="height:17px;width:17px;border-color: black;cursor:pointer" class="form-check-input checker" type="checkbox"></th>
+                                    <th id="actionHead">
+                                        <i id="headerDel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="ўчириш" onclick=DeleteAll() style="color:black; display:none" class="fas fa-trash-alt"></i>
+                                         &nbsp &nbsp
+                                        <i id="headerRead" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="ўқилган қилиш" style="color:black; display:none" class="fa fa-envelope-o readSelectedBtn"></i>
+                                        <i id="headerUnRead" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="ўқилмаган қилиш" style="color:black; display:none" class="fa fa-envelope unReadSelectedBtn"></i>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                   
+                                </tr>
+                            </thead>
+
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/adminNotis.js"></script>
+
+}

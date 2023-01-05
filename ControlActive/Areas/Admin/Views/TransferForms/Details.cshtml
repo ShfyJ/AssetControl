@@ -1,0 +1,30 @@
+﻿@model ControlActive.Models.TransferForm
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Детально</h1>
+
+<div>
+    <h4>Форма передачи</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Форма передачи
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TransferFormName)
+        </dd>
+        <dt class = "col-sm-2">
+           Активность
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TransferFormId">Изменить</a> |
+    <a asp-action="Index">Назад</a>
+</div>

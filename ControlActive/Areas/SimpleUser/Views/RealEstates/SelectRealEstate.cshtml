@@ -1,0 +1,356 @@
+﻿@model IEnumerable<ControlActive.Models.RealEstate>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+
+<style>
+    a:hover {
+        border-bottom: 2px solid #1c3652;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class=" page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>@Localizer["ChooseFrom"]!</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">@Localizer["Main"]</li>
+                    @if(ViewBag.Id == 1)
+                    {
+                        <li class="breadcrumb-item">@Localizer["TransferredAssets"]</li>
+                    }
+                    @if(ViewBag.Id == 2)
+                    {
+                        <li class="breadcrumb-item">@Localizer["AssetEvaluation"]</li>
+                    }
+                    @if(ViewBag.Id == 3)
+                    {
+                        <li class="breadcrumb-item">@Localizer["SubmissionOnBidding"]</li>
+                    }
+                    @if(ViewBag.Id == 4)
+                    {
+                        <li class="breadcrumb-item">@Localizer["Reduction"]</li>
+                    }
+                    @if(ViewBag.Id == 5)
+                    {
+                        <li class="breadcrumb-item">@Localizer["OneTimeP"]</li>
+                    }
+                    @if(ViewBag.Id == 6)
+                    {
+                        <li class="breadcrumb-item">@Localizer["Installment"]</li>
+                    }
+                    <li class="breadcrumb-item">@Localizer["RealEstate"]</li>
+                    <li class="breadcrumb-item active">@Localizer["List"]</li>
+                  </ol>
+            </div>
+        </div>
+   
+</div>
+</div>
+
+<div class="row browse">
+    &nbsp; &nbsp;
+    <div class="card col-lg-6 xl-50 ">
+        <div class="b-t-success">
+        </div>
+        <div class="card-body">
+            <div class="media faq-widgets browse-articles">
+                <div class="media-body">
+
+                    <h4><span><i data-feather="archive"></i></span>@Localizer["RealEstate"]</h4>
+                    @if (!Model.Any())
+                    {
+                        <p id="alert" hidden>@ViewBag.Id</p>
+
+                        @if (ViewBag.Id == 1)
+                        {
+                            <p>@Localizer["ObjectNotExist"]</p>
+                            <a asp-action="Index" class="f-w-600 font-primary">
+                                <i class="me-1 fa fa-arrow-right" ></i><span>@Localizer["WatchObjects"]</span>
+                            </a>
+                            <br/>
+                        }
+
+                        @if (ViewBag.Id == 2)
+                        {
+                            <p>@Localizer["ObjectNotSale"]</p>
+                            <a class="f-w-600 font-primary" asp-action="Index">
+                                <i class="me-1 fa fa-arrow-right"></i><span>@Localizer["EvaluatedAssets"]</span>
+                            </a>
+                            <br/>
+
+                        }
+                        @if (ViewBag.Id == 3)
+                        {
+                            <p>@Localizer["WillOnSale"]</p>
+                            <a class="f-w-600 font-primary" asp-action="Index" asp-controller="AssetEvaluations">
+                                <i class="me-1 fa fa-arrow-right" ></i><span>@Localizer["EvaluateAssets"]</span>
+                            </a>
+                            <br/>
+                        }
+                        @if (ViewBag.Id == 4)
+                        {
+                            <p style="color:#6c757d">@Localizer["ForThisObjectNotFound"]</p>
+                            <a class="f-w-600 font-primary" asp-action="Index" asp-controller="SubmissionOnBiddings">
+                                <i class="me-1 fa fa-arrow-right" ></i><span>@Localizer["GotoAuction"]</span>
+                            </a>
+                            <br/>
+                        }
+                        @if (ViewBag.Id == 5)
+                        {
+                            <p>@Localizer["ForThisObjectNotFound"]</p>
+                            <a class="f-w-600 font-primary" asp-action="Index">
+                                <i class="me-1 fa fa-arrow-right" ></i><span>@Localizer["WatchObjects"]</span>
+                            </a>
+                            <br/>
+                        }
+                        @if (ViewBag.Id == 6)
+                        {
+                            <p>@Localizer["ForThisObjectNotFound"]</p>
+                            <a class="f-w-600 font-primary" asp-action="Index">
+                                <i class="me-1 fa fa-arrow-right" ></i><span>@Localizer["WatchObjects"]</span>
+                            </a>
+                            <br/>
+                        }
+                    }
+
+                    else
+                    {
+                        <p id="alert" hidden>0</p>
+                        <ul>
+                            @foreach (var item in Model)
+                            {
+                                @if (ViewBag.Id == 1)
+                                {
+                                    <li>
+                                        <a asp-action="Create" asp-route-id="@item.RealEstateId" asp-route-target="1" asp-controller="TransferredAssets">
+                                            <h5><i data-feather="file-text"></i>@item.RealEstateName</h5>
+                                        </a>
+                                    </li>
+
+                                }
+                                @if (ViewBag.Id == 2)
+                                {
+                                    <li>
+                                        <a asp-action="Create" asp-route-id="@item.RealEstateId" asp-route-target="1" asp-controller="AssetEvaluations">
+                                            <h5><i data-feather="file-text"></i>@item.RealEstateName</h5>
+                                        </a>
+                                    </li>
+                                }
+                                @if (ViewBag.Id == 3)
+                                {
+                                    <li>
+                                        <a asp-action="Create" asp-route-id="@item.RealEstateId" asp-route-target="1" asp-controller="SubmissionOnBiddings">
+                                            <h5><i data-feather="file-text"></i>@item.RealEstateName</h5>
+                                        </a>
+                                    </li>
+
+                                }
+                                @if (ViewBag.Id == 4)
+                                {
+                                    <li>
+                                        <a asp-action="Create" asp-route-id="@item.RealEstateId" asp-route-target="1" asp-controller="ReductionInAssets">
+                                            <h5><i data-feather="file-text"></i>@item.RealEstateName</h5>
+                                        </a>
+                                    </li>
+
+                                }
+                                @if (ViewBag.Id == 5)
+                                {
+
+                                    <li>
+                                        <a asp-action="Create" asp-route-id="@item.RealEstateId" asp-route-target="1" asp-controller="OneTimePaymentAssets">
+                                            <h5><i data-feather="file-text"></i>@item.RealEstateName</h5>
+                                        </a>
+                                    </li>
+
+                                }
+                                @if (ViewBag.Id == 6)
+                                {
+                                    <li>
+                                        <a asp-action="Create" asp-route-id="@item.RealEstateId" asp-route-target="1" asp-controller="InstallmentAssets">
+                                            <h5><i data-feather="file-text"></i>@item.RealEstateName</h5>
+                                        </a>
+                                    </li>
+
+                                }
+
+
+                            }
+                            <li>
+                                <a asp-action="Index" class="f-w-600 font-primary">
+                                    <i class="me-1 fa fa-arrow-right" ></i><span>@Localizer["WatchObjects"]</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                        
+                     
+                        
+                    }
+                    <br/>
+
+                    @if(ViewBag.Id == 1)
+                    {
+                        <a asp-action="Index" asp-controller="TransferredAssets" style="color:#6c757d">
+                    <i class="fa fa-arrow-circle-left fa-lg"> @Localizer["Back"]</i>
+                </a>
+                    }
+
+                    @if(ViewBag.Id == 2)
+                    {
+                        <a asp-action="Index" asp-controller="AssetEvaluations" style="color:#6c757d">
+                    <i class="fa fa-arrow-circle-left fa-lg"> @Localizer["Back"]</i>
+                </a>
+                    }
+                    
+                    @if(ViewBag.Id == 3)
+                    {
+                        <a asp-action="Index" asp-controller="SubmissionOnBiddings" style="color:#6c757d">
+                    <i class="fa fa-arrow-circle-left fa-lg"> @Localizer["Back"]</i>
+                </a>
+                    }
+                    
+                    @if(ViewBag.Id == 4)
+                    {
+                         
+                        <a style="cursor:pointer; color:#7dc006; font-size:15px;" data-bs-toggle="modal" data-bs-target="#reductionTermsModal" >
+                            <i class="fa fa-info-circle"> @Localizer["ReadTerms"]</i>
+                        </a><br/> <br/>
+                        <a asp-action="Index" asp-controller="ReductionInAssets" style="color:#6c757d">
+                            <i class="fa fa-arrow-circle-left fa-lg"> @Localizer["Back"]</i>
+                        </a>
+                    }
+                    
+                    @if(ViewBag.Id == 5)
+                    {
+                        <a asp-action="Index" asp-controller="OneTimePaymentAssets" style="color:#6c757d">
+                    <i class="fa fa-arrow-circle-left fa-lg"> @Localizer["Back"]</i>
+                </a>
+                    }
+                    
+                    @if(ViewBag.Id == 6)
+                    {
+                        <a asp-action="Index" asp-controller="InstallmentAssets" style="color:#6c757d">
+                    <i class="fa fa-arrow-circle-left fa-lg"> @Localizer["Back"]</i>
+                </a>
+                    }
+                    
+                    
+
+
+                </div>
+
+
+                @if (Model.Any())
+                {
+                    <i data-feather="archive"></i>
+                }
+                else
+                {
+                    <i data-feather="alert-circle"></i>
+                }
+
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="modal fade" id="reductionTermsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                
+
+                        <div class="text-center p-25">
+                            <h5 class=" mb-0" style="color:#0d6efd">@Localizer["Title4"]</h5><br/>
+                            <p> - @Localizer["Condition4_1"]</p>
+                            <p> - @Localizer["Condition4_2"]</p>
+                        </div>
+                    
+            </div>
+            <div class="modal-footer">
+                <a asp-controller="SubmissionOnBiddings" asp-action="Index"  style="cursor:pointer" class="btn btn-primary">@Localizer["Auction"]</a>
+                <a asp-controller="ReductionInAssets" asp-action="Index" style="cursor:pointer" class="btn btn-secondary" >@Localizer["List"]</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+<script>
+
+    var alert = document.getElementById('alert').innerHTML;
+
+    if (alert == 3) {
+
+        //Swal.fire({
+        //    title: 'Нет актива, доступного для продажи',
+        //    showDenyButton: true,
+        //    showCancelButton: true,
+        //    confirmButtonText: `Save`,
+        //    denyButtonText: `Don't save`,
+        //}).then((result) => {
+        //    /* Read more about isConfirmed, isDenied below */
+        //    if (result.isConfirmed) {
+        //        Swal.fire('Saved!', '', 'success')
+        //    } else if (result.isDenied) {
+        //        Swal.fire('Changes are not saved', '', 'info')
+        //    }
+        //})
+
+        Swal.fire({
+            icon: 'warning',
+            title: '@Localizer["FirstAdd"]',
+            text: '@Localizer["NoActivities"]',
+            footer: '<a href="/SimpleUser/AssetEvaluations/">@Localizer["AddForMark"]</a>'
+        })
+    }
+
+    if (alert == 4) {
+
+        const html4 = '<a style="cursor:pointer; text-decoration:underline; color:#fcba03" onclick="swal.closeModal(); return false;" id="terms" data-bs-toggle="modal" data-bs-target="#reductionTermsModal">@Localizer["WhatToDo"]</a>'
+
+        Swal.fire({
+            icon: 'warning',
+            title: '@Localizer["NoActiveForSaleDecl"]',
+            html: html4,
+            footer: '<a href="/SimpleUser/SubmissionOnBiddings/">@Localizer["AddAuction"]</a>'
+        })
+
+    }
+
+    if (alert == 5) {
+
+        Swal.fire({
+            icon: 'warning',
+            title: '@Localizer["FirstOnTorg"]',
+            text: '@Localizer["NoActiveOneTime"]',
+            footer: '<a href="/SimpleUser/SubmissionOnBiddings/">@Localizer["AddAuction"]</a>'
+        })
+
+    }
+
+    if (alert == 6) {
+
+        Swal.fire({
+            icon: 'warning',
+            title: '@Localizer["FirstOnTorg"]',
+            text: '@Localizer["NoActiveForPeriod"]',
+            footer: '<a href="/SimpleUser/SubmissionOnBiddings/">@Localizer["AddAuction"]</a>'
+        })
+
+    }
+
+</script>
+}

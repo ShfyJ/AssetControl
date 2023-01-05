@@ -1,0 +1,116 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .loader-w {
+        position: fixed;
+        left: 0px;
+        top: 40%;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+    }
+
+    
+
+</style>
+
+<div id="loader" class="loader-w" hidden>
+
+    <div  class="loader-box">
+            <div style="font-size:30px; " class="loader-10"></div>
+        </div>
+   
+</div>
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>
+                    @Localizer["Obsh"]
+                </h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#"> <i data-feather="home"></i></a></li>
+
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <div class="card">
+        <div class="card-header pb-0">
+            <h5>Default Form Layout</h5><span>Using the <a href="#">card</a> component, you can extend the default collapse behavior to create an accordion.</span>
+        </div>
+        <form autocomplete="off" method="post" enctype="multipart/form-data" class="form-bookmark needs-validation" id="template-form" novalidate="">
+            <div class="card-body animate-chk">
+                    <div class="row">
+                    
+                        <div class="col">
+                        <div class="m-t-15 m-checkbox-inline custom-radio-ml">
+
+                            <div class="form-check-inline" for="edo-ani">
+                                <input class="radio_animated" value="1" type="radio" name="target" checked="">@Localizer["RealEstate"]
+                                    </div>
+                            <div class="form-check-inline" for="edo-ani1">
+                                <input class="radio_animated" value="2" type="radio" name="target">@Localizer["Share"]
+                                    </div>
+                                </div>
+                                <hr />
+                            <label class="d-block" for="block2" id="lblock2">
+                            <input class="checkbox_animated" name="block2" id="block2" type="checkbox">@Localizer["Transferred"]
+                            </label>
+                            <label class="d-block" for="block3" id="lblock3">
+                            <input class="checkbox_animated" name="block3" id="block3" type="checkbox">@Localizer["AssetEvaluation"]
+                            </label>
+                            <label class="d-block" for="block4" id="lblock4">
+                                <input class="checkbox_animated" name="block4" id="block4" type="checkbox">@Localizer["Auction"]
+                            </label>
+                            <label class="d-block" for="block5" id="lblock5">
+                            <input class="checkbox_animated" name="block5" id="block5" type="checkbox">@Localizer["Reduction"]
+                            </label>
+                            <label class="d-block" for="block6" id="lblock6">
+                            <input class="checkbox_animated" name="block6" id="block6" type="checkbox">@Localizer["OneTimePayment"]
+                            </label>
+                            <label class="d-block" for="block7" id="lblock7">
+                            <input class="checkbox_animated" name="block7" id="block7" type="checkbox">@Localizer["Installment"]
+                            </label>
+                            <label class="d-block" for="block8" id="lblock8">
+                            <input class="checkbox_animated" name="block8" id="block8" type="checkbox">@Localizer["User"]
+                            </label>
+                        </div>
+                    </div>
+               
+                <div class="mb-3">
+                    <label class="col-form-label">
+                        @Localizer["templateFile"] <span class="required">*</span>
+                    </label>
+                    @*<a style="text-align:center; cursor:pointer;display:block; width:300px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('TemplateFileIn').click()">Файлни киритинг</a>
+                    <span style="margin-top:10px;" id="display-templateFile"></span>*@
+                    <input type="file" name="templateFile" id="TemplateFileIn" onchange="getTemplateFile(this)" @*style="display:none"*@ accept="" class="form-control" value="default" required />
+                    <span style="display:none; " id="errorFileMsg">Excel шаблон файлини танланг!</span>                   
+                </div>               
+                <button id="templateBtn" class="btn btn-success btn-xs" type="button" data-bs-original-title="" title="" data-original-title="btn btn-success btn-xs"><i class="fa fa-download fa-xs"></i> @Localizer["DownloadTemplate"]</button>
+            </div>
+            <div class="card-footer">
+                <button id="submit" class="btn btn-primary">Submit</button>
+                <button class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/js/assetImort.js"></script>
+}

@@ -1,0 +1,87 @@
+﻿@model ControlActive.Models.OneTimePaymentAsset
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>OneTimePaymentAsset</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GoverningBodyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GoverningBodyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionFileLink)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionFileLink)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionFileId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SolutionFileId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BiddingDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BiddingDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RealEstate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RealEstate.Activity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Share)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Share.ActivityShare)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Step2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Step2.AmountOfAssetSold)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Step3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Step3.OneTimePaymentStep3Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OneTimePaymentAssetId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

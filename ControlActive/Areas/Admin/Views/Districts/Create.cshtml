@@ -1,0 +1,43 @@
+﻿@model ControlActive.Models.District
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Туман яратиш</h4>
+
+<h4></h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DistrictName" class="control-label">Туман</label>
+                <input asp-for="DistrictName" class="form-control" />
+                <span asp-validation-for="DistrictName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegionId" class="control-label">Вилоят</label>
+                <select asp-for="RegionId" class ="form-control" asp-items="ViewBag.RegionId"></select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Status" /> Фаол
+                </label>
+            </div>
+            <div class="row">
+                <div class="form-group col-2">
+                    <input type="submit" value="Сақлаш" class="btn btn-dark" />
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-mini btn-secondary" asp-action="Index">Ортга</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

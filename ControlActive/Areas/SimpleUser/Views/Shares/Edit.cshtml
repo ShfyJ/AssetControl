@@ -1,0 +1,585 @@
+﻿@model ControlActive.Models.Share
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<style>
+    .label2 {
+        cursor: pointer;
+        /* Style as you please, it will become the visible UI component. */
+    }
+
+    #upload-photo1 {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    #upload-photo2 {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    #upload-photo3 {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    #upload-file {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .dField {
+        border: 2px solid #1e2f65;
+        border-radius: 4px;
+    }
+
+</style>
+
+<br />
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+
+            <div class="card-header pb-0">
+                <h1>@Localizer["Edit"]</h1><small>@Localizer["Dol"]</small>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" id="main_form" class="theme-form mega-form" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ShareId" />
+                    <input type="hidden" asp-for="Status" />
+                    <input type="hidden" asp-for="Confirmed" />
+                    <input type="hidden" asp-for="OutOfAccountDate" />
+                    <input type="hidden" asp-for="ApplicationUserId" />
+                    <input type="hidden" asp-for="TransferredAssetId" />
+                    <input type="hidden" asp-for="TransferredAssetOn " />
+                    <input type="hidden" asp-for="AssetEvaluationOn" />
+                    <input type="hidden" asp-for="SubmissionOnBiddingOn" />
+                    <input type="hidden" asp-for="ReductionInAssetOn" />
+                    <input type="hidden" asp-for="OneTimePaymentAssetOn" />
+                    <input type="hidden" asp-for="InstallmentAssetOn" />
+                    <input type="hidden" asp-for="RegCertificateId" />
+                    <input type="hidden" asp-for="RegCertificateLink" />
+                    <input type="hidden" asp-for="OrgCharterId" />
+                    <input type="hidden" asp-for="OrgCharterLink" />
+                    <input type="hidden" asp-for="BalanceSheetId" />
+                    <input type="hidden" asp-for="BalanceSheetLink" />
+                    <input type="hidden" asp-for="FinancialResultId" />
+                    <input type="hidden" asp-for="FinancialResultLink" />
+                    <input type="hidden" asp-for="AuditConclusionId" />
+                    <input type="hidden" asp-for="AuditConclusionLink" />
+                    <h6>@Localizer["MainInfo"]</h6>
+                    <div class="mb-3">
+                        <label asp-for="BusinessEntityName" class="control-label">@Localizer["businessEntityName"]</label>
+                        <input asp-for="BusinessEntityName" class="form-control" required />
+                        <span asp-validation-for="BusinessEntityName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="IdRegNumber" class="control-label">@Localizer["idRegNumber"]</label>
+                        <input asp-for="IdRegNumber" class="form-control" required />
+                        <span asp-validation-for="IdRegNumber" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ParentOrganization" class="control-label">@Localizer["parentOrganization"]</label>
+                        <input asp-for="ParentOrganization" class="form-control" required />
+                        <span asp-validation-for="ParentOrganization" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Activities" class="control-label">@Localizer["activities"]</label>
+                        <input asp-for="Activities" class="form-control" required />
+                        <span asp-validation-for="Activities" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ActivityShare" class="control-label">@Localizer["activityShare"]</label>
+                        <input id="ShareOfActivity" type="number" asp-for="ActivityShare" class="form-control" min="0" step="0.001" oninput="validity.valid||(value='')" required />
+                        <span id="errorMsg" style="display:none; color:red;">@Localizer["mustBe"] </span>
+                        <span asp-validation-for="ActivityShare" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="FoundationYear" class="control-label">@Localizer["foundationYear"]</label>
+                        <input type="date" asp-for="FoundationYear" class="form-control" required />
+                        <span asp-validation-for="FoundationYear" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="StateRegistrationDate" class="control-label">@Localizer["stateRegistrationDate"]</label>
+                        <input asp-for="StateRegistrationDate" class="form-control" required />
+                        <span asp-validation-for="StateRegistrationDate" class="text-danger"></span>
+                    </div>
+
+                    <hr class="mt-4 mb-4">
+                    <h6 class="pb-3 mb-0">@Localizer["LocationInfo"]</h6>
+                    <div class="col-auto">
+                        <label asp-for="RegionId" class="control-label">Область</label>
+                        <select id="RegionId" asp-for="RegionId" class="form-control" asp-items="ViewBag.RegionId" required></select>
+                        <span asp-validation-for="RegionId" class="text-danger"></span>
+                    </div>
+                    <div class="col-auto">
+                        <label asp-for="DistrictId" class="control-label">Район</label>
+                        <select id="district" asp-for="DistrictId" class="form-control" asp-items="ViewBag.DistrictId" required></select>
+                        <span asp-validation-for="DistrictId" class="text-danger"></span>
+                    </div>
+                    <div class="col-auto">
+                        <label asp-for="Address" class="control-label">Адрес</label>
+                        <input asp-for="Address" class="form-control" required />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <hr class="mt-4 mb-4">
+                    <h6 class="pb-3 mb-0">@Localizer["AssetsInfo"]</h6>
+                    <div class="mb-3">
+                        <label asp-for="AuthorizedCapital" class="control-label">@Localizer["authorizedCapital"]</label>
+                        <input asp-for="AuthorizedCapital" type="number" class="form-control" step="0.00001" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="AuthorizedCapital" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="NumberOfShares" class="control-label">@Localizer["numberOfShares"]</label>
+                        <input type="number" asp-for="NumberOfShares" class="form-control" min="0" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="NumberOfShares" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ParValueOfShares" class="control-label">@Localizer["parValueOfShares"]</label>
+                        <input type="number" asp-for="ParValueOfShares" class="form-control" step="0.00001" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="ParValueOfShares" class="text-danger"></span>
+                    </div>
+                    <hr class="mt-4 mb-4">
+                    <h6 class="pb-3 mb-0">@Localizer["OrgInfo"]</h6>
+                    <div class="mb-3">
+                        <label asp-for="AdministrativeStaff" class="control-label">@Localizer["administrativeStaff"]</label>
+                        <input asp-for="AdministrativeStaff" class="form-control" required />
+                        <span asp-validation-for="AdministrativeStaff" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProductionPersonal" class="control-label">@Localizer["productionPersonal"]</label>
+                        <input type="number" asp-for="ProductionPersonal" class="form-control" min="0" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="ProductionPersonal" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductionArea" class="control-label">@Localizer["productionArea"]</label>
+                        <input type="number" asp-for="ProductionArea" class="form-control" step="0.00001" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="ProductionArea" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="BuildingsArea" class="control-label">@Localizer["buildingsArea"]</label>
+                        <input type="number" asp-for="BuildingsArea" class="form-control" step="0.00001" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="BuildingsArea" class="text-danger"></span>
+                    </div>
+                    <hr class="mt-4 mb-4">
+                    <h6 class="pb-3 mb-0">@Localizer["MoneyInfo"]</h6>
+                    <div class="mb-3">
+                        <label asp-for="AverageMonthlySalary" class="control-label">@Localizer["averageMonthlySalary"]</label>
+                        <input type="number" asp-for="AverageMonthlySalary" class="form-control" step="0.00001" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="AverageMonthlySalary" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="MaintanenceCostForYear" class="control-label">@Localizer["maintanenceCostForYear"]</label>
+                        <input type="number" asp-for="MaintanenceCostForYear" class="form-control" step="0.00001" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="MaintanenceCostForYear" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="AmountPayable" class="control-label">@Localizer["amountPayable"]</label>
+                        <input type="number" asp-for="AmountPayable" class="form-control" step="0.00001" oninput="validity.valid||(value='')" required />
+                        <span asp-validation-for="AmountPayable" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="AmountReceivable" class="control-label">@Localizer["amountReceivable"]</label>
+                        <input type="number" asp-for="AmountReceivable" step="0.00001" oninput="validity.valid||(value='')" class="form-control" required />
+                        <span asp-validation-for="AmountReceivable" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label id="year1Label" asp-for="ProfitOrLossOfYear1" class="control-label">@Model.Year1-@Localizer["profitOrLossOfYear"]</label>
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="control-label label-align" style="font-size:10px">
+                                    @Localizer["year"] <span class="required">*</span>
+                                </label>
+                                <input type="text" asp-for="@Model.Year1" id="year1" class="form-control yearpicker" readonly />
+                            </div>
+                            <div class="col-8">
+                                <label class="control-label label-align" style="font-size:10px">
+                                    @Localizer["profitOrLoss"] <span class="required">*</span>
+                                </label>
+                                <input id="profit_1" type="text" asp-for="ProfitOrLossOfYear1" class="form-control step6" placeholder="0,00001" onclick="getYear()" />
+                                <span id="errorPr_1" style="display:none; color:red;">@Localizer["MustBePos"] </span>
+                                <span asp-validation-for="ProfitOrLossOfYear1" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                        <label id="year2Label" asp-for="ProfitOrLossOfYear2" class="control-label">@Model.Year2-@Localizer["profitOrLossOfYear"]</label>
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="control-label label-align" style="font-size:10px">
+                                    @Localizer["year"] <span class="required">*</span>
+                                </label>
+                                <input type="text" asp-for="@Model.Year2" id="year2" class="form-control yearpicker" readonly />
+                            </div>
+                            <div class="col-8">
+                                <label class="control-label label-align"  style="font-size:10px">
+                                    @Localizer["profitOrLoss"] <span class="required">*</span>
+                                </label>
+                                <input id="profit_2" type="text" asp-for="ProfitOrLossOfYear2" class="form-control step6" placeholder="0,00001" onclick="getYear2()" />
+                                <span id="errorPr_2" style="display:none; color:red;">@Localizer["MustBePos"] </span>
+                                <span asp-validation-for="ProfitOrLossOfYear2" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label id="year3Label" asp-for="ProfitOrLossOfYear3" class="control-label">@Model.Year3-@Localizer["profitOrLossOfYear"]</label>
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="control-label label-align" style="font-size:10px">
+                                    @Localizer["year"] <span class="required">*</span>
+                                </label>
+                                <input type="text" asp-for="@Model.Year3" id="year3" class="form-control yearpicker" readonly />
+                            </div>
+                            <div class="col-8">
+                                <label class="control-label label-align"  style="font-size:10px">
+                                    @Localizer["profitOrLoss"] <span class="required">*</span>
+                                </label>
+                                <input id="profit_3" type="text" asp-for="ProfitOrLossOfYear3" class="form-control step6" placeholder="0,00001" onclick="getYear3()" />
+                                <span id="errorPr_3" style="display:none; color:red;">@Localizer["MustBePos"] </span>
+                                <span asp-validation-for="ProfitOrLossOfYear3" class="text-danger"></span>
+                            </div>
+                        </div>                        
+                    </div>
+
+                    <hr class="mt-4 mb-4">
+                    <div class="mb-3">
+                        <label asp-for="Comments" class="control-label">@Localizer["comment"]</label>
+                        <textarea asp-for="Comments" class="form-control" required></textarea>
+                        <span asp-validation-for="Comments" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" onclick="changeAction()" value="@Localizer["Save"]" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-secondary">@Localizer["Back"]</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-6 ">
+        <div class="container">
+            <form asp-action="EditShareholders" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h1>@Localizer["Shareholders"]</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="row ">
+                                <div class="field_wrapper">
+                                    @foreach (var item in ViewBag.Shareholders)
+                                    {
+                                        <div class="dField">
+                                            <a style="cursor:pointer; float:left; color:green; margin-left:5px;" class="add_button" title="+ @Localizer["shareHolderName"]"><span class="fas fa-plus"></span></a>
+                                            <a style="cursor:pointer; float:right; color:red; margin-right:5px;" onclick="deleteShareholder(@item.ShareholderId, @Model.ShareId)" class="delete_button" title="@Localizer["deleteShareholder"]"><span class="fa fa-close"></span></a>
+                                            <input id="shareholder" type="text" name="shareHolders[]" value="@item.ShareholderName" class="form-control step4" placeholder="@Localizer["shareHolderName"]" />
+                                            <input id="amountfromcap" type="text" name="AmountFromAuthCapitalHolder[]" value="@item.AmountFromAuthCapital" class="form-control step4" placeholder="@Localizer["amountFromAuthCapital"]" />
+                                            <input name="shareHoldersId[]" value="@item.ShareholderId" hidden />
+                                        </div>
+                                    }
+
+                                </div>
+                                <span id="errorMsgAmount1" style="display:none; color:red;">Не совпадает </span>
+                            </div>
+                        </div>
+                        <input name="shareId" value=@Model.ShareId hidden />
+
+                        <div>
+                            
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" style="float:left; margin-bottom:15px; margin-left:30px;" class="btn btn-primary">@Localizer["Save"]</button>
+                            <a asp-action="Index" class="btn btn-secondary">@Localizer["Back"]</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                
+            </form>
+
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h1>@Localizer["files"]</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="row gallery my-gallery gallery-with-description" id="aniimated-thumbnials8" itemscope="">
+                                <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                                    <a style="cursor:pointer;" href="@Model.RegCertificateLink" itemprop="contentUrl" data-size="1600x950">
+                                        <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:300px; height:300px">
+                                        <div class="caption">
+                                            <h4>@Localizer["regCertificate"]</h4>
+                                            <form id="fileform" asp-controller="Shares" asp-action="ReplaceFile" enctype="multipart/form-data" method="post">
+
+                                                <label class="label2" for="upload-file"><i class="fa fa-edit"> @Localizer["changeFile"]</i></label>
+                                                <input type="file" name="file" id="upload-file" accept=".pdf, application/pdf" onchange="submitForm('fileform')" />
+                                                <input value="@Model.ShareId" name="shareId" hidden />
+                                                <input value="@Model.RegCertificateId" name="fileId" hidden />
+                                                <input value="0" name="finder" hidden />
+
+                                                <a asp-area="SimpleUser" asp-controller="RealEstates" asp-action="DownloadFile"
+                                                   asp-route-id="@Model.RegCertificateId"><i class="fa fa-link"> @Localizer["Download"]</i></a>
+                                            </form>
+                                        </div>
+                                    </a>
+                                </figure>
+
+                                <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                                    <a style="cursor:pointer;" href="@Model.RegCertificateLink" itemprop="contentUrl" data-size="1600x950">
+                                        <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:300px; height:300px">
+                                        <div class="caption">
+                                            <h4>@Localizer["OrgCharterId"]</h4>
+                                            <form id="fileForm2" asp-controller="Shares" asp-action="ReplaceFile" enctype="multipart/form-data" method="post">
+
+                                                <label class="label2" for="upload-photo1"><i class="fa fa-edit"> @Localizer["changeFile"]</i></label>
+                                                <input type="file" name="file" id="upload-photo1" accept=".pdf, application/pdf" onchange="submitForm('fileForm2')" />
+                                                <input value="@Model.ShareId" name="shareId" hidden />
+                                                <input value="@Model.OrgCharterId" name="fileId" hidden />
+                                                <input value="1" name="finder" hidden />
+
+                                                <a asp-area="SimpleUser" asp-controller="Shares" asp-action="DownloadFile"
+                                                   asp-route-id="@Model.OrgCharterId"><i class="fa fa-link"> @Localizer["Download"]</i></a>
+                                            </form>
+                                        </div>
+                                    </a>
+                                </figure>
+
+                                <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                                    <a style="cursor:pointer;" href="@Model.BalanceSheetLink" itemprop="contentUrl" data-size="1600x950">
+                                        <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:300px; height:300px">
+                                        <div class="caption">
+                                            <h4>@Localizer["BalanceSheet"]</h4>
+                                            <form id="fileForm2" asp-controller="Shares" asp-action="ReplaceFile" enctype="multipart/form-data" method="post">
+
+                                                <label class="label2" for="upload-photo1"><i class="fa fa-edit"> @Localizer["changeFile"]</i></label>
+                                                <input type="file" name="file" id="upload-photo1" accept=".pdf, application/pdf" onchange="submitForm('fileForm2')" />
+                                                <input value="@Model.ShareId" name="shareId" hidden />
+                                                <input value="@Model.BalanceSheetId" name="fileId" hidden />
+                                                <input value="1" name="finder" hidden />
+
+                                                <a asp-area="SimpleUser" asp-controller="Shares" asp-action="DownloadFile"
+                                                   asp-route-id="@Model.BalanceSheetId"><i class="fa fa-link"> @Localizer["Download"]</i></a>
+                                            </form>
+                                        </div>
+                                    </a>
+                                </figure>
+
+                                <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                                    <a style="cursor:pointer;" href="@Model.FinancialResultLink" itemprop="contentUrl" data-size="1600x950">
+                                        <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:300px; height:300px">
+                                        <div class="caption">
+                                            <h4>@Localizer["FinancialResult"]</h4>
+                                            <form id="fileForm2" asp-controller="Shares" asp-action="ReplaceFile" enctype="multipart/form-data" method="post">
+
+                                                <label class="label2" for="upload-photo1"><i class="fa fa-edit"> @Localizer["changeFile"]</i></label>
+                                                <input type="file" name="file" id="upload-photo1" accept=".pdf, application/pdf" onchange="submitForm('fileForm2')" />
+                                                <input value="@Model.ShareId" name="shareId" hidden />
+                                                <input value="@Model.FinancialResultId" name="fileId" hidden />
+                                                <input value="1" name="finder" hidden />
+
+                                                <a asp-area="SimpleUser" asp-controller="Shares" asp-action="DownloadFile"
+                                                   asp-route-id="@Model.FinancialResultId"><i class="fa fa-link"> @Localizer["Download"]</i></a>
+                                            </form>
+                                        </div>
+                                    </a>
+                                </figure>
+                                <figure class=" img-hover hover-9" itemprop="associatedMedia" itemscope="">
+                                    <a style="cursor:pointer;" href="@Model.AuditConclusionLink" itemprop="contentUrl" data-size="1600x950">
+                                        <img src="~/images/document.png" itemprop="thumbnail" alt=" Файл" style="width:300px; height:300px">
+                                        <div class="caption">
+                                            <h4>@Localizer["AuditConclusion"]</h4>
+                                            <form id="fileForm2" asp-controller="Shares" asp-action="ReplaceFile" enctype="multipart/form-data" method="post">
+
+                                                <label class="label2" for="upload-photo1"><i class="fa fa-edit"> @Localizer["changeFile"]</i></label>
+                                                <input type="file" name="file" id="upload-photo1" accept=".pdf, application/pdf" onchange="submitForm('fileForm2')" />
+                                                <input value="@Model.ShareId" name="shareId" hidden />
+                                                <input value="@Model.AuditConclusionId" name="fileId" hidden />
+                                                <input value="1" name="finder" hidden />
+
+                                                <a asp-area="SimpleUser" asp-controller="Shares" asp-action="DownloadFile"
+                                                   asp-route-id="@Model.AuditConclusionId"><i class="fa fa-link"> @Localizer["Download"]</i></a>
+                                            </form>
+                                        </div>
+                                    </a>
+                                </figure>
+
+                            </div>
+                            <div>
+                                <a asp-action="Index" style="float:right" class="btn btn-secondary">@Localizer["Back"]</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+<script>
+
+    function submitForm(form) {
+        document.getElementById(form).submit();
+    }
+
+</script>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            var maxField = 50; //Input fields increment limitation
+            var addButton = $('.add_button'); //Add button selector
+            var wrapper = $('.field_wrapper'); //Input field wrapper
+            var fieldHTML = '<div class="dField">'+
+                                '<a href="javascript:void(0);" class="remove_button" title="+ @Localizer["shareHolderName"]"><span class="fas fa-minus"></span></a>'+
+                                '<input id="shareholderNew" type="text" name="shareHoldersNew[]" value="" class="form-control step4" placeholder="@Localizer["shareHolderName"]" />'+
+                                '<input id="amountfromcapNew" type="text" name="AmountFromAuthCapitalHolderNew[]" value="" class="form-control step4" placeholder="@Localizer["amountFromAuthCapital"]" /></div>'; //New input field html
+            var x = 1; //Initial field counter is 1
+            
+            //Once add button is clicked
+            $(addButton).click(function () {
+                //Check maximum number of input fields
+                if (x < maxField) {
+                    x++; //Increment field counter
+                    $(wrapper).append(fieldHTML); //Add field html
+                }
+            });
+
+            //Once remove button is clicked
+            $(wrapper).on('click', '.remove_button', function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+        });
+    </script>
+
+<script>
+   
+    $(document).ready(function() {
+           var date = new Date().getFullYear();
+           $("#year1").val(date-1);
+           $("#year2").val(date-2);
+           $("#year3").val(date-3);
+
+           $(".yearpicker").yearpicker({
+
+              endYear: 2050,
+           });
+        });
+
+        function getYear(){
+            var v = document.getElementById("year1");
+            var value = v.value + "-" + "@Localizer["profitOrLossOfYear"]";
+            $("#year1Label").text(value);
+        }
+
+        function getYear2(){
+            var v = document.getElementById("year2");
+            var value = v.value + "-" + "@Localizer["profitOrLossOfYear"]";
+            $("#year2Label").text(value);
+        }
+
+        function getYear3(){
+            var v = document.getElementById("year3");
+            var value = v.value + "-" + "@Localizer["profitOrLossOfYear"]";
+            $("#year3Label").text(value);
+        }
+
+    //Bind dropdownlist
+    $("#RegionId").change(function () {
+        var id = $("#RegionId").val();
+        $.ajax({
+            type: 'GET',
+            url: '/SimpleUser/RealEstates/GetDistricts/',  //url of handler
+            data: {
+                id: id
+            },
+            success: function (data) {
+
+                var item = "";
+                $("#district").empty();
+                $.each(data, function (i, district) {
+                    item += '<option value="' + district.value + '">' + district.text + '</option>'
+                });
+                $("#district").html(item);
+            }
+
+        });
+    });
+
+</script>
+
+<script>
+
+    function deleteShareholder(shareHolderId, shareId){
+        Swal.fire({
+        title: "Акционерни рўйхатдан ўчиришни хоҳлайсизми?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Тасдиқлайман!',
+        cancelButtonText: 'Бекор қилиш',
+    }).then(function (willDelete) {
+        if (willDelete.isConfirmed) {
+            $.ajax({
+                type: "DELETE",
+                url: "/SimpleUser/Shares/RemoveShareholder/?shareHolderId="+id +"&shareId="+shareId,
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire("Ўчирилди!", data.message, {
+                            icon: "success",
+                        });
+                        window.setTimeout(function(){location.reload()},2000)
+                    }
+                    else {
+                                Swal.fire(data.message, {
+                                    icon: "error",
+                                });
+                    }
+                }
+            });
+        }
+    });
+    }
+
+    $("#ShareOfActivity").keyup(function () {
+        if ($('#ShareOfActivity').val() < 0 || $('#ShareOfActivity').val() > 100) {
+            $('#errorMsg').show();
+        }
+        else {
+            $('#errorMsg').hide();
+        }
+    });
+
+
+
+</script>
+
+
+
+}
+

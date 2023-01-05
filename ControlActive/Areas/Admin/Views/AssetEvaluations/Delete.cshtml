@@ -1,0 +1,111 @@
+﻿@model ControlActive.Models.AssetEvaluation
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AssetEvaluation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EvaluatingOrgName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EvaluatingOrgName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReportDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportRegNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReportRegNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportFileLink)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReportFileLink)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportFileId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReportFileId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MarketValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MarketValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExaminingOrgName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExaminingOrgName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamReportDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExamReportDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamReportRegNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExamReportRegNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamReportFileLink)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExamReportFileLink)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamReportFileId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExamReportFileId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportStatus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReportStatus)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RealEstate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RealEstate.Activity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Share)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Share.ActivityShare)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="AssetEvaluationId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

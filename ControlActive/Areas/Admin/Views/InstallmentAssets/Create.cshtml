@@ -1,0 +1,124 @@
+﻿@model ControlActive.Models.InstallmentAsset
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>InstallmentAsset</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GoverningBodyName" class="control-label"></label>
+                <input asp-for="GoverningBodyName" class="form-control" />
+                <span asp-validation-for="GoverningBodyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionNumber" class="control-label"></label>
+                <input asp-for="SolutionNumber" class="form-control" />
+                <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionDate" class="control-label"></label>
+                <input asp-for="SolutionDate" class="form-control" />
+                <span asp-validation-for="SolutionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileLink" class="control-label"></label>
+                <input asp-for="SolutionFileLink" class="form-control" />
+                <span asp-validation-for="SolutionFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolutionFileId" class="control-label"></label>
+                <input asp-for="SolutionFileId" class="form-control" />
+                <span asp-validation-for="SolutionFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BiddingDate" class="control-label"></label>
+                <input asp-for="BiddingDate" class="form-control" />
+                <span asp-validation-for="BiddingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetBuyerName" class="control-label"></label>
+                <input asp-for="AssetBuyerName" class="form-control" />
+                <span asp-validation-for="AssetBuyerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AmountOfAssetSold" class="control-label"></label>
+                <input asp-for="AmountOfAssetSold" class="form-control" />
+                <span asp-validation-for="AmountOfAssetSold" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AggreementDate" class="control-label"></label>
+                <input asp-for="AggreementDate" class="form-control" />
+                <span asp-validation-for="AggreementDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AggreementNumber" class="control-label"></label>
+                <input asp-for="AggreementNumber" class="form-control" />
+                <span asp-validation-for="AggreementNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AggreementFileLink" class="control-label"></label>
+                <input asp-for="AggreementFileLink" class="form-control" />
+                <span asp-validation-for="AggreementFileLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AggreementFileId" class="control-label"></label>
+                <input asp-for="AggreementFileId" class="form-control" />
+                <span asp-validation-for="AggreementFileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstallmentTime" class="control-label"></label>
+                <input asp-for="InstallmentTime" class="form-control" />
+                <span asp-validation-for="InstallmentTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActualInitPayment" class="control-label"></label>
+                <input asp-for="ActualInitPayment" class="form-control" />
+                <span asp-validation-for="ActualInitPayment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentPeriodType" class="control-label"></label>
+                <input asp-for="PaymentPeriodType" class="form-control" />
+                <span asp-validation-for="PaymentPeriodType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActualPayment" class="control-label"></label>
+                <input asp-for="ActualPayment" class="form-control" />
+                <span asp-validation-for="ActualPayment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                   
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstallmentStep2Id" class="control-label"></label>
+                <select asp-for="InstallmentStep2Id" class ="form-control" asp-items="ViewBag.InstallmentStep2Id"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealEstateId" class="control-label"></label>
+                <select asp-for="RealEstateId" class ="form-control" asp-items="ViewBag.RealEstateId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareId" class="control-label"></label>
+                <select asp-for="ShareId" class ="form-control" asp-items="ViewBag.ShareId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

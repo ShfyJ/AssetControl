@@ -1,0 +1,46 @@
+﻿<script src="~/libg/vendors/jquery/dist/jquery.min.js"></script>
+<table id="tblNotification" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>From</th>
+            <th>Title</th>
+            <th>Detail</th>
+            <th>IsRead</th>
+            <th>Notification DateTime</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#noti_Container").ikrNotificationSetup();
+        $.ajax({
+            type: "Get",
+            dataType: "json",
+            url: "/SimpleUser/Home/GetNotifications",
+            traditional: true,
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var notifications = data;
+                $("#noti_Container").ikrNotificationCount({
+                    NotificationList: notifications,
+                    NotiFromPropName: "FromUserName",
+                    ListTitlePropName: "NotiHeader",
+                    ListBodyPropName: "NotiBody",
+                    AreaName: "SimpleUser",
+                    ControllerName: "Home",
+                    ActionName: "AllNotifications"
+                });
+            },
+            error: function (xhr, status, error) {
+
+            }
+
+        });
+    });
+
+</script>

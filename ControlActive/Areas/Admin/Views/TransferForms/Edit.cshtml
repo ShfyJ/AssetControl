@@ -1,0 +1,40 @@
+﻿@model ControlActive.Models.TransferForm
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h4>Ўзгартириш киритиш</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TransferFormId" />
+            <div class="form-group">
+                <label asp-for="TransferFormName" class="control-label">Ўтказиш шакли</label>
+                <input asp-for="TransferFormName" class="form-control" />
+                <span asp-validation-for="TransferFormName" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Status" /> Фаол
+                </label>
+            </div>
+            <div class="row">
+                <div class="form-group col-2">
+                    <input type="submit" value="Сақлаш" class="btn btn-dark" />
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-mini btn-secondary" asp-action="Index">Ортга</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

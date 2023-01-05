@@ -1,0 +1,215 @@
+﻿@model ControlActive.Models.OneTimePaymentStep2
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="page-title">
+
+    <div class="page-title">
+        <div class="title_left">
+            <h4>@Localizer["Edit"]</h4>
+            <h2>@Localizer["ContractStep"] (@Localizer["Obsh"])</h2>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <a class="btn" type="button" asp-controller="OneTimePaymentAssets" asp-action="Index"><i class="fas fa-backward"></i>@Localizer["Back"] </a>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" asp-action="EditContract">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="OneTimePaymentStep2Id" />
+                    <input type="hidden" asp-for="AggreementFileId" />
+                    <input type="hidden" asp-for="AggreementFileLink" />
+                    <input type="hidden" asp-for="Percentage" />
+
+                    @if (ViewBag.Target == 1)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["RealEstate"] <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="target" value="@ViewBag.Target" hidden />
+                            </div>
+                        </div>
+                    }
+                    @if (ViewBag.Target == 2)
+                    {
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                @Localizer["Share"]  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input class="form-control" name="name" required="required" value=@ViewBag.Name readonly />
+                                <input name="target" value="@ViewBag.Target" hidden />
+                            </div>
+                        </div>
+                    }
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["AssetBuyerName"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="AssetBuyerName" class="form-control" required="required" />
+                            <span asp-validation-for="AssetBuyerName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["AmountOfAssetSold"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="amountSold" type="text" asp-for="AmountOfAssetSold" class="form-control" required="required" />
+                            <span id="errorMsg1" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            <span asp-validation-for="AmountOfAssetSold" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["AggreementDate"] <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="date" asp-for="AggreementDate" class="form-control" required="required" />
+                            <span asp-validation-for="AggreementDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["AggreementNumber"]  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="AggreementNumber" class="form-control" required="required" />
+                            <span asp-validation-for="AggreementNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*<div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                Договор купли-продажи в формате PDF <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="file" asp-for="AggreementFileId" name="agreementFile" accept=".pdf, application/pdf" class="form-control" value="default" required />
+
+                            </div>
+                        </div>*@
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 label-align">
+                            @Localizer["AmountPayed"] (сум) <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="amountPayed" type="text" asp-for="AmountPayed" class="form-control" required="required" />
+                            <span id="errorMsg2" style="display:none; color:red;"> @Localizer["MustBe"] </span>
+                            <span asp-validation-for="AmountPayed" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*<div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 label-align">
+                                Процент от стоимости (%) <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="text" asp-for="Percentage" class="form-control" required="required" />
+                                <span asp-validation-for="Percentage" class="text-danger"></span>
+                            </div>
+                        </div>*@
+
+
+                    <input name="paymentId" value="@ViewBag.PaymentId" hidden />
+                    <input name="target" value="@ViewBag.Target" hidden />
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="form-group">
+                            <input type="submit" value="@Localizer["Save"]" class="btn btn-primary" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/valiadationMessages.js"></script>
+
+    <script>
+        var v = document.getElementById("amountSold");
+        var v2 = document.getElementById("amountPayed");
+        var flag = true;
+
+        $("#submit").click(function () {
+
+            if (v.value == "") {
+
+                v.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v.value) && v.value >= 0) {
+
+                v.style.borderColor = "green";
+                $('#errorMsg1').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v.style.borderColor = "red";
+                $('#errorMsg1').show();
+            }
+
+            if (v2.value == "") {
+
+                v2.style.borderColor = "red";
+
+                flag = false;
+
+            }
+
+            else if (!isNaN(v2.value) && v2.value >= 0) {
+
+                v2.style.borderColor = "green";
+                $('#errorMsg2').hide();
+                flag = true;
+            }
+
+            else {
+                flag = false;
+                v2.style.borderColor = "red";
+                $('#errorMsg2').show();
+            }
+
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+    </script>
+
+}

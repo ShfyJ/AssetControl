@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActAndAssetDate" xml:space="preserve">
+    <value>Активни қабул қилиш ва топшириш далолатномасининг санаси</value>
+  </data>
+  <data name="ActAndAssetNumber" xml:space="preserve">
+    <value>Актив қабул қилиш ва топшириш далолатномасининг сони</value>
+  </data>
+  <data name="ActiveValue" xml:space="preserve">
+    <value>Актив қиймати (минг сўм)</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>Фаолият тури</value>
+  </data>
+  <data name="ActualInitPayment" xml:space="preserve">
+    <value>Тўланган бошланғич тўлов (минг сўм)</value>
+  </data>
+  <data name="ActualInitPaymentPercentage" xml:space="preserve">
+    <value>Тўланган бошланғич тўлов (%)</value>
+  </data>
+  <data name="ActualPayment" xml:space="preserve">
+    <value>Ҳақиқий тўлов (ўтган давр учун тўланган сумма, минг сўм)</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Манзил (махалла, кўчаси, уй, КФЙ)</value>
+  </data>
+  <data name="AggreementDate" xml:space="preserve">
+    <value>Шартнома санаси</value>
+  </data>
+  <data name="AggreementNumber" xml:space="preserve">
+    <value>Шартнома рақами</value>
+  </data>
+  <data name="AgreementDate" xml:space="preserve">
+    <value>Актив топшириш шартномаси санаси</value>
+  </data>
+  <data name="AgreementNumber" xml:space="preserve">
+    <value>Топширилган актив шартномаси рақами</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Нархини камайтириш миқдори</value>
+  </data>
+  <data name="AmountOfAssetSold" xml:space="preserve">
+    <value>Активлар реализацияси суммаси</value>
+  </data>
+  <data name="AmountOnBidding" xml:space="preserve">
+    <value>Аукционга чиқарилган активлар сони</value>
+  </data>
+  <data name="AmountPayed" xml:space="preserve">
+    <value>Ҳақиқатда тўланган сумма  (минг сўм)</value>
+  </data>
+  <data name="AssetBuyerName" xml:space="preserve">
+    <value>Актив харидорнинг тўлиқ исми</value>
+  </data>
+  <data name="AssetEval" xml:space="preserve">
+    <value>«Активни баҳолаш»</value>
+  </data>
+  <data name="AssetHolderName" xml:space="preserve">
+    <value>Объект эгаси номи</value>
+  </data>
+  <data name="AssetsNotSale" xml:space="preserve">
+    <value>«Сотувда бўлмаган активлар»</value>
+  </data>
+  <data name="AssetsOnSale" xml:space="preserve">
+    <value>«Аукциондаги активлар»</value>
+  </data>
+  <data name="AssetValueAfterDecline" xml:space="preserve">
+    <value>Активнинг пасайишдан кейинги қиймати (минг сўм)</value>
+  </data>
+  <data name="BiddingDate" xml:space="preserve">
+    <value>Аукцион санаси</value>
+  </data>
+  <data name="BiddingDate_" xml:space="preserve">
+    <value>Савдо ўтказиш санаси</value>
+  </data>
+  <data name="BiddingExposureDate" xml:space="preserve">
+    <value>Аукционга қўйилган сана</value>
+  </data>
+  <data name="BiddingHoldDate" xml:space="preserve">
+    <value>Аукцион  санаси</value>
+  </data>
+  <data name="BuildingArea" xml:space="preserve">
+    <value>Бино тузилиши</value>
+  </data>
+  <data name="CadastreNumber" xml:space="preserve">
+    <value>Кадастр рақами</value>
+  </data>
+  <data name="CadastreRegDate" xml:space="preserve">
+    <value>Кадастрни рўйхатдан ўтказиш санаси</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Бекор қилиш</value>
+  </data>
+  <data name="CommisioningDate" xml:space="preserve">
+    <value>Ишга тушириш санаси</value>
+  </data>
+  <data name="createExReport" xml:space="preserve">
+    <value>Excel ҳисобот</value>
+  </data>
+  <data name="createPassport" xml:space="preserve">
+    <value>Паспорт</value>
+  </data>
+  <data name="CreateReport" xml:space="preserve">
+    <value>Хисобот яратиш</value>
+  </data>
+  <data name="Difference" xml:space="preserve">
+    <value>Қолган сумма (минг сўм)</value>
+  </data>
+  <data name="DistrictId" xml:space="preserve">
+    <value>Район</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электрон почта манзили</value>
+  </data>
+  <data name="EvaluatingOrgName" xml:space="preserve">
+    <value>Баҳолаш ташкилотининг номи</value>
+  </data>
+  <data name="ExaminingOrgName" xml:space="preserve">
+    <value>Баҳолаш ҳисоботини экспертизадан ўтказган ташкилот номи</value>
+  </data>
+  <data name="ExamReportDate" xml:space="preserve">
+    <value>Экспертиза ҳисоботининг санаси</value>
+  </data>
+  <data name="ExamReportRegNumber" xml:space="preserve">
+    <value>Экспертиза ҳулосасини рўйхатга олиш рақами</value>
+  </data>
+  <data name="ExposureTime" xml:space="preserve">
+    <value>Аукцион муддати</value>
+  </data>
+  <data name="FullArea" xml:space="preserve">
+    <value>Умумий майдони</value>
+  </data>
+  <data name="Fullname" xml:space="preserve">
+    <value>Масъул шахс Ф.И.Ш</value>
+  </data>
+  <data name="GoverningBodyName" xml:space="preserve">
+    <value>Ижроия органининг номи</value>
+  </data>
+  <data name="GoverningBodyName_" xml:space="preserve">
+    <value>Бошқарув органининг номи</value>
+  </data>
+  <data name="Infrastructures" xml:space="preserve">
+    <value>Инфратузилманинг мавжудлиги</value>
+  </data>
+  <data name="InitialCostOfObject" xml:space="preserve">
+    <value>Объектнинг дастлабки қиймати (минг сўм)</value>
+  </data>
+  <data name="Installment" xml:space="preserve">
+    <value>«Бўлиб-бўлиб тўлашга сотилган активлар»</value>
+  </data>
+  <data name="InstallmentTime" xml:space="preserve">
+    <value>Тўлов муддати (ой)</value>
+  </data>
+  <data name="MaintenanceCostForYear" xml:space="preserve">
+    <value>Ўртача йиллик сақлаш харажатлари (минг сўм)</value>
+  </data>
+  <data name="MarketValue" xml:space="preserve">
+    <value>Активнинг бозор қиймати (минг сўм)</value>
+  </data>
+  <data name="MinInitialPaymentAmount" xml:space="preserve">
+    <value>Минимал бошланғич тўлов (минг сўм)</value>
+  </data>
+  <data name="Money" xml:space="preserve">
+    <value>Фойда / зарар</value>
+  </data>
+  <data name="NotOnBalance" xml:space="preserve">
+    <value>Балансда эмас</value>
+  </data>
+  <data name="NumberOfEmployee" xml:space="preserve">
+    <value>Ишчилар сони</value>
+  </data>
+  <data name="NumberOfSteps" xml:space="preserve">
+    <value>Қўлланиладиган қадамлар сони</value>
+  </data>
+  <data name="OnBalance" xml:space="preserve">
+    <value>Балансда</value>
+  </data>
+  <data name="OneTimeP" xml:space="preserve">
+    <value>«Бир марталик тўлов асосида сотилган активлар»</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Активни ўтказиш тўғрисида қарор қабул қилган бошқарув органи</value>
+  </data>
+  <data name="OrgNameOfAsset" xml:space="preserve">
+    <value>Актив топширилган ташкилот номи</value>
+  </data>
+  <data name="OtherExpensesForYear" xml:space="preserve">
+    <value>Бошқа харажатлар</value>
+  </data>
+  <data name="PaymentPeriodType" xml:space="preserve">
+    <value>Тўлов вақти</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>Пасайтириш қадами ( % )</value>
+  </data>
+  <data name="Percentage_block6" xml:space="preserve">
+    <value>Ҳақиқатда тўланган сумма(%)</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Алоқа тел. рақами</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Лавозими</value>
+  </data>
+  <data name="ProductionArea" xml:space="preserve">
+    <value>Ишлаб чиқариш майдони</value>
+  </data>
+  <data name="ProposalId" xml:space="preserve">
+    <value>Активдан янада самарали фойдаланиш бўйича таклифлар</value>
+  </data>
+  <data name="RealEstateName" xml:space="preserve">
+    <value>Объект номи</value>
+  </data>
+  <data name="realEstates" xml:space="preserve">
+    <value>Кўчмас мулк объектлари</value>
+  </data>
+  <data name="ReductionIn" xml:space="preserve">
+    <value>«Актив қийматини босқичма-босқич пасайтириш»</value>
+  </data>
+  <data name="RegionId" xml:space="preserve">
+    <value>Вилоят</value>
+  </data>
+  <data name="ReportDate" xml:space="preserve">
+    <value>Баҳолаш ҳисоботининг санаси</value>
+  </data>
+  <data name="ReportRegNumber" xml:space="preserve">
+    <value>Баҳолаш ҳисоботининг рўйхатга олиш рақами</value>
+  </data>
+  <data name="ReportStatus" xml:space="preserve">
+    <value>Баҳолаш ҳисоботининг холати</value>
+  </data>
+  <data name="ResidualValueOfObject" xml:space="preserve">
+    <value>Объектнинг баланс (қолдиқ) қиймати (минг сўм)</value>
+  </data>
+  <data name="ScheduledAmount" xml:space="preserve">
+    <value>График бўйича тўланадиган сумма (минг сўм)</value>
+  </data>
+  <data name="ShareOfActivity" xml:space="preserve">
+    <value>Фаолият улуши</value>
+  </data>
+  <data name="shares" xml:space="preserve">
+    <value>Улушлар</value>
+  </data>
+  <data name="sold" xml:space="preserve">
+    <value>Сотилган активлар</value>
+  </data>
+  <data name="SolutionDate" xml:space="preserve">
+    <value>Қарор санаси</value>
+  </data>
+  <data name="SolutionNumber" xml:space="preserve">
+    <value>Қарор рақами</value>
+  </data>
+  <data name="SubmissionOnB" xml:space="preserve">
+    <value>«Ким ошди савдосига қўйиш»</value>
+  </data>
+  <data name="successCreate" xml:space="preserve">
+    <value>Объект муваффақиятли ўзгартирилди</value>
+  </data>
+  <data name="successEdit" xml:space="preserve">
+    <value>Объект муваффақиятли яратилди</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Налоглар</value>
+  </data>
+  <data name="TechnicalCharcNames" xml:space="preserve">
+    <value>Бинонинг техник хусусиятлари</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Умумий маълумотлар</value>
+  </data>
+  <data name="titleLittle" xml:space="preserve">
+    <value>кўчмас мулк объектлари учун</value>
+  </data>
+  <data name="TotalCost" xml:space="preserve">
+    <value>Умумий қиймати (минг сўм)</value>
+  </data>
+  <data name="TradingPlatformName" xml:space="preserve">
+    <value>Актив сотиладиган савдо майдончасининг номи</value>
+  </data>
+  <data name="TransferForm" xml:space="preserve">
+    <value>Трансеф шакли</value>
+  </data>
+  <data name="TransferredAssets" xml:space="preserve">
+    <value>«Топширилган активлар»</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>ҚҚС, минг сўм</value>
+  </data>
+  <data name="WageForYear" xml:space="preserve">
+    <value>Иш ҳақи</value>
+  </data>
+  <data name="Wear" xml:space="preserve">
+    <value>Амортизатсия (минг сўм)</value>
+  </data>
+</root>

@@ -1,0 +1,334 @@
+﻿@model ControlActive.Models.ReductionInAsset
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style type="text/css">
+    .popover{
+        max-width:600px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>@Localizer["Obsh"]</h3>
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href=""> <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item"> </li>
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="card col-sm-6">
+        <div class="job-search">
+        <div class="card-header pb-0">
+            
+            <div class="media">
+                
+                <span class="img-40 img-fluid m-r-20 fa fa-sort-amount-down fa-3x"></span>
+                <div class="media-body ">
+                    <h6 class="f-w-600"><a href="job-details.html">@Localizer["FillForm"]</a><span class="pull-right">@*3 days ago*@</span></h6>
+                    <p class=" loader-box" style="height:30px">@Localizer["CurrentAmount"]: <span>@ViewBag.MarketValue </span>@Localizer["sum"] <i class="loader-15"></i></p>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            
+            <form autocomplete="off" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (ViewBag.Target == 1)
+                    {
+                        <div class="mb-3">
+                            <label class="col-form-label">
+                                @Localizer["RealEstates"]  <span class="required">*</span>
+                            </label>
+                            
+                                <input class="form-control" name="name" required="required" value="@ViewBag.Name" readonly />
+                                <input name="id" value="@ViewBag.Id" hidden />
+                            
+                        </div>
+                    }
+                    @if (ViewBag.Target == 2)
+                    {
+                        <div class="mb-3">
+                            <label class="col-form-label">
+                                @Localizer["Shares"]<span class="required">*</span>
+                            </label>
+                           
+                                <input class="form-control" name="name" required="required" value="@ViewBag.Name" readonly />
+                                <input name="id" value="@ViewBag.Id" hidden />
+                            
+                        </div>
+                    }
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["GoverningBodyName"] <span class="required">*</span>
+                        </label>
+                        
+                            <input type="text" asp-for="GoverningBodyName" class="form-control" required="required" />
+                            <span asp-validation-for="GoverningBodyName" class="text-danger"></span>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["SolutionNumber"] <span class="required">*</span>
+                        </label>
+                        
+                            <input type="text" asp-for="SolutionNumber" class="form-control" required="required" />
+                            <span asp-validation-for="SolutionNumber" class="text-danger"></span>
+                       
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["SolutionDate"] <span class="required">*</span>
+                        </label>
+
+                        
+                            <input type="text" asp-for="SolutionDate" class="datepicker-here form-control" required="required" autocomplete="off">
+                            <span asp-validation-for="SolutionDate" class="text-danger"></span>
+                            
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["SolutionFileId"] <span class="required">*</span>
+                        </label>
+                        <a style="text-align:center; cursor:pointer;display:block; width:150px; height:30px; border:solid; border-width:2px; border-color:#ced4da" onclick="document.getElementById('SolutionFileIn').click()">@Localizer["Choose"]</a>
+                        <span style="margin-left:3px; margin-top:10px;" id="display-SolutionFile"></span>
+                        <span style="display:none;" id="noFileMsg">@Localizer["nofile"]</span>
+
+                        <input type="file" asp-for="SolutionFileId" id="SolutionFileIn" onchange="getSolutionFile(this.value)" style="display:none" accept=".pdf, application/pdf" class="form-control" name="solutionFile" value="default" required />
+
+
+                </div>
+                 <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["Percentage"]   <span class="required">*</span>
+                        </label>
+                        
+                            <input id="share" type="text" asp-for="Percentage" class="form-control" required="required" />
+                            <span id="errorMsg" style="display:none; color:red;">@Localizer["MustBe"] </span>
+                            <span asp-validation-for="Percentage" class="text-danger"></span>
+                        
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["NumberOfSteps"]  <span class="required">*</span>
+                        </label>
+                        
+                            <input id="steps" type="number" asp-for="NumberOfSteps" class="form-control" required="required" min="1" />
+                            
+                            <span asp-validation-for="NumberOfSteps" class="text-danger"></span>
+                       
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["Amount"]  <span class="required">*</span>
+                        </label>
+                       
+                            <input id="amount" type="text" asp-for="Amount" class="form-control"  readonly/>
+                            <input id="currentValue" name="marketValue" class="form-control" value="@ViewBag.MarketValue" hidden readonly/>
+                        
+                    </div>
+
+                   
+                    <div class="mb-3">
+                        <label class="col-form-label">
+                            @Localizer["AssetValueAfterDecline"] <span class="required">*</span>
+                        </label>
+                       
+                            <input id="assetValueAfterDecline" asp-for="AssetValueAfterDecline" class="form-control" readonly/>
+                            <span id="wrongDeclineMsg" style="display:none;">@Localizer["WrongDeclineMsg"]</span><br />
+                            <span class="example-popover badge badge-dark tag-pills-sm-mb" data-bs-trigger="hover" 
+                                  data-container="body" data-bs-toggle="popover" data-bs- data-bs-placement="right" title="" data-offset="-20px -20px" 
+                                  data-bs-content="@Localizer["AssetValueAfterDecline"] = (@Localizer["CurrentAmount"]) - (@Localizer["NumberOfSteps"]) * ((@Localizer["CurrentAmount"]) * (@Localizer["PercentageValue"])/100)" data-bs-original-title="@Localizer["Formula"]">
+                                  @Localizer["Formula"]</span>
+                            <span asp-validation-for="AssetValueAfterDecline" class="text-danger"></span>
+                            
+                       
+                    </div>
+                    
+                    
+                    <input name="target" value="@ViewBag.Target" hidden />
+                    
+                    <div class="mb-3">
+                        <button id="submit" type="submit" asp-controller="ReductionInAssets" asp-action="Create" value="Create" class="btn btn-info"><i class="fas fa-plus-circle"></i> @Localizer["Create"]</button>
+                        
+                        <a asp-action="Index" class="btn btn-secondary">@Localizer["Back"]</a>
+                       
+                    </div>
+
+                </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+@section scripts {
+
+    <script>
+        var flag = true;
+        var currentValue = $('#currentValue').val();
+        var stepsInput; 
+        var shareInput;
+        var share;
+        var steps;
+        var amount;
+        var valueAfterDecline;
+
+        $("#submit").click(function () {
+
+            var file = document.getElementById("SolutionFileIn");
+            
+            if(!file.value){
+                var nofileMsg = document.getElementById("noFileMsg");
+
+                nofileMsg.classList.add("fa");
+                nofileMsg.classList.add("fa-warning");
+                nofileMsg.style.color = "red";
+                $('#noFileMsg').show();
+            }
+
+            
+
+            if (!flag) {
+
+                return false;
+            }
+
+            return flag;
+        });
+
+
+        $("#share").keyup(function () {
+
+            if (!isNaN($('#share').val())) {
+                if ($('#share').val() < 0 || $('#share').val() > 50) {
+                    $('#errorMsg').show();
+                    flag = false;
+                }
+                else {
+                    $('#errorMsg').hide();
+                    flag = true;
+                }
+            }
+
+            else {
+                $('#errorMsg').show();
+                flag = false;
+            }
+
+            if(!isNaN($('#steps').val())){
+
+                stepsInput = document.getElementById("steps");  
+                shareInput = document.getElementById("share"); 
+
+                if(stepsInput && stepsInput.value && shareInput && shareInput.value){
+
+                    share = $('#share').val();
+                    steps = $('#steps').val();
+                    console.log(steps);
+                    console.log(share);
+                
+                    amount = currentValue*share/100;
+                    valueAfterDecline = currentValue - steps*amount;
+                
+                    console.log(valueAfterDecline);
+
+                    $('#assetValueAfterDecline').val(valueAfterDecline);
+                    $('#amount').val(amount);
+
+                    if(valueAfterDecline < 0){
+
+                        flag = false;
+
+                        document.getElementById("wrongDeclineMsg").classList.add('fa');
+                        document.getElementById("wrongDeclineMsg").classList.add('fa-warning');
+                        document.getElementById("wrongDeclineMsg").style.color = 'red';
+                        $('#wrongDeclineMsg').show();
+                
+                    }
+
+                    else{
+                        $('#wrongDeclineMsg').hide();
+
+                        flag = true;
+                    }
+
+                  }
+            }
+            
+        });
+        
+
+        $("#steps").keyup(function () {
+            stepsInput = document.getElementById("steps");  
+            shareInput = document.getElementById("share"); 
+            console.log(currentValue);
+         
+            if(stepsInput && stepsInput.value && shareInput && shareInput.value){
+
+                share = $('#share').val();
+                steps = $('#steps').val();
+                console.log(steps);
+                console.log(share);
+                
+                amount = currentValue*share/100;
+                valueAfterDecline = currentValue - steps*amount;
+                
+                console.log(valueAfterDecline);
+
+                $('#assetValueAfterDecline').val(valueAfterDecline);
+                $('#amount').val(amount);
+
+                if(valueAfterDecline < 0){
+
+                    flag = false;
+
+                    document.getElementById("wrongDeclineMsg").classList.add('fa');
+                    document.getElementById("wrongDeclineMsg").classList.add('fa-warning');
+                    document.getElementById("wrongDeclineMsg").style.color = 'red';
+                    $('#wrongDeclineMsg').show();
+                
+                }
+
+                else{
+                    $('#wrongDeclineMsg').hide();
+
+                    flag = true;
+                }
+
+            }
+
+
+        });
+
+        
+
+        function getSolutionFile(fileName) {
+
+            $("#display-SolutionFile").html(fileName.replace(/^.*[\\\/]/, ''));
+            $('#noFileMsg').hide();
+        }
+
+    </script>
+
+}

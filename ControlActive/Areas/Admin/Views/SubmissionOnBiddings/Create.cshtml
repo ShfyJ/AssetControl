@@ -1,0 +1,68 @@
+﻿@model ControlActive.Models.SubmissionOnBidding
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>SubmissionOnBidding</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TradingPlatformName" class="control-label"></label>
+                <input asp-for="TradingPlatformName" class="form-control" />
+                <span asp-validation-for="TradingPlatformName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AmountOnBidding" class="control-label"></label>
+                <input asp-for="AmountOnBidding" class="form-control" />
+                <span asp-validation-for="AmountOnBidding" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BiddingExposureDate" class="control-label"></label>
+                <input asp-for="BiddingExposureDate" class="form-control" />
+                <span asp-validation-for="BiddingExposureDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExposureTime" class="control-label"></label>
+                <input asp-for="ExposureTime" class="form-control" />
+                <span asp-validation-for="ExposureTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActiveValue" class="control-label"></label>
+                <input asp-for="ActiveValue" class="form-control" />
+                <span asp-validation-for="ActiveValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BiddingHoldDate" class="control-label"></label>
+                <input asp-for="BiddingHoldDate" class="form-control" />
+                <span asp-validation-for="BiddingHoldDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealEstateId" class="control-label"></label>
+                <select asp-for="RealEstateId" class ="form-control" asp-items="ViewBag.RealEstateId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareId" class="control-label"></label>
+                <select asp-for="ShareId" class ="form-control" asp-items="ViewBag.ShareId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

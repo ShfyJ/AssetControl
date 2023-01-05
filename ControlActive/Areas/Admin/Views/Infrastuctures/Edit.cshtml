@@ -1,0 +1,40 @@
+﻿@model ControlActive.Models.Infrastucture
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Ўзгартириш киритиш</h1>
+
+<h4>Инфратузилма</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="InfrastructureId" />
+            <div class="form-group">
+                <label asp-for="InfrastructureName" class="control-label">Инфратузилма</label>
+                <input asp-for="InfrastructureName" class="form-control" />
+                <span asp-validation-for="InfrastructureName" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Status" /> Фаол
+                </label>
+            </div>
+            <div class="row">
+                <div class="form-group col-2">
+                    <input type="submit" value="Сақлаш" class="btn btn-dark" />
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-mini btn-secondary" asp-action="Index">Ортга</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

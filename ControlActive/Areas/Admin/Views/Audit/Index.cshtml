@@ -1,0 +1,94 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<div class="container-fluid ">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h3>@Localizer["Logs"]</h3>
+
+            </div>
+            <div class="col-12 col-sm-6">
+                <ol class="breadcrumb" style="float:right">
+                    <li class="breadcrumb-item"><a asp-action="Dashboard" asp-controller="Users"> <i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item active">@Localizer["Logs"]</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="card">
+    <div class="social-tab">
+        <ul class="nav nav-tabs" id="top-tab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="top-timeline" data-bs-toggle="tab" href="#assets" role="tab" aria-controls="assets" aria-selected="true"><i class="icofont icofont-money-bag"></i>Активлар</a></li>
+            <li class="nav-item"><a class="nav-link" id="top-about" data-bs-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="false"><i data-feather="alert-circle"></i>Барчаси                                 </a></li>
+           
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-xl-12 xl-100">
+        <div class="card">
+             <div class="card-body">
+                <div class="tab-content" id="top-tabContent">
+                    <div class="tab-pane fade show active" id="assets" role="tabpanel" aria-labelledby="assets">
+                        <div class="dt-ext table-responsive">
+
+                            <table id="table1" class="table nowrap " >
+                                <thead>
+                                    <tr>
+                                        <th><i class="fa fa-cog"></i></th>
+                                        <th>@Localizer["fullName"]</th>
+                                        <th>@Localizer["assetName"]</th>
+                                        <th>@Localizer["tableName"]</th>
+                                        <th>@Localizer["dateTime"]</th>
+                                        <th>@Localizer["oldValue"]</th>
+                                        <th>@Localizer["newValue"]</th>
+
+                                        <th>@Localizer["affectedColumn"]</th>
+                                        
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="all" role="tabpanel" aria-labelledby="all">
+                        <div class="dt-ext table-responsive">
+
+                            <table id="table2" class="table nowrap">
+                                <thead>
+                                    <tr>
+                                        <th><i class="fa fa-cog"></i></th>
+                                        <th>@Localizer["fullName"]</th>
+                                        <th>@Localizer["tableName"]</th>
+                                        <th>@Localizer["dateTime"]</th>
+                                        <th>@Localizer["oldValue"]</th>
+                                        <th>@Localizer["newValue"]</th>
+
+                                        <th>@Localizer["affectedColumn"]</th>
+                                        <th>@Localizer["primaryKey"]</th>
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>              
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/js/logs.js"></script>
+
+}
