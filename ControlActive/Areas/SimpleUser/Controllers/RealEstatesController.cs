@@ -54,10 +54,9 @@ namespace ControlActive.Areas.SimpleUser.Controllers
             ViewBag.Success = success;
             ViewBag.EditSuccess = editSuccess;
 
-            var s = success;
-
             return View();
         }
+
 
         public IActionResult Cadastre()
         {
